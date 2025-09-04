@@ -1,0 +1,141 @@
+// Test: Tuple Operations
+// Tests tuple creation, access, modification, and operations
+
+test "Simple tuple creation" {
+    var person := {name := "John", age := 25}
+    assert person.name == "John"
+    assert person.age == 25
+}
+
+test "Tuple with mixed types" {
+    var data := {id := 1, value := 3.14, active := true, desc := "test"}
+    assert data.id == 1
+    assert data.value == 3.14
+    assert data.active == true
+    assert data.desc == "test"
+}
+
+test "Tuple with unnamed elements" {
+    var point := {10, 20, 30}
+    assert point.1 == 10
+    assert point.2 == 20
+    assert point.3 == 30
+}
+
+test "Mixed named and unnamed tuple elements" {
+    var mixed := {x := 100, 200, z := 300, 400}
+    assert mixed.x == 100
+    assert mixed.1 == 100  // first element by position
+    assert mixed.2 == 200  // second element by position
+    assert mixed.z == 300
+    assert mixed.3 == 300  // third element by position
+    assert mixed.4 == 400  // fourth element by position
+}
+
+test "Tuple element modification" {
+    var person := {name := "John", age := 25}
+    person.name := "Jane"
+    person.age := 30
+    assert person.name == "Jane"
+    assert person.age == 30
+}
+
+test "Tuple concatenation" {
+    var t1 := {a := 1, b := 2}
+    var t2 := {c := 3, d := 4}
+    var result := t1 + t2
+    assert result.a == 1
+    assert result.b == 2
+    assert result.c == 3
+    assert result.d == 4
+}
+
+test "Tuple concatenation with unnamed elements" {
+    var t1 := {10, 20}
+    var t2 := {30, 40}
+    var result := t1 + t2
+    assert result.1 == 10
+    assert result.2 == 20
+    assert result.3 == 30
+    assert result.4 == 40
+}
+
+test "Tuple concatenation with mixed types" {
+    var t1 := {name := "John", score := 85}
+    var t2 := {85.5, completed := true}
+    var result := t1 + t2
+    assert result.name == "John"
+    assert result.score == 85
+    assert result.1 == 85.5
+    assert result.completed == true
+}
+
+test "Nested tuple access" {
+    var company := {
+        name := "TechCorp",
+        employees := {
+            count := 50,
+            departments := {"Engineering", "Sales", "HR"}
+        }
+    }
+    assert company.name == "TechCorp"
+    assert company.employees.count == 50
+    assert company.employees.departments.1 == "Engineering"
+    assert company.employees.departments.2 == "Sales"
+    assert company.employees.departments.3 == "HR"
+}
+
+test "Tuple in array" {
+    var people := [
+        {name := "Alice", age := 25},
+        {name := "Bob", age := 30},
+        {name := "Charlie", age := 35}
+    ]
+    assert people[1].name == "Alice"
+    assert people[1].age == 25
+    assert people[2].name == "Bob"
+    assert people[2].age == 30
+    assert people[3].name == "Charlie"
+    assert people[3].age == 35
+}
+
+test "Array in tuple" {
+    var data := {
+        name := "Report",
+        values := [10, 20, 30, 40, 50]
+    }
+    assert data.name == "Report"
+    assert data.values[1] == 10
+    assert data.values[3] == 30
+    assert data.values[5] == 50
+}
+
+test "Tuple field reassignment with different types" {
+    var item := {value := 100}
+    item.value := 200.5
+    assert item.value == 200.5
+    assert item.value is real
+
+    item.value := "changed"
+    assert item.value == "changed"
+    assert item.value is string
+}
+
+test "Complex tuple operations" {
+    var result := {
+        sum := 0,
+        count := 0,
+        data := []
+    }
+
+    for i in 1..5 loop
+        result.data := result.data + [i * 10]
+        result.sum := result.sum + (i * 10)
+        result.count := result.count + 1
+    end
+
+    assert result.count == 5
+    assert result.sum == 150  // 10+20+30+40+50
+    assert result.data[1] == 10
+    assert result.data[5] == 50
+}

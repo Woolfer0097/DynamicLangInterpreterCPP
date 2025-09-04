@@ -1,0 +1,75 @@
+// Test: If Statement
+// Tests conditional execution with different conditions
+
+test "Simple if-then statement" {
+    var x := 0
+    if true then
+        x := 42
+    end
+    assert x == 42
+}
+
+test "If with else clause" {
+    var x := 0
+    var condition := true
+    if condition then
+        x := 100
+    else
+        x := 200
+    end
+    assert x == 100
+
+    condition := false
+    if condition then
+        x := 300
+    else
+        x := 400
+    end
+    assert x == 400
+}
+
+test "If with comparison condition" {
+    var x := 0
+    var y := 5
+    if y > 3 then
+        x := 1
+    end
+    assert x == 1
+
+    if y < 3 then
+        x := 2
+    end
+    assert x == 1  // should remain 1
+}
+
+test "If-short form (=>)" {
+    var x := 0
+    if 5 > 3 => x := 25
+    assert x == 25
+
+    if 3 > 5 => x := 50
+    assert x == 25  // should not change
+}
+
+test "Variable scope in if blocks" {
+    var outer := 100
+    if true then
+        var inner := 200
+        assert outer == 100
+        assert inner == 200
+    end
+    assert outer == 100
+    // inner should be out of scope
+}
+
+test "Multiple statements in if block" {
+    var a := 0, b := 0
+    if true then
+        a := 10
+        b := 20
+        var temp := a + b
+        assert temp == 30
+    end
+    assert a == 10
+    assert b == 20
+}

@@ -1,0 +1,105 @@
+// Test: Arithmetic Operations
+// Tests basic arithmetic operations with different types
+
+test "Integer addition" {
+    var result := 5 + 3
+    assert result == 8
+    assert result is int
+}
+
+test "Integer subtraction" {
+    var result := 10 - 4
+    assert result == 6
+    assert result is int
+}
+
+test "Integer multiplication" {
+    var result := 6 * 7
+    assert result == 42
+    assert result is int
+}
+
+test "Integer division" {
+    var result := 15 / 3
+    assert result == 5
+    assert result is int
+}
+
+test "Integer division with rounding down" {
+    var result := 17 / 4
+    assert result == 4  // 17/4 = 4.25, rounds down to 4
+    assert result is int
+}
+
+test "Mixed integer and real arithmetic" {
+    var result1 := 5 + 2.5
+    var result2 := 10.0 - 3
+    var result3 := 4 * 2.5
+    var result4 := 15.0 / 2
+
+    assert result1 == 7.5
+    assert result2 == 7.0
+    assert result3 == 10.0
+    assert result4 == 7.5
+
+    assert result1 is real
+    assert result2 is real
+    assert result3 is real
+    assert result4 is real
+}
+
+test "Real arithmetic" {
+    var result1 := 3.14 + 2.86
+    var result2 := 5.5 - 2.2
+    var result3 := 3.0 * 4.0
+    var result4 := 10.0 / 2.5
+
+    assert result1 == 6.0
+    assert result2 == 3.3
+    assert result3 == 12.0
+    assert result4 == 4.0
+
+    assert result1 is real
+    assert result2 is real
+    assert result3 is real
+    assert result4 is real
+}
+
+test "Unary plus and minus" {
+    var x := 5
+    var result1 := +x
+    var result2 := -x
+    var y := 3.14
+    var result3 := +y
+    var result4 := -y
+
+    assert result1 == 5
+    assert result2 == -5
+    assert result3 == 3.14
+    assert result4 == -3.14
+
+    assert result1 is int
+    assert result2 is int
+    assert result3 is real
+    assert result4 is real
+}
+
+test "Complex arithmetic expressions" {
+    var result := (5 + 3) * 2 - 8 / 2
+    assert result == 12  // (8) * 2 - 4 = 16 - 4 = 12
+    assert result is int
+}
+
+test "String concatenation" {
+    var result1 := "hello" + " " + "world"
+    var result2 := "test" + "123"
+    var result3 := "" + "empty"
+
+    assert result1 == "hello world"
+    assert result2 == "test123"
+    assert result3 == "empty"
+
+    assert result1 is string
+    assert result2 is string
+    assert result3 is string
+}

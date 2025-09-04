@@ -1,0 +1,123 @@
+// Test: Array Operations
+// Tests array creation, access, modification, and operations
+
+test "Empty array creation" {
+    var arr := []
+    assert arr is []
+    // Empty array should be valid
+}
+
+test "Array with single element" {
+    var arr := [42]
+    assert arr[1] == 42
+    assert arr[1] is int
+}
+
+test "Array with multiple elements" {
+    var arr := [1, 2, 3, 4, 5]
+    assert arr[1] == 1
+    assert arr[2] == 2
+    assert arr[3] == 3
+    assert arr[4] == 4
+    assert arr[5] == 5
+}
+
+test "Array with mixed types" {
+    var arr := [1, 2.5, "hello", true, none]
+    assert arr[1] == 1
+    assert arr[2] == 2.5
+    assert arr[3] == "hello"
+    assert arr[4] == true
+    assert arr[5] is none
+}
+
+test "Array element assignment" {
+    var arr := [0, 0, 0]
+    arr[1] := 10
+    arr[2] := 20
+    arr[3] := 30
+    assert arr[1] == 10
+    assert arr[2] == 20
+    assert arr[3] == 30
+}
+
+test "Array with non-consecutive indices" {
+    var arr := []
+    arr[10] := 100
+    arr[50] := 500
+    arr[1000] := 10000
+    assert arr[10] == 100
+    assert arr[50] == 500
+    assert arr[1000] == 10000
+}
+
+test "Array element reassignment" {
+    var arr := [1, 2, 3]
+    arr[2] := "changed"
+    assert arr[2] == "changed"
+    assert arr[2] is string
+    arr[2] := 42.5
+    assert arr[2] == 42.5
+    assert arr[2] is real
+}
+
+test "Array concatenation" {
+    var arr1 := [1, 2, 3]
+    var arr2 := [4, 5, 6]
+    var result := arr1 + arr2
+    assert result[1] == 1
+    assert result[2] == 2
+    assert result[3] == 3
+    assert result[4] == 4
+    assert result[5] == 5
+    assert result[6] == 6
+}
+
+test "Array concatenation with mixed types" {
+    var arr1 := [1, "hello"]
+    var arr2 := [true, 3.14]
+    var result := arr1 + arr2
+    assert result[1] == 1
+    assert result[2] == "hello"
+    assert result[3] == true
+    assert result[4] == 3.14
+}
+
+test "Array concatenation with empty arrays" {
+    var arr1 := [1, 2]
+    var empty := []
+    var result1 := arr1 + empty
+    var result2 := empty + arr1
+    assert result1[1] == 1
+    assert result1[2] == 2
+    assert result2[1] == 1
+    assert result2[2] == 2
+}
+
+test "Array in expressions" {
+    var arr := [10, 20, 30]
+    var result := arr[1] + arr[2] + arr[3]
+    assert result == 60
+}
+
+test "Nested array access" {
+    var matrix := [[1, 2], [3, 4], [5, 6]]
+    assert matrix[1][1] == 1
+    assert matrix[1][2] == 2
+    assert matrix[2][1] == 3
+    assert matrix[2][2] == 4
+    assert matrix[3][1] == 5
+    assert matrix[3][2] == 6
+}
+
+test "Array modification in loop" {
+    var arr := [0, 0, 0, 0, 0]
+    for i in 1..5 loop
+        arr[i] := i * 10
+    end
+    assert arr[1] == 10
+    assert arr[2] == 20
+    assert arr[3] == 30
+    assert arr[4] == 40
+    assert arr[5] == 50
+}

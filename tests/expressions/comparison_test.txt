@@ -1,0 +1,69 @@
+// Test: Comparison Operations
+// Tests all comparison operators with different types
+
+test "Integer comparisons" {
+    assert 5 < 10 == true
+    assert 10 > 5 == true
+    assert 5 <= 5 == true
+    assert 5 >= 5 == true
+    assert 5 = 5 == true
+    assert 5 /= 6 == true
+}
+
+test "Real comparisons" {
+    assert 3.14 < 6.28 == true
+    assert 6.28 > 3.14 == true
+    assert 3.14 <= 3.14 == true
+    assert 3.14 >= 3.14 == true
+    assert 3.14 = 3.14 == true
+    assert 3.14 /= 6.28 == true
+}
+
+test "Mixed integer and real comparisons" {
+    assert 5 < 5.5 == true
+    assert 5.5 > 5 == true
+    assert 5 <= 5.0 == true
+    assert 5.0 >= 5 == true
+    assert 5 = 5.0 == true
+    assert 5 /= 5.5 == true
+}
+
+test "Boolean comparisons" {
+    assert true = true == true
+    assert false = false == true
+    assert true /= false == true
+    assert false /= true == true
+}
+
+test "String comparisons" {
+    assert "apple" < "banana" == true
+    assert "banana" > "apple" == true
+    assert "hello" = "hello" == true
+    assert "hello" /= "world" == true
+}
+
+test "Comparison in expressions" {
+    var x := 10, y := 20
+    var result := x < y and y > x
+    assert result == true
+    assert result is bool
+}
+
+test "Complex comparison expressions" {
+    var a := 5, b := 10, c := 15
+    var result1 := a < b and b < c
+    var result2 := a <= b or b > c
+    var result3 := not (a = b)
+
+    assert result1 == true   // 5 < 10 and 10 < 15
+    assert result2 == true   // 5 <= 10 or 10 > 15
+    assert result3 == true   // not (5 = 10)
+}
+
+test "Comparison with zero and negative numbers" {
+    assert 0 < 1 == true
+    assert -1 < 0 == true
+    assert -5 > -10 == true
+    assert 0.0 = 0 == true
+    assert -3.14 < 0.0 == true
+}

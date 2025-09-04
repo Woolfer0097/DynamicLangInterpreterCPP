@@ -1,0 +1,157 @@
+// Test: Implicit Type Conversions
+// Tests automatic type conversions in operations
+
+test "Integer to real conversion in arithmetic" {
+    var i := 5
+    var r := 2.5
+    var result1 := i + r  // int + real = real
+    var result2 := r + i  // real + int = real
+
+    assert result1 == 7.5
+    assert result2 == 7.5
+    assert (result1 is real) == true
+    assert (result2 is real) == true
+}
+
+test "Integer division results" {
+    var result1 := 10 / 3  // integer division
+    var result2 := 10.0 / 3  // real division
+    var result3 := 10 / 3.0  // mixed division
+
+    assert result1 == 3  // 10/3 = 3 (integer division rounds down)
+    assert result2 == 3.3333333333333335  // approximately
+    assert result3 == 3.3333333333333335  // approximately
+
+    assert (result1 is int) == true
+    assert (result2 is real) == true
+    assert (result3 is real) == true
+}
+
+test "String concatenation with different types" {
+    var s := "value: "
+    var i := 42
+    var r := 3.14
+    var b := true
+
+    var result1 := s + i
+    var result2 := s + r
+    var result3 := s + b
+
+    assert result1 == "value: 42"
+    assert result2 == "value: 3.14"
+    assert result3 == "value: true"
+
+    assert (result1 is string) == true
+    assert (result2 is string) == true
+    assert (result3 is string) == true
+}
+
+test "Array concatenation preserves types" {
+    var arr1 := [1, 2, 3]
+    var arr2 := [4.0, 5.0]
+    var result := arr1 + arr2
+
+    assert result[1] == 1
+    assert result[2] == 2
+    assert result[3] == 3
+    assert result[4] == 4.0
+    assert result[5] == 5.0
+
+    assert (result[1] is int) == true
+    assert (result[4] is real) == true
+}
+
+test "Tuple concatenation preserves types" {
+    var t1 := {a := 1, b := 2}
+    var t2 := {c := 3.14, d := "test"}
+    var result := t1 + t2
+
+    assert result.a == 1
+    assert result.b == 2
+    assert result.c == 3.14
+    assert result.d == "test"
+
+    assert (result.a is int) == true
+    assert (result.c is real) == true
+    assert (result.d is string) == true
+}
+
+test "Comparison operations with mixed types" {
+    // Valid comparisons (int vs real)
+    assert (5 < 5.5) == true
+    assert (5.5 > 5) == true
+    assert (5 = 5.0) == true
+
+    // Invalid comparisons should work due to implicit conversion
+    // (assuming the language allows these)
+    var result := 5 < 5.5 and 5.5 > 5
+    assert result == true
+}
+
+test "Function calls with type conversion" {
+    var identity := func(x) => x
+
+    var result1 := identity(42)      // int -> int
+    var result2 := identity(3.14)    // real -> real
+    var result3 := identity("test")  // string -> string
+
+    assert result1 == 42
+    assert result2 == 3.14
+    assert result3 == "test"
+
+    assert (result1 is int) == true
+    assert (result2 is real) == true
+    assert (result3 is string) == true
+}
+
+test "Arithmetic operations preserve precision" {
+    var result1 := 5 + 0  // int + int = int
+    var result2 := 5 + 0.0  // int + real = real
+    var result3 := 5.0 + 0  // real + int = real
+    var result4 := 5.0 + 0.0  // real + real = real
+
+    assert result1 == 5
+    assert result2 == 5.0
+    assert result3 == 5.0
+    assert result4 == 5.0
+
+    assert (result1 is int) == true
+    assert (result2 is real) == true
+    assert (result3 is real) == true
+    assert (result4 is real) == true
+}
+
+test "Complex expressions with conversions" {
+    var x := 5
+    var y := 2.0
+    var result := (x + y) * 2 / 3
+
+    // (5 + 2.0) = 7.0, 7.0 * 2 = 14.0, 14.0 / 3 = 4.666...
+    assert (result is real) == true
+}
+
+test "Type conversion in assignments" {
+    var value
+    value := 42      // assign int
+    assert (value is int) == true
+
+    value := 3.14    // assign real (reassignment)
+    assert (value is real) == true
+
+    value := "test"  // assign string (reassignment)
+    assert (value is string) == true
+}
+
+test "Conversion in function return values" {
+    var make_real := func(x) => x + 0.0  // forces conversion to real
+    var make_int := func(x) => x / 1     // stays int if x is int
+
+    var result1 := make_real(5)    // 5 + 0.0 = 5.0
+    var result2 := make_int(10)    // 10 / 1 = 10
+
+    assert result1 == 5.0
+    assert result2 == 10
+
+    assert (result1 is real) == true
+    assert (result2 is int) == true
+}

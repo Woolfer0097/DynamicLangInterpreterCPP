@@ -1,0 +1,131 @@
+// Test: Type Checking with 'is' Operator
+// Tests the 'is' operator for type checking
+
+test "Type checking for basic types" {
+    var i := 42
+    var r := 3.14
+    var s := "hello"
+    var b := true
+    var n := none
+
+    assert (i is int) == true
+    assert (r is real) == true
+    assert (s is string) == true
+    assert (b is bool) == true
+    assert (n is none) == true
+
+    // Negative checks
+    assert (i is real) == false
+    assert (r is int) == false
+    assert (s is bool) == false
+    assert (b is string) == false
+    assert (n is int) == false
+}
+
+test "Type checking for arrays" {
+    var empty_arr := []
+    var int_arr := [1, 2, 3]
+    var mixed_arr := [1, "hello", true]
+
+    assert (empty_arr is []) == true
+    assert (int_arr is []) == true
+    assert (mixed_arr is []) == true
+
+    // Arrays are not other types
+    assert (empty_arr is int) == false
+    assert (int_arr is string) == false
+}
+
+test "Type checking for tuples" {
+    var simple_tuple := {a := 1, b := 2}
+    var unnamed_tuple := {10, 20, 30}
+
+    assert (simple_tuple is {}) == true
+    assert (unnamed_tuple is {}) == true
+
+    // Tuples are not other types
+    assert (simple_tuple is []) == false
+    assert (unnamed_tuple is int) == false
+}
+
+test "Type checking for functions" {
+    var simple_func := func(x) => x + 1
+    var complex_func := func(a, b) is return a * b end
+
+    assert (simple_func is func) == true
+    assert (complex_func is func) == true
+
+    // Functions are not other types
+    assert (simple_func is int) == false
+    assert (complex_func is []) == false
+}
+
+test "Type checking in expressions" {
+    var x := 5
+    var result := x is int and x > 0
+    assert result == true
+
+    var y := "test"
+    result := y is string or y is int
+    assert result == true
+}
+
+test "Type checking with none values" {
+    var uninitialized
+    assert (uninitialized is none) == true
+
+    // none should only be usable with 'is'
+    var x := none
+    assert (x is none) == true
+}
+
+test "Type checking after reassignment" {
+    var value := 42
+    assert (value is int) == true
+
+    value := 3.14
+    assert (value is real) == true
+    assert (value is int) == false
+
+    value := "changed"
+    assert (value is string) == true
+    assert (value is real) == false
+}
+
+test "Type checking in function parameters" {
+    var check_type := func(val) =>
+        if val is int then
+            return "integer"
+        else if val is real then
+            return "real"
+        else if val is string then
+            return "string"
+        else
+            return "other"
+        end
+
+    assert check_type(42) == "integer"
+    assert check_type(3.14) == "real"
+    assert check_type("hello") == "string"
+    assert check_type(true) == "other"
+}
+
+test "Type checking complex expressions" {
+    var data := [1, 2.5, "test", true]
+    var result := data[1] is int and data[2] is real and data[3] is string
+    assert result == true
+}
+
+test "Type checking nested structures" {
+    var nested := {
+        numbers := [1, 2, 3],
+        info := {name := "test", active := true}
+    }
+
+    assert (nested is {}) == true
+    assert (nested.numbers is []) == true
+    assert (nested.info is {}) == true
+    assert (nested.numbers[1] is int) == true
+    assert (nested.info.name is string) == true
+    assert (nested.info.active is bool) == true
+}

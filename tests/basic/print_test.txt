@@ -1,0 +1,42 @@
+// Test: Print Statement
+// Tests output functionality with different types
+
+test "Print single value" {
+    var x := 42
+    print x
+    // Expected output: 42
+}
+
+test "Print multiple values" {
+    var a := 1, b := 2.5, c := "test"
+    print a, b, c
+    // Expected output: 1 2.5 test
+}
+
+test "Print boolean values" {
+    var t := true, f := false
+    print t, f
+    // Expected output: true false
+}
+
+test "Print none value" {
+    var n := none
+    print n
+    // Expected output: none
+}
+
+test "Print expressions" {
+    var x := 10, y := 20
+    print x + y, x * 2
+    // Expected output: 30 20
+}
+
+test "Print in loop" {
+    for i in 1..3 loop
+        print "Iteration:", i
+    end
+    // Expected output:
+    // Iteration: 1
+    // Iteration: 2
+    // Iteration: 3
+}

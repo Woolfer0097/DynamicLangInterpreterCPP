@@ -1,0 +1,73 @@
+// Test: Logical Operations
+// Tests logical operations (and, or, xor, not)
+
+test "Logical AND operation" {
+    assert (true and true) == true
+    assert (true and false) == false
+    assert (false and true) == false
+    assert (false and false) == false
+}
+
+test "Logical OR operation" {
+    assert (true or true) == true
+    assert (true or false) == true
+    assert (false or true) == true
+    assert (false or false) == false
+}
+
+test "Logical XOR operation" {
+    assert (true xor true) == false
+    assert (true xor false) == true
+    assert (false xor true) == true
+    assert (false xor false) == false
+}
+
+test "Logical NOT operation" {
+    assert (not true) == false
+    assert (not false) == true
+}
+
+test "Complex logical expressions" {
+    var a := true, b := false, c := true
+    var result1 := a and b or c
+    var result2 := a or b and c
+    var result3 := not (a and b)
+    var result4 := a xor (b or c)
+
+    assert result1 == true   // true and false or true = false or true = true
+    assert result2 == true   // true or false and true = true or false = true
+    assert result3 == true   // not (true and false) = not false = true
+    assert result4 == false  // true xor (false or true) = true xor true = false
+}
+
+test "Logical operations with comparison results" {
+    var x := 5, y := 10, z := 15
+    var result1 := x < y and y < z
+    var result2 := x > y or z > y
+    var result3 := not (x = y)
+
+    assert result1 == true
+    assert result2 == true
+    assert result3 == true
+}
+
+test "Short-circuit evaluation" {
+    var called := false
+    var result1 := false and (called := true)
+    assert called == false  // should not be called due to short-circuit
+
+    called := false
+    var result2 := true or (called := true)
+    assert called == false  // should not be called due to short-circuit
+}
+
+test "Logical operations precedence" {
+    // Testing operator precedence: not > and > or > xor
+    var result1 := not false and true
+    var result2 := true or false and false
+    var result3 := true xor true and false
+
+    assert result1 == true   // (not false) and true = true and true = true
+    assert result2 == true   // true or (false and false) = true or false = true
+    assert result3 == true   // true xor (true and false) = true xor false = true
+}

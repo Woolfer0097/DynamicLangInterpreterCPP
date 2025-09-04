@@ -1,0 +1,142 @@
+// Test: Function Definition and Calls
+// Tests function literals, definitions, and invocations
+
+test "Simple function without parameters" {
+    var greet := func() is
+        return "Hello, World!"
+    end
+
+    var result := greet()
+    assert result == "Hello, World!"
+}
+
+test "Function with single parameter" {
+    var square := func(x) is
+        return x * x
+    end
+
+    var result1 := square(5)
+    var result2 := square(3.5)
+    assert result1 == 25
+    assert result2 == 12.25
+}
+
+test "Function with multiple parameters" {
+    var add := func(a, b) is
+        return a + b
+    end
+
+    var result1 := add(5, 3)
+    var result2 := add(2.5, 1.5)
+    var result3 := add("hello", " world")
+    assert result1 == 8
+    assert result2 == 4.0
+    assert result3 == "hello world"
+}
+
+test "Function with return statement in middle" {
+    var check_positive := func(x) is
+        if x > 0 then
+            return true
+        else
+            return false
+        end
+    end
+
+    assert check_positive(5) == true
+    assert check_positive(-3) == false
+    assert check_positive(0) == false
+}
+
+test "Function without explicit return" {
+    var print_message := func(msg) is
+        print msg
+    end
+
+    print_message("test")
+    // Function returns none implicitly
+}
+
+test "Nested function calls" {
+    var double := func(x) is return x * 2 end
+    var add_one := func(x) is return x + 1 end
+
+    var result := double(add_one(5))
+    assert result == 12  // (5 + 1) * 2 = 12
+}
+
+test "Recursive function" {
+    var factorial := func(n) is
+        if n <= 1 then
+            return 1
+        else
+            return n * factorial(n - 1)
+        end
+    end
+
+    assert factorial(5) == 120  // 5! = 120
+    assert factorial(3) == 6    // 3! = 6
+    assert factorial(1) == 1    // 1! = 1
+}
+
+test "Function stored in array" {
+    var functions := [
+        func(x) is return x + 1 end,
+        func(x) is return x * 2 end,
+        func(x) is return x * x end
+    ]
+
+    var result1 := functions[1](5)  // add 1
+    var result2 := functions[2](5)  // multiply by 2
+    var result3 := functions[3](5)  // square
+
+    assert result1 == 6
+    assert result2 == 10
+    assert result3 == 25
+}
+
+test "Function stored in tuple" {
+    var calculator := {
+        add := func(a, b) is return a + b end,
+        multiply := func(a, b) is return a * b end
+    }
+
+    var sum := calculator.add(10, 5)
+    var product := calculator.multiply(10, 5)
+
+    assert sum == 15
+    assert product == 50
+}
+
+test "Function as parameter" {
+    var apply_operation := func(f, x, y) is
+        return f(x, y)
+    end
+
+    var add := func(a, b) is return a + b end
+    var multiply := func(a, b) is return a * b end
+
+    var result1 := apply_operation(add, 5, 3)
+    var result2 := apply_operation(multiply, 5, 3)
+
+    assert result1 == 8
+    assert result2 == 15
+}
+
+test "Anonymous function in expression" {
+    var result := (func(x) is return x * 2 end)(10)
+    assert result == 20
+}
+
+test "Function with local variables" {
+    var complex_calc := func(a, b, c) is
+        var temp1 := a + b
+        var temp2 := temp1 * c
+        return temp2 - a
+    end
+
+    var result := complex_calc(2, 3, 4)
+    assert result == 19  // ((2+3)*4) - 2 = 5*4 - 2 = 20 - 2 = 18? Wait, let me recalculate
+    // Actually: temp1 = 2+3 = 5, temp2 = 5*4 = 20, result = 20 - 2 = 18
+    assert result == 18
+}

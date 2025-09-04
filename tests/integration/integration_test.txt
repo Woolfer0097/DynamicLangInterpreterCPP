@@ -1,0 +1,240 @@
+// Test: Integration Tests
+// Tests complex scenarios combining multiple language features
+
+test "Complex calculator with functions and data structures" {
+    var calculator := {
+        operations := {
+            add := func(a, b) => a + b,
+            subtract := func(a, b) => a - b,
+            multiply := func(a, b) => a * b,
+            divide := func(a, b) => a / b
+        },
+        history := []
+    }
+
+    // Perform some calculations
+    var result1 := calculator.operations.add(10, 5)
+    var result2 := calculator.operations.multiply(result1, 2)
+    var result3 := calculator.operations.subtract(result2, 3)
+
+    // Store results in history
+    calculator.history := calculator.history + [result1]
+    calculator.history := calculator.history + [result2]
+    calculator.history := calculator.history + [result3]
+
+    assert result1 == 15
+    assert result2 == 30
+    assert result3 == 27
+    assert calculator.history[1] == 15
+    assert calculator.history[2] == 30
+    assert calculator.history[3] == 27
+}
+
+test "Fibonacci sequence with memoization" {
+    var fibonacci := func(n) =>
+        var cache := [0, 1]  // cache[1] = 0, cache[2] = 1
+
+        if n <= 2 then
+            return cache[n]
+        end
+
+        for i in 3..n loop
+            cache := cache + [cache[i-1] + cache[i-2]]
+        end
+
+        return cache[n]
+
+    assert fibonacci(1) == 0
+    assert fibonacci(2) == 1
+    assert fibonacci(5) == 3  // 0,1,1,2,3
+    assert fibonacci(8) == 13 // 0,1,1,2,3,5,8,13
+}
+
+test "Student grade processing system" {
+    var students := [
+        {name := "Alice", grades := [85, 92, 78]},
+        {name := "Bob", grades := [76, 88, 91]},
+        {name := "Charlie", grades := [95, 87, 93]}
+    ]
+
+    var calculate_average := func(grade_list) =>
+        var sum := 0
+        var count := 0
+        for grade in grade_list loop
+            sum := sum + grade
+            count := count + 1
+        end
+        return sum / count
+
+    var get_letter_grade := func(avg) =>
+        if avg >= 90 then
+            return "A"
+        else if avg >= 80 then
+            return "B"
+        else if avg >= 70 then
+            return "C"
+        else
+            return "F"
+        end
+
+    // Process all students
+    for i in 1..3 loop
+        var student := students[i]
+        var avg := calculate_average(student.grades)
+        var letter := get_letter_grade(avg)
+
+        student.average := avg
+        student.letter_grade := letter
+    end
+
+    // Verify results
+    assert students[1].average == 85.0  // (85+92+78)/3
+    assert students[1].letter_grade == "B"
+    assert students[2].average == 85.0  // (76+88+91)/3
+    assert students[2].letter_grade == "B"
+    assert students[3].average == 91.66666666666667  // (95+87+93)/3
+    assert students[3].letter_grade == "A"
+}
+
+test "Matrix operations" {
+    var create_matrix := func(rows, cols, default_value) =>
+        var matrix := []
+        for i in 1..rows loop
+            var row := []
+            for j in 1..cols loop
+                row := row + [default_value]
+            end
+            matrix := matrix + [row]
+        end
+        return matrix
+
+    var matrix_multiply_scalar := func(matrix, scalar) =>
+        var result := []
+        for i in 1..matrix.count() loop  // Assuming count() method exists
+            var row := []
+            for j in 1..matrix[i].count() loop
+                row := row + [matrix[i][j] * scalar]
+            end
+            result := result + [row]
+        end
+        return result
+
+    var matrix := create_matrix(2, 3, 5)
+    var scaled := matrix_multiply_scalar(matrix, 2)
+
+    assert matrix[1][1] == 5
+    assert matrix[2][3] == 5
+    assert scaled[1][1] == 10
+    assert scaled[2][3] == 10
+}
+
+test "Text processing with functions" {
+    var text_processor := {
+        to_upper := func(text) =>
+            // Simplified - assumes built-in uppercase conversion
+            return text + "_UPPER",
+
+        to_lower := func(text) =>
+            // Simplified - assumes built-in lowercase conversion
+            return text + "_lower",
+
+        count_words := func(text) =>
+            var words := []  // Simplified word splitting
+            var word_count := 1  // Simplified counting
+            return word_count,
+
+        process_paragraph := func(paragraph, operations) =>
+            var result := paragraph
+            for op in operations loop
+                result := op(result)
+            end
+            return result
+    }
+
+    var paragraph := "Hello World"
+    var operations := [text_processor.to_upper, text_processor.count_words]
+
+    var processed := text_processor.process_paragraph(paragraph, operations)
+
+    // Verify the processing pipeline worked
+    assert processed is int  // count_words should return int
+}
+
+test "Game-like simulation with complex state" {
+    var game_state := {
+        player := {
+            name := "Hero",
+            health := 100,
+            inventory := ["sword", "shield"],
+            position := {x := 0, y := 0}
+        },
+        enemies := [
+            {name := "Goblin", health := 50, position := {x := 5, y := 5}},
+            {name := "Orc", health := 80, position := {x := 10, y := 10}}
+        ],
+        items := [
+            {name := "potion", type := "health", value := 25, position := {x := 2, y := 3}},
+            {name := "gold", type := "currency", value := 100, position := {x := 7, y := 8}}
+        ]
+    }
+
+    var move_player := func(dx, dy) =>
+        game_state.player.position.x := game_state.player.position.x + dx
+        game_state.player.position.y := game_state.player.position.y + dy
+
+    var use_item := func(item_index) =>
+        var item := game_state.items[item_index]
+        if item.type = "health" then
+            game_state.player.health := game_state.player.health + item.value
+        end
+        // Remove item from game world
+        game_state.items := []  // Simplified removal
+
+    // Simulate game actions
+    move_player(2, 3)
+    use_item(1)  // Use health potion
+
+    assert game_state.player.position.x == 2
+    assert game_state.player.position.y == 3
+    assert game_state.player.health == 125  // 100 + 25
+}
+
+test "Error handling and edge cases" {
+    var safe_divide := func(a, b) =>
+        if b = 0 then
+            return "Error: Division by zero"
+        else
+            return a / b
+        end
+
+    var result1 := safe_divide(10, 2)
+    var result2 := safe_divide(10, 0)
+
+    assert result1 == 5
+    assert result2 == "Error: Division by zero"
+
+    // Test with different types
+    var result3 := safe_divide(10.0, 2)
+    assert result3 == 5.0
+    assert (result3 is real) == true
+}
+
+test "Advanced function composition" {
+    var compose := func(f, g) =>
+        return func(x) => f(g(x))
+
+    var add_one := func(x) => x + 1
+    var multiply_two := func(x) => x * 2
+    var square := func(x) => x * x
+
+    // Create composed functions
+    var add_one_then_square := compose(square, add_one)
+    var multiply_then_add := compose(add_one, multiply_two)
+
+    assert add_one_then_square(3) == 16  // (3+1)^2 = 16
+    assert multiply_then_add(3) == 7     // (3*2)+1 = 7
+
+    // More complex composition
+    var complex_func := compose(square, compose(multiply_two, add_one))
+    assert complex_func(2) == 36  // ((2+1)*2)^2 = (6)^2 = 36
+}
