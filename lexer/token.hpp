@@ -80,6 +80,8 @@ struct Token {
     TokenType type {TokenType::Error};
     std::string lexeme;
     Location location;
+    std::size_t start_index{0}; // more deatil in errors and easy get substring
+    std::size_t length{0};
     std::string message; // for error tokens
 };
 
