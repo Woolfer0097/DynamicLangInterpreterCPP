@@ -31,7 +31,7 @@ private:
     bool match(char expected) noexcept;
 
     // skipping
-    void skipWhitespaceAndComments();
+    std::optional<Token> skipWhitespaceAndComments();
 
     // scanners
     Token scanIdentifierOrKeyword();
@@ -50,6 +50,7 @@ private:
     std::size_t start_ {0};
     std::size_t current_ {0};
     Location location_ {1, 1};
+    Location token_start_location_ {1, 1};
 };
 
 } // namespace dli

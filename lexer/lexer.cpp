@@ -7,7 +7,7 @@
 namespace dli {
 
 namespace {
-    const std::unordered_map<std::string, TokenType> kKeywords = {
+    const std::unordered_map<std::string_view, TokenType> kKeywords = {
         {"var", TokenType::KwVar}, {"if", TokenType::KwIf}, {"then", TokenType::KwThen},
         {"else", TokenType::KwElse}, {"end", TokenType::KwEnd}, {"loop", TokenType::KwLoop},
         {"exit", TokenType::KwExit}, {"return", TokenType::KwReturn}, {"print", TokenType::KwPrint},
@@ -47,19 +47,30 @@ bool Lexer::match(char expected) noexcept {
 }
 
 Token Lexer::makeToken(TokenType type, std::string_view lexeme) const {
-    return Token{type, std::string(lexeme), location_, {}};
+    Token t;
+    t.type = type;
+    t.lexeme = std::string(lexeme);
+    t.location = token_start_location_;
+    t.start_index = start_;
+    t.length = current_ - start_;
+    t.message = "";
+
+    return t;
 }
 
 Token Lexer::makeError(std::string_view message) const {
     Token t;
     t.type = TokenType::Error;
     t.lexeme = "";
-    t.location = location_;
+    t.location = token_start_location_;
+    t.start_index = start_;
+    t.length = current_ - start_;
     t.message = std::string(message);
+
     return t;
 }
 
-void Lexer::skipWhitespaceAndComments() {
+std::optional<Token> Lexer::skipWhitespaceAndComments() {
     while (true) {
         char c = peek();
         switch (c) {
@@ -68,21 +79,36 @@ void Lexer::skipWhitespaceAndComments() {
                 break;
             case '/':
                 if (peekNext() == '/') { // // line comment
+                    // consume '//' and skip to end of line
+                    advance(); // consume '/'
+                    advance(); // consume second '/'
                     while (peek() != '\n' && !isAtEnd()) advance();
                     break;
                 } else if (peekNext() == '*') { // /* block comment */
-                    advance(); // /
-                    advance(); // *
+                    // mark start of the comment so we can report error at its start if unterminated
+                    token_start_location_ = location_;
+                    start_ = current_;
+                    advance(); // consume '/'
+                    advance(); // consume '*'
+                    // until closing */
                     while (!isAtEnd()) {
-                        if (peek() == '*' && peekNext() == '/') { advance(); advance(); break; }
+                        if (peek() == '*' && peekNext() == '/') {
+                            advance(); // consume '*'
+                            advance(); // consume '/'
+                            break; // comment closed, continue outer loop
+                        }
                         advance();
+                    }
+                    if (isAtEnd()) {
+                        // unterminated block comment -> return error token
+                        return makeError("Unterminated block comment");
                     }
                     break;
                 } else {
-                    return;
+                    return std::nullopt;
                 }
             default:
-                return;
+                return std::nullopt;
         }
     }
 }
@@ -91,7 +117,7 @@ Token Lexer::scanIdentifierOrKeyword() {
     std::size_t start_index = current_ - 1; // we assume first char already consumed
     while (isAlphaNumeric(peek()) || peek() == '_') advance();
     std::string_view text = source_.substr(start_index, current_ - start_index);
-    auto it = kKeywords.find(std::string(text));
+    auto it = kKeywords.find(text);
     if (it != kKeywords.end()) {
         // boolean literals as keywords too
         return makeToken(it->second, text);
@@ -180,6 +206,8 @@ Token Lexer::scanSymbol() {
 
 Token Lexer::nextToken() {
     skipWhitespaceAndComments();
+
+    token_start_location_ = location_;
     start_ = current_;
     if (isAtEnd()) return makeToken(TokenType::EndOfFile, "");
     char c = advance();
