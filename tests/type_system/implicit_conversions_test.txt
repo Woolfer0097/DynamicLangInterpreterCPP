@@ -1,7 +1,7 @@
 // Test: Implicit Type Conversions
 // Tests automatic type conversions in operations
 
-test "Integer to real conversion in arithmetic" {
+test integer_to_real_conversion_in_arithmetic() is
     var i := 5
     var r := 2.5
     var result1 := i + r  // int + real = real
@@ -11,9 +11,9 @@ test "Integer to real conversion in arithmetic" {
     assert result2 == 7.5
     assert (result1 is real) == true
     assert (result2 is real) == true
-}
+end
 
-test "Integer division results" {
+test integer_division_results() is
     var result1 := 10 / 3  // integer division
     var result2 := 10.0 / 3  // real division
     var result3 := 10 / 3.0  // mixed division
@@ -25,9 +25,9 @@ test "Integer division results" {
     assert (result1 is int) == true
     assert (result2 is real) == true
     assert (result3 is real) == true
-}
+end
 
-test "String concatenation with different types" {
+test string_concatenation_with_different_types() is
     var s := "value: "
     var i := 42
     var r := 3.14
@@ -44,9 +44,9 @@ test "String concatenation with different types" {
     assert (result1 is string) == true
     assert (result2 is string) == true
     assert (result3 is string) == true
-}
+end
 
-test "Array concatenation preserves types" {
+test array_concatenation_preserves_types() is
     var arr1 := [1, 2, 3]
     var arr2 := [4.0, 5.0]
     var result := arr1 + arr2
@@ -59,9 +59,9 @@ test "Array concatenation preserves types" {
 
     assert (result[1] is int) == true
     assert (result[4] is real) == true
-}
+end
 
-test "Tuple concatenation preserves types" {
+test tuple_concatenation_preserves_types() is
     var t1 := {a := 1, b := 2}
     var t2 := {c := 3.14, d := "test"}
     var result := t1 + t2
@@ -74,9 +74,9 @@ test "Tuple concatenation preserves types" {
     assert (result.a is int) == true
     assert (result.c is real) == true
     assert (result.d is string) == true
-}
+end
 
-test "Comparison operations with mixed types" {
+test comparison_operations_with_mixed_types() is
     // Valid comparisons (int vs real)
     assert (5 < 5.5) == true
     assert (5.5 > 5) == true
@@ -86,9 +86,9 @@ test "Comparison operations with mixed types" {
     // (assuming the language allows these)
     var result := 5 < 5.5 and 5.5 > 5
     assert result == true
-}
+end
 
-test "Function calls with type conversion" {
+test function_calls_with_type_conversion() is
     var identity := func(x) => x
 
     var result1 := identity(42)      // int -> int
@@ -102,9 +102,9 @@ test "Function calls with type conversion" {
     assert (result1 is int) == true
     assert (result2 is real) == true
     assert (result3 is string) == true
-}
+end
 
-test "Arithmetic operations preserve precision" {
+test arithmetic_operations_preserve_precision() is
     var result1 := 5 + 0  // int + int = int
     var result2 := 5 + 0.0  // int + real = real
     var result3 := 5.0 + 0  // real + int = real
@@ -119,18 +119,18 @@ test "Arithmetic operations preserve precision" {
     assert (result2 is real) == true
     assert (result3 is real) == true
     assert (result4 is real) == true
-}
+end
 
-test "Complex expressions with conversions" {
+test complex_expressions_with_conversions() is
     var x := 5
     var y := 2.0
     var result := (x + y) * 2 / 3
 
     // (5 + 2.0) = 7.0, 7.0 * 2 = 14.0, 14.0 / 3 = 4.666...
     assert (result is real) == true
-}
+end
 
-test "Type conversion in assignments" {
+test type_conversion_in_assignments() is
     var value
     value := 42      // assign int
     assert (value is int) == true
@@ -140,9 +140,9 @@ test "Type conversion in assignments" {
 
     value := "test"  // assign string (reassignment)
     assert (value is string) == true
-}
+end
 
-test "Conversion in function return values" {
+test conversion_in_function_return_values() is
     var make_real := func(x) => x + 0.0  // forces conversion to real
     var make_int := func(x) => x / 1     // stays int if x is int
 
@@ -154,4 +154,4 @@ test "Conversion in function return values" {
 
     assert (result1 is real) == true
     assert (result2 is int) == true
-}
+end

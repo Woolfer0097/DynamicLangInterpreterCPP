@@ -1,29 +1,29 @@
 // Test: Function Literals
 // Tests different forms of function literals
 
-test "Arrow function syntax (=>)" {
+test arrow_function_syntax() is
     var square := func(x) => x * x
     var result := square(6)
     assert result == 36
-}
+end
 
-test "Arrow function with multiple statements" {
+test arrow_function_with_multiple_statements() is
     var process := func(x) =>
         var doubled := x * 2
         return doubled + 1
 
     var result := process(5)
     assert result == 11  // (5*2) + 1 = 11
-}
+end
 
-test "Function literal in assignment" {
+test function_literal_in_assignment() is
     var f
     f := func(x) => x + 10
     var result := f(5)
     assert result == 15
-}
+end
 
-test "Function literal as array element" {
+test function_literal_as_array_element() is
     var operations := [
         func(x) => x + 1,
         func(x) => x - 1,
@@ -33,27 +33,27 @@ test "Function literal as array element" {
     assert operations[1](10) == 11
     assert operations[2](10) == 9
     assert operations[3](10) == 20
-}
+end
 
-test "Function literal in tuple" {
+test function_literal_in_tuple() is
     var math_ops := {
         increment := func(x) => x + 1,
         decrement := func(x) => x - 1,
         double := func(x) => x * 2
-    }
+    end
 
     assert math_ops.increment(5) == 6
     assert math_ops.decrement(5) == 4
     assert math_ops.double(5) == 10
-}
+end
 
-test "Function literal with no parameters" {
+test function_literal_with_no_parameters() is
     var get_message := func() => "Hello from function!"
     var message := get_message()
     assert message == "Hello from function!"
-}
+end
 
-test "Complex arrow function" {
+test complex_arrow_function() is
     var calculate := func(a, b, c) =>
         if a > b then
             return a + c
@@ -66,9 +66,9 @@ test "Complex arrow function" {
 
     assert result1 == 13
     assert result2 == 10
-}
+end
 
-test "Function literal with array operations" {
+test function_literal_with_array_operations() is
     var sum_array := func(arr) =>
         var total := 0
         for value in arr loop
@@ -79,18 +79,18 @@ test "Function literal with array operations" {
     var numbers := [1, 2, 3, 4, 5]
     var result := sum_array(numbers)
     assert result == 15
-}
+end
 
-test "Higher-order function with arrow syntax" {
+test higher_order_function_with_arrow_syntax() is
     var apply_twice := func(f, x) =>
         return f(f(x))
 
     var add_five := func(x) => x + 5
     var result := apply_twice(add_five, 10)
     assert result == 20  // ((10 + 5) + 5) = 20
-}
+end
 
-test "Function literal returning function" {
+test function_literal_returning_function() is
     var make_multiplier := func(factor) =>
         return func(x) => x * factor
 
@@ -99,9 +99,9 @@ test "Function literal returning function" {
 
     assert double(5) == 10
     assert triple(5) == 15
-}
+end
 
-test "Recursive arrow function" {
+test recursive_arrow_function() is
     var fib := func(n) =>
         if n <= 1 then
             return n
@@ -111,4 +111,4 @@ test "Recursive arrow function" {
 
     assert fib(6) == 8  // Fibonacci sequence: 0,1,1,2,3,5,8
     assert fib(4) == 3
-}
+end

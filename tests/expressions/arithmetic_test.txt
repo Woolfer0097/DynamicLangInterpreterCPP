@@ -1,37 +1,37 @@
 // Test: Arithmetic Operations
 // Tests basic arithmetic operations with different types
 
-test "Integer addition" {
+test integer_addition() is
     var result := 5 + 3
     assert result == 8
     assert result is int
-}
+end
 
-test "Integer subtraction" {
+test integer_subtraction() is
     var result := 10 - 4
     assert result == 6
     assert result is int
-}
+end
 
-test "Integer multiplication" {
+test integer_multiplication() is
     var result := 6 * 7
     assert result == 42
     assert result is int
-}
+end
 
-test "Integer division" {
+test integer_division() is
     var result := 15 / 3
     assert result == 5
     assert result is int
-}
+end
 
-test "Integer division with rounding down" {
+test integer_division_with_rounding_down() is
     var result := 17 / 4
     assert result == 4  // 17/4 = 4.25, rounds down to 4
     assert result is int
-}
+end
 
-test "Mixed integer and real arithmetic" {
+test mixed_integer_and_real_arithmetic() is
     var result1 := 5 + 2.5
     var result2 := 10.0 - 3
     var result3 := 4 * 2.5
@@ -46,9 +46,9 @@ test "Mixed integer and real arithmetic" {
     assert result2 is real
     assert result3 is real
     assert result4 is real
-}
+end
 
-test "Real arithmetic" {
+test real_arithmetic() is
     var result1 := 3.14 + 2.86
     var result2 := 5.5 - 2.2
     var result3 := 3.0 * 4.0
@@ -63,9 +63,9 @@ test "Real arithmetic" {
     assert result2 is real
     assert result3 is real
     assert result4 is real
-}
+end
 
-test "Unary plus and minus" {
+test unary_plus_and_minus() is
     var x := 5
     var result1 := +x
     var result2 := -x
@@ -82,15 +82,15 @@ test "Unary plus and minus" {
     assert result2 is int
     assert result3 is real
     assert result4 is real
-}
+end
 
-test "Complex arithmetic expressions" {
+test complex_arithmetic_expressions() is
     var result := (5 + 3) * 2 - 8 / 2
     assert result == 12  // (8) * 2 - 4 = 16 - 4 = 12
     assert result is int
-}
+end
 
-test "String concatenation" {
+test string_concatenation() is
     var result1 := "hello" + " " + "world"
     var result2 := "test" + "123"
     var result3 := "" + "empty"
@@ -102,4 +102,4 @@ test "String concatenation" {
     assert result1 is string
     assert result2 is string
     assert result3 is string
-}
+end
