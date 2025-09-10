@@ -1,37 +1,37 @@
 // Test: Print Statement
 // Tests output functionality with different types
 
-test "Print single value" {
+test print_single_value() is
     var x := 42
     print x
     // Expected output: 42
-}
+end
 
-test "Print multiple values" {
+test print_multiple_values() is
     var a := 1, b := 2.5, c := "test"
     print a, b, c
     // Expected output: 1 2.5 test
-}
+end
 
-test "Print boolean values" {
+test print_boolean_values() is
     var t := true, f := false
     print t, f
     // Expected output: true false
-}
+end
 
-test "Print none value" {
+test print_none_value() is
     var n := none
     print n
     // Expected output: none
-}
+end
 
-test "Print expressions" {
+test print_expressions() is
     var x := 10, y := 20
     print x + y, x * 2
     // Expected output: 30 20
-}
+end
 
-test "Print in loop" {
+test print_in_loop() is
     for i in 1..3 loop
         print "Iteration:", i
     end
@@ -39,4 +39,4 @@ test "Print in loop" {
     // Iteration: 1
     // Iteration: 2
     // Iteration: 3
-}
+end

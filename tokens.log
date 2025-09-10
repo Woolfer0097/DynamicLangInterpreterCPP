@@ -1,6 +1,8 @@
 KW_test	test	4:5
-STRING	Simple while loop	4:25
-{	{	4:27
+IDENT	simple_while_loop	4:23
+(	(	4:24
+)	)	4:25
+KW_is	is	4:28
 KW_var	var	5:8
 IDENT	counter	5:16
 :=	:=	5:19
@@ -33,10 +35,12 @@ KW_assert	assert	12:11
 IDENT	counter	12:19
 ==	==	12:22
 INT	5	12:24
-}	}	13:2
+KW_end	end	13:4
 KW_test	test	15:5
-STRING	While loop with false condition initially	15:49
-{	{	15:51
+IDENT	while_loop_with_false_condition_initially	15:47
+(	(	15:48
+)	)	15:49
+KW_is	is	15:52
 KW_var	var	16:8
 IDENT	x	16:10
 :=	:=	16:13
@@ -52,10 +56,12 @@ KW_assert	assert	20:11
 IDENT	x	20:13
 ==	==	20:16
 INT	0	20:18
-}	}	21:2
+KW_end	end	21:4
 KW_test	test	23:5
-STRING	While loop with complex condition	23:41
-{	{	23:43
+IDENT	while_loop_with_complex_condition	23:39
+(	(	23:40
+)	)	23:41
+KW_is	is	23:44
 KW_var	var	24:8
 IDENT	x	24:10
 :=	:=	24:13
@@ -92,10 +98,12 @@ KW_assert	assert	31:11
 IDENT	count	31:17
 ==	==	31:20
 INT	3	31:22
-}	}	32:2
+KW_end	end	32:4
 KW_test	test	34:5
-STRING	Infinite loop with exit	34:31
-{	{	34:33
+IDENT	infinite_loop_with_exit	34:29
+(	(	34:30
+)	)	34:31
+KW_is	is	34:34
 KW_var	var	35:8
 IDENT	sum	35:12
 :=	:=	35:15
@@ -130,10 +138,12 @@ KW_assert	assert	43:11
 IDENT	i	43:13
 ==	==	43:16
 INT	11	43:19
-}	}	44:2
+KW_end	end	44:4
 KW_test	test	46:5
-STRING	For loop with range	46:27
-{	{	46:29
+IDENT	for_loop_with_range	46:25
+(	(	46:26
+)	)	46:27
+KW_is	is	46:30
 KW_var	var	47:8
 IDENT	sum	47:12
 :=	:=	47:15
@@ -156,10 +166,12 @@ KW_assert	assert	51:11
 IDENT	sum	51:15
 ==	==	51:18
 INT	15	51:21
-}	}	52:2
+KW_end	end	52:4
 KW_test	test	54:5
-STRING	For loop with range and variable	54:40
-{	{	54:42
+IDENT	for_loop_with_range_and_variable	54:38
+(	(	54:39
+)	)	54:40
+KW_is	is	54:43
 KW_var	var	55:8
 IDENT	result	55:15
 :=	:=	55:18
@@ -182,10 +194,12 @@ KW_assert	assert	59:11
 IDENT	result	59:18
 ==	==	59:21
 INT	16	59:24
-}	}	60:2
+KW_end	end	60:4
 KW_test	test	62:5
-STRING	For loop iterating over array	62:37
-{	{	62:39
+IDENT	for_loop_iterating_over_array	62:35
+(	(	62:36
+)	)	62:37
+KW_is	is	62:40
 KW_var	var	63:8
 IDENT	arr	63:12
 :=	:=	63:15
@@ -217,10 +231,12 @@ KW_assert	assert	68:11
 IDENT	sum	68:15
 ==	==	68:18
 INT	100	68:22
-}	}	69:2
+KW_end	end	69:4
 KW_test	test	71:5
-STRING	For loop iterating over array with index variable	71:57
-{	{	71:59
+IDENT	for_loop_iterating_over_array_with_index_variable	71:55
+(	(	71:56
+)	)	71:57
+KW_is	is	71:60
 KW_var	var	72:8
 IDENT	arr	72:12
 :=	:=	72:15
@@ -252,10 +268,12 @@ KW_assert	assert	77:11
 IDENT	sum	77:15
 ==	==	77:18
 INT	20	77:21
-}	}	78:2
+KW_end	end	78:4
 KW_test	test	80:5
-STRING	Nested loops	80:20
-{	{	80:22
+IDENT	nested_loops	80:18
+(	(	80:19
+)	)	80:20
+KW_is	is	80:23
 KW_var	var	81:8
 IDENT	result	81:15
 :=	:=	81:18
@@ -287,10 +305,12 @@ KW_assert	assert	87:11
 IDENT	result	87:18
 ==	==	87:21
 INT	6	87:23
-}	}	88:2
+KW_end	end	88:4
 KW_test	test	90:5
-STRING	Loop with break (exit) in nested structure	90:50
-{	{	90:52
+IDENT	loop_with_break_exit_in_nested_structure	90:46
+(	(	90:47
+)	)	90:48
+KW_is	is	90:51
 KW_var	var	91:8
 IDENT	outer_count	91:20
 :=	:=	91:23
@@ -341,10 +361,12 @@ KW_assert	assert	101:11
 IDENT	inner_count	101:23
 ==	==	101:26
 INT	3	101:28
-}	}	102:2
+KW_end	end	102:4
 KW_test	test	104:5
-STRING	Loop with variable scope	104:32
-{	{	104:34
+IDENT	loop_with_variable_scope	104:30
+(	(	104:31
+)	)	104:32
+KW_is	is	104:35
 KW_var	var	105:8
 IDENT	sum	105:12
 :=	:=	105:15
@@ -373,10 +395,12 @@ KW_assert	assert	110:11
 IDENT	sum	110:15
 ==	==	110:18
 INT	12	110:21
-}	}	112:2
+KW_end	end	112:4
 KW_test	test	114:5
-STRING	Multiple exit conditions	114:32
-{	{	114:34
+IDENT	multiple_exit_conditions	114:30
+(	(	114:31
+)	)	114:32
+KW_is	is	114:35
 KW_var	var	115:8
 IDENT	count	115:14
 :=	:=	115:17
@@ -417,11 +441,13 @@ KW_assert	assert	124:11
 IDENT	sum	124:15
 ==	==	124:18
 INT	55	124:21
-}	}	125:2
+KW_end	end	125:4
 EOF		126:1
 KW_test	test	4:5
-STRING	Simple if-then statement	4:32
-{	{	4:34
+IDENT	simple_if_then_statement	4:30
+(	(	4:31
+)	)	4:32
+KW_is	is	4:35
 KW_var	var	5:8
 IDENT	x	5:10
 :=	:=	5:13
@@ -437,10 +463,12 @@ KW_assert	assert	9:11
 IDENT	x	9:13
 ==	==	9:16
 INT	42	9:19
-}	}	10:2
+KW_end	end	10:4
 KW_test	test	12:5
-STRING	If with else clause	12:27
-{	{	12:29
+IDENT	if_with_else_clause	12:25
+(	(	12:26
+)	)	12:27
+KW_is	is	12:30
 KW_var	var	13:8
 IDENT	x	13:10
 :=	:=	13:13
@@ -482,10 +510,12 @@ KW_assert	assert	28:11
 IDENT	x	28:13
 ==	==	28:16
 INT	400	28:20
-}	}	29:2
+KW_end	end	29:4
 KW_test	test	31:5
-STRING	If with comparison condition	31:36
-{	{	31:38
+IDENT	if_with_comparison_condition	31:34
+(	(	31:35
+)	)	31:36
+KW_is	is	31:39
 KW_var	var	32:8
 IDENT	x	32:10
 :=	:=	32:13
@@ -520,10 +550,12 @@ KW_assert	assert	42:11
 IDENT	x	42:13
 ==	==	42:16
 INT	1	42:18
-}	}	43:2
+KW_end	end	43:4
 KW_test	test	45:5
-STRING	If-short form (=>)	45:26
-{	{	45:28
+IDENT	if_short_form	45:19
+(	(	45:20
+)	)	45:21
+KW_is	is	45:24
 KW_var	var	46:8
 IDENT	x	46:10
 :=	:=	46:13
@@ -552,10 +584,12 @@ KW_assert	assert	51:11
 IDENT	x	51:13
 ==	==	51:16
 INT	25	51:19
-}	}	52:2
+KW_end	end	52:4
 KW_test	test	54:5
-STRING	Variable scope in if blocks	54:35
-{	{	54:37
+IDENT	variable_scope_in_if_blocks	54:33
+(	(	54:34
+)	)	54:35
+KW_is	is	54:38
 KW_var	var	55:8
 IDENT	outer	55:14
 :=	:=	55:17
@@ -580,10 +614,12 @@ KW_assert	assert	61:11
 IDENT	outer	61:17
 ==	==	61:20
 INT	100	61:24
-}	}	63:2
+KW_end	end	63:4
 KW_test	test	65:5
-STRING	Multiple statements in if block	65:39
-{	{	65:41
+IDENT	multiple_statements_in_if_block	65:37
+(	(	65:38
+)	)	65:39
+KW_is	is	65:42
 KW_var	var	66:8
 IDENT	a	66:10
 :=	:=	66:13
@@ -620,11 +656,13 @@ KW_assert	assert	74:11
 IDENT	b	74:13
 ==	==	74:16
 INT	20	74:19
-}	}	75:2
+KW_end	end	75:4
 EOF		76:1
 KW_test	test	4:5
-STRING	Type checking for basic types	4:37
-{	{	4:39
+IDENT	type_checking_for_basic_types	4:35
+(	(	4:36
+)	)	4:37
+KW_is	is	4:40
 KW_var	var	5:8
 IDENT	i	5:10
 :=	:=	5:13
@@ -725,10 +763,12 @@ KW_int	int	22:21
 )	)	22:22
 ==	==	22:25
 KW_false	false	22:31
-}	}	23:2
+KW_end	end	23:4
 KW_test	test	25:5
-STRING	Type checking for arrays	25:32
-{	{	25:34
+IDENT	type_checking_for_arrays	25:30
+(	(	25:31
+)	)	25:32
+KW_is	is	25:35
 KW_var	var	26:8
 IDENT	empty_arr	26:18
 :=	:=	26:21
@@ -797,10 +837,12 @@ KW_string	string	36:30
 )	)	36:31
 ==	==	36:34
 KW_false	false	36:40
-}	}	37:2
+KW_end	end	37:4
 KW_test	test	39:5
-STRING	Type checking for tuples	39:32
-{	{	39:34
+IDENT	type_checking_for_tuples	39:30
+(	(	39:31
+)	)	39:32
+KW_is	is	39:35
 KW_var	var	40:8
 IDENT	simple_tuple	40:21
 :=	:=	40:24
@@ -858,10 +900,12 @@ KW_int	int	48:33
 )	)	48:34
 ==	==	48:37
 KW_false	false	48:43
-}	}	49:2
+KW_end	end	49:4
 KW_test	test	51:5
-STRING	Type checking for functions	51:35
-{	{	51:37
+IDENT	type_checking_for_functions	51:33
+(	(	51:34
+)	)	51:35
+KW_is	is	51:38
 KW_var	var	52:8
 IDENT	simple_func	52:20
 :=	:=	52:23
@@ -921,10 +965,12 @@ KW_is	is	60:28
 )	)	60:32
 ==	==	60:35
 KW_false	false	60:41
-}	}	61:2
+KW_end	end	61:4
 KW_test	test	63:5
-STRING	Type checking in expressions	63:36
-{	{	63:38
+IDENT	type_checking_in_expressions	63:34
+(	(	63:35
+)	)	63:36
+KW_is	is	63:39
 KW_var	var	64:8
 IDENT	x	64:10
 :=	:=	64:13
@@ -960,10 +1006,12 @@ KW_assert	assert	70:11
 IDENT	result	70:18
 ==	==	70:21
 KW_true	true	70:26
-}	}	71:2
+KW_end	end	71:4
 KW_test	test	73:5
-STRING	Type checking with none values	73:38
-{	{	73:40
+IDENT	type_checking_with_none_values	73:36
+(	(	73:37
+)	)	73:38
+KW_is	is	73:41
 KW_var	var	74:8
 IDENT	uninitialized	74:22
 KW_assert	assert	75:11
@@ -986,10 +1034,12 @@ KW_none	none	79:22
 )	)	79:23
 ==	==	79:26
 KW_true	true	79:31
-}	}	80:2
+KW_end	end	80:4
 KW_test	test	82:5
-STRING	Type checking after reassignment	82:40
-{	{	82:42
+IDENT	type_checking_after_reassignment	82:38
+(	(	82:39
+)	)	82:40
+KW_is	is	82:43
 KW_var	var	83:8
 IDENT	value	83:14
 :=	:=	83:17
@@ -1040,10 +1090,12 @@ KW_real	real	92:26
 )	)	92:27
 ==	==	92:30
 KW_false	false	92:36
-}	}	93:2
+KW_end	end	93:4
 KW_test	test	95:5
-STRING	Type checking in function parameters	95:44
-{	{	95:46
+IDENT	type_checking_in_function_parameters	95:42
+(	(	95:43
+)	)	95:44
+KW_is	is	95:47
 KW_var	var	96:8
 IDENT	check_type	96:19
 :=	:=	96:22
@@ -1107,10 +1159,12 @@ KW_true	true	110:27
 )	)	110:28
 ==	==	110:31
 STRING	other	110:39
-}	}	111:2
+KW_end	end	111:4
 KW_test	test	113:5
-STRING	Type checking complex expressions	113:41
-{	{	113:43
+IDENT	type_checking_complex_expressions	113:39
+(	(	113:40
+)	)	113:41
+KW_is	is	113:44
 KW_var	var	114:8
 IDENT	data	114:13
 :=	:=	114:16
@@ -1150,10 +1204,12 @@ KW_assert	assert	116:11
 IDENT	result	116:18
 ==	==	116:21
 KW_true	true	116:26
-}	}	117:2
+KW_end	end	117:4
 KW_test	test	119:5
-STRING	Type checking nested structures	119:39
-{	{	119:41
+IDENT	type_checking_nested_structures	119:37
+(	(	119:38
+)	)	119:39
+KW_is	is	119:42
 KW_var	var	120:8
 IDENT	nested	120:15
 :=	:=	120:18
@@ -1179,7 +1235,7 @@ IDENT	active	122:40
 :=	:=	122:43
 KW_true	true	122:48
 }	}	122:49
-}	}	123:6
+KW_end	end	123:8
 KW_assert	assert	125:11
 (	(	125:13
 IDENT	nested	125:19
@@ -1248,11 +1304,13 @@ KW_bool	bool	130:39
 )	)	130:40
 ==	==	130:43
 KW_true	true	130:48
-}	}	131:2
+KW_end	end	131:4
 EOF		132:1
 KW_test	test	4:5
-STRING	Integer to real conversion in arithmetic	4:48
-{	{	4:50
+IDENT	integer_to_real_conversion_in_arithmetic	4:46
+(	(	4:47
+)	)	4:48
+KW_is	is	4:51
 KW_var	var	5:8
 IDENT	i	5:10
 :=	:=	5:13
@@ -1297,10 +1355,12 @@ KW_real	real	13:28
 )	)	13:29
 ==	==	13:32
 KW_true	true	13:37
-}	}	14:2
+KW_end	end	14:4
 KW_test	test	16:5
-STRING	Integer division results	16:32
-{	{	16:34
+IDENT	integer_division_results	16:30
+(	(	16:31
+)	)	16:32
+KW_is	is	16:35
 KW_var	var	17:8
 IDENT	result1	17:16
 :=	:=	17:19
@@ -1355,10 +1415,12 @@ KW_real	real	27:28
 )	)	27:29
 ==	==	27:32
 KW_true	true	27:37
-}	}	28:2
+KW_end	end	28:4
 KW_test	test	30:5
-STRING	String concatenation with different types	30:49
-{	{	30:51
+IDENT	string_concatenation_with_different_types	30:47
+(	(	30:48
+)	)	30:49
+KW_is	is	30:52
 KW_var	var	31:8
 IDENT	s	31:10
 :=	:=	31:13
@@ -1429,10 +1491,12 @@ KW_string	string	46:30
 )	)	46:31
 ==	==	46:34
 KW_true	true	46:39
-}	}	47:2
+KW_end	end	47:4
 KW_test	test	49:5
-STRING	Array concatenation preserves types	49:43
-{	{	49:45
+IDENT	array_concatenation_preserves_types	49:41
+(	(	49:42
+)	)	49:43
+KW_is	is	49:46
 KW_var	var	50:8
 IDENT	arr1	50:13
 :=	:=	50:16
@@ -1514,10 +1578,12 @@ KW_real	real	61:30
 )	)	61:31
 ==	==	61:34
 KW_true	true	61:39
-}	}	62:2
+KW_end	end	62:4
 KW_test	test	64:5
-STRING	Tuple concatenation preserves types	64:43
-{	{	64:45
+IDENT	tuple_concatenation_preserves_types	64:41
+(	(	64:42
+)	)	64:43
+KW_is	is	64:46
 KW_var	var	65:8
 IDENT	t1	65:11
 :=	:=	65:14
@@ -1602,10 +1668,12 @@ KW_string	string	76:31
 )	)	76:32
 ==	==	76:35
 KW_true	true	76:40
-}	}	77:2
+KW_end	end	77:4
 KW_test	test	79:5
-STRING	Comparison operations with mixed types	79:46
-{	{	79:48
+IDENT	comparison_operations_with_mixed_types	79:44
+(	(	79:45
+)	)	79:46
+KW_is	is	79:49
 KW_assert	assert	81:11
 (	(	81:13
 INT	5	81:14
@@ -1644,10 +1712,12 @@ KW_assert	assert	88:11
 IDENT	result	88:18
 ==	==	88:21
 KW_true	true	88:26
-}	}	89:2
+KW_end	end	89:4
 KW_test	test	91:5
-STRING	Function calls with type conversion	91:43
-{	{	91:45
+IDENT	function_calls_with_type_conversion	91:41
+(	(	91:42
+)	)	91:43
+KW_is	is	91:46
 KW_var	var	92:8
 IDENT	identity	92:17
 :=	:=	92:20
@@ -1714,10 +1784,12 @@ KW_string	string	104:30
 )	)	104:31
 ==	==	104:34
 KW_true	true	104:39
-}	}	105:2
+KW_end	end	105:4
 KW_test	test	107:5
-STRING	Arithmetic operations preserve precision	107:48
-{	{	107:50
+IDENT	arithmetic_operations_preserve_precision	107:46
+(	(	107:47
+)	)	107:48
+KW_is	is	107:51
 KW_var	var	108:8
 IDENT	result1	108:16
 :=	:=	108:19
@@ -1790,10 +1862,12 @@ KW_real	real	121:28
 )	)	121:29
 ==	==	121:32
 KW_true	true	121:37
-}	}	122:2
+KW_end	end	122:4
 KW_test	test	124:5
-STRING	Complex expressions with conversions	124:44
-{	{	124:46
+IDENT	complex_expressions_with_conversions	124:42
+(	(	124:43
+)	)	124:44
+KW_is	is	124:47
 KW_var	var	125:8
 IDENT	x	125:10
 :=	:=	125:13
@@ -1822,10 +1896,12 @@ KW_real	real	130:27
 )	)	130:28
 ==	==	130:31
 KW_true	true	130:36
-}	}	131:2
+KW_end	end	131:4
 KW_test	test	133:5
-STRING	Type conversion in assignments	133:38
-{	{	133:40
+IDENT	type_conversion_in_assignments	133:36
+(	(	133:37
+)	)	133:38
+KW_is	is	133:41
 KW_var	var	134:8
 IDENT	value	134:14
 IDENT	value	135:10
@@ -1861,10 +1937,12 @@ KW_string	string	142:28
 )	)	142:29
 ==	==	142:32
 KW_true	true	142:37
-}	}	143:2
+KW_end	end	143:4
 KW_test	test	145:5
-STRING	Conversion in function return values	145:44
-{	{	145:46
+IDENT	conversion_in_function_return_values	145:42
+(	(	145:43
+)	)	145:44
+KW_is	is	145:47
 KW_var	var	146:8
 IDENT	make_real	146:18
 :=	:=	146:21
@@ -1925,11 +2003,13 @@ KW_int	int	156:27
 )	)	156:28
 ==	==	156:31
 KW_true	true	156:36
-}	}	157:2
+KW_end	end	157:4
 EOF		158:1
 KW_test	test	4:5
-STRING	Integer comparisons	4:27
-{	{	4:29
+IDENT	integer_comparisons	4:25
+(	(	4:26
+)	)	4:27
+KW_is	is	4:30
 KW_assert	assert	5:11
 INT	5	5:13
 <	<	5:15
@@ -1966,10 +2046,12 @@ INT	5	10:13
 INT	6	10:18
 ==	==	10:21
 KW_true	true	10:26
-}	}	11:2
+KW_end	end	11:4
 KW_test	test	13:5
-STRING	Real comparisons	13:24
-{	{	13:26
+IDENT	real_comparisons	13:22
+(	(	13:23
+)	)	13:24
+KW_is	is	13:27
 KW_assert	assert	14:11
 REAL	3.14	14:16
 <	<	14:18
@@ -2006,10 +2088,12 @@ REAL	3.14	19:16
 REAL	6.28	19:24
 ==	==	19:27
 KW_true	true	19:32
-}	}	20:2
+KW_end	end	20:4
 KW_test	test	22:5
-STRING	Mixed integer and real comparisons	22:42
-{	{	22:44
+IDENT	mixed_integer_and_real_comparisons	22:40
+(	(	22:41
+)	)	22:42
+KW_is	is	22:45
 KW_assert	assert	23:11
 INT	5	23:13
 <	<	23:15
@@ -2046,10 +2130,12 @@ INT	5	28:13
 REAL	5.5	28:20
 ==	==	28:23
 KW_true	true	28:28
-}	}	29:2
+KW_end	end	29:4
 KW_test	test	31:5
-STRING	Boolean comparisons	31:27
-{	{	31:29
+IDENT	boolean_comparisons	31:25
+(	(	31:26
+)	)	31:27
+KW_is	is	31:30
 KW_assert	assert	32:11
 KW_true	true	32:16
 =	=	32:18
@@ -2074,10 +2160,12 @@ KW_false	false	35:17
 KW_true	true	35:25
 ==	==	35:28
 KW_true	true	35:33
-}	}	36:2
+KW_end	end	36:4
 KW_test	test	38:5
-STRING	String comparisons	38:26
-{	{	38:28
+IDENT	string_comparisons	38:24
+(	(	38:25
+)	)	38:26
+KW_is	is	38:29
 KW_assert	assert	39:11
 STRING	apple	39:19
 <	<	39:21
@@ -2102,10 +2190,12 @@ STRING	hello	42:19
 STRING	world	42:30
 ==	==	42:33
 KW_true	true	42:38
-}	}	43:2
+KW_end	end	43:4
 KW_test	test	45:5
-STRING	Comparison in expressions	45:33
-{	{	45:35
+IDENT	comparison_in_expressions	45:31
+(	(	45:32
+)	)	45:33
+KW_is	is	45:36
 KW_var	var	46:8
 IDENT	x	46:10
 :=	:=	46:13
@@ -2132,10 +2222,12 @@ KW_assert	assert	49:11
 IDENT	result	49:18
 KW_is	is	49:21
 KW_bool	bool	49:26
-}	}	50:2
+KW_end	end	50:4
 KW_test	test	52:5
-STRING	Complex comparison expressions	52:38
-{	{	52:40
+IDENT	complex_comparison_expressions	52:36
+(	(	52:37
+)	)	52:38
+KW_is	is	52:41
 KW_var	var	53:8
 IDENT	a	53:10
 :=	:=	53:13
@@ -2189,10 +2281,12 @@ KW_assert	assert	60:11
 IDENT	result3	60:19
 ==	==	60:22
 KW_true	true	60:27
-}	}	61:2
+KW_end	end	61:4
 KW_test	test	63:5
-STRING	Comparison with zero and negative numbers	63:49
-{	{	63:51
+IDENT	comparison_with_zero_and_negative_numbers	63:47
+(	(	63:48
+)	)	63:49
+KW_is	is	63:52
 KW_assert	assert	64:11
 INT	0	64:13
 <	<	64:15
@@ -2227,11 +2321,13 @@ REAL	3.14	68:17
 REAL	0.0	68:23
 ==	==	68:26
 KW_true	true	68:31
-}	}	69:2
+KW_end	end	69:4
 EOF		70:1
 KW_test	test	4:5
-STRING	Integer addition	4:24
-{	{	4:26
+IDENT	integer_addition	4:22
+(	(	4:23
+)	)	4:24
+KW_is	is	4:27
 KW_var	var	5:8
 IDENT	result	5:15
 :=	:=	5:18
@@ -2246,10 +2342,12 @@ KW_assert	assert	7:11
 IDENT	result	7:18
 KW_is	is	7:21
 KW_int	int	7:25
-}	}	8:2
+KW_end	end	8:4
 KW_test	test	10:5
-STRING	Integer subtraction	10:27
-{	{	10:29
+IDENT	integer_subtraction	10:25
+(	(	10:26
+)	)	10:27
+KW_is	is	10:30
 KW_var	var	11:8
 IDENT	result	11:15
 :=	:=	11:18
@@ -2264,10 +2362,12 @@ KW_assert	assert	13:11
 IDENT	result	13:18
 KW_is	is	13:21
 KW_int	int	13:25
-}	}	14:2
+KW_end	end	14:4
 KW_test	test	16:5
-STRING	Integer multiplication	16:30
-{	{	16:32
+IDENT	integer_multiplication	16:28
+(	(	16:29
+)	)	16:30
+KW_is	is	16:33
 KW_var	var	17:8
 IDENT	result	17:15
 :=	:=	17:18
@@ -2282,10 +2382,12 @@ KW_assert	assert	19:11
 IDENT	result	19:18
 KW_is	is	19:21
 KW_int	int	19:25
-}	}	20:2
+KW_end	end	20:4
 KW_test	test	22:5
-STRING	Integer division	22:24
-{	{	22:26
+IDENT	integer_division	22:22
+(	(	22:23
+)	)	22:24
+KW_is	is	22:27
 KW_var	var	23:8
 IDENT	result	23:15
 :=	:=	23:18
@@ -2300,10 +2402,12 @@ KW_assert	assert	25:11
 IDENT	result	25:18
 KW_is	is	25:21
 KW_int	int	25:25
-}	}	26:2
+KW_end	end	26:4
 KW_test	test	28:5
-STRING	Integer division with rounding down	28:43
-{	{	28:45
+IDENT	integer_division_with_rounding_down	28:41
+(	(	28:42
+)	)	28:43
+KW_is	is	28:46
 KW_var	var	29:8
 IDENT	result	29:15
 :=	:=	29:18
@@ -2318,10 +2422,12 @@ KW_assert	assert	31:11
 IDENT	result	31:18
 KW_is	is	31:21
 KW_int	int	31:25
-}	}	32:2
+KW_end	end	32:4
 KW_test	test	34:5
-STRING	Mixed integer and real arithmetic	34:41
-{	{	34:43
+IDENT	mixed_integer_and_real_arithmetic	34:39
+(	(	34:40
+)	)	34:41
+KW_is	is	34:44
 KW_var	var	35:8
 IDENT	result1	35:16
 :=	:=	35:19
@@ -2378,10 +2484,12 @@ KW_assert	assert	48:11
 IDENT	result4	48:19
 KW_is	is	48:22
 KW_real	real	48:27
-}	}	49:2
+KW_end	end	49:4
 KW_test	test	51:5
-STRING	Real arithmetic	51:23
-{	{	51:25
+IDENT	real_arithmetic	51:21
+(	(	51:22
+)	)	51:23
+KW_is	is	51:26
 KW_var	var	52:8
 IDENT	result1	52:16
 :=	:=	52:19
@@ -2438,10 +2546,12 @@ KW_assert	assert	65:11
 IDENT	result4	65:19
 KW_is	is	65:22
 KW_real	real	65:27
-}	}	66:2
+KW_end	end	66:4
 KW_test	test	68:5
-STRING	Unary plus and minus	68:28
-{	{	68:30
+IDENT	unary_plus_and_minus	68:26
+(	(	68:27
+)	)	68:28
+KW_is	is	68:31
 KW_var	var	69:8
 IDENT	x	69:10
 :=	:=	69:13
@@ -2504,10 +2614,12 @@ KW_assert	assert	84:11
 IDENT	result4	84:19
 KW_is	is	84:22
 KW_real	real	84:27
-}	}	85:2
+KW_end	end	85:4
 KW_test	test	87:5
-STRING	Complex arithmetic expressions	87:38
-{	{	87:40
+IDENT	complex_arithmetic_expressions	87:36
+(	(	87:37
+)	)	87:38
+KW_is	is	87:41
 KW_var	var	88:8
 IDENT	result	88:15
 :=	:=	88:18
@@ -2530,10 +2642,12 @@ KW_assert	assert	90:11
 IDENT	result	90:18
 KW_is	is	90:21
 KW_int	int	90:25
-}	}	91:2
+KW_end	end	91:4
 KW_test	test	93:5
-STRING	String concatenation	93:28
-{	{	93:30
+IDENT	string_concatenation	93:26
+(	(	93:27
+)	)	93:28
+KW_is	is	93:31
 KW_var	var	94:8
 IDENT	result1	94:16
 :=	:=	94:19
@@ -2578,11 +2692,13 @@ KW_assert	assert	104:11
 IDENT	result3	104:19
 KW_is	is	104:22
 KW_string	string	104:29
-}	}	105:2
+KW_end	end	105:4
 EOF		106:1
 KW_test	test	4:5
-STRING	Logical AND operation	4:29
-{	{	4:31
+IDENT	logical_and_operation	4:27
+(	(	4:28
+)	)	4:29
+KW_is	is	4:32
 KW_assert	assert	5:11
 (	(	5:13
 KW_true	true	5:17
@@ -2615,10 +2731,12 @@ KW_false	false	8:28
 )	)	8:29
 ==	==	8:32
 KW_false	false	8:38
-}	}	9:2
+KW_end	end	9:4
 KW_test	test	11:5
-STRING	Logical OR operation	11:28
-{	{	11:30
+IDENT	logical_or_operation	11:26
+(	(	11:27
+)	)	11:28
+KW_is	is	11:31
 KW_assert	assert	12:11
 (	(	12:13
 KW_true	true	12:17
@@ -2651,10 +2769,12 @@ KW_false	false	15:27
 )	)	15:28
 ==	==	15:31
 KW_false	false	15:37
-}	}	16:2
+KW_end	end	16:4
 KW_test	test	18:5
-STRING	Logical XOR operation	18:29
-{	{	18:31
+IDENT	logical_xor_operation	18:27
+(	(	18:28
+)	)	18:29
+KW_is	is	18:32
 KW_assert	assert	19:11
 (	(	19:13
 KW_true	true	19:17
@@ -2687,10 +2807,12 @@ KW_false	false	22:28
 )	)	22:29
 ==	==	22:32
 KW_false	false	22:38
-}	}	23:2
+KW_end	end	23:4
 KW_test	test	25:5
-STRING	Logical NOT operation	25:29
-{	{	25:31
+IDENT	logical_not_operation	25:27
+(	(	25:28
+)	)	25:29
+KW_is	is	25:32
 KW_assert	assert	26:11
 (	(	26:13
 KW_not	not	26:16
@@ -2705,10 +2827,12 @@ KW_false	false	27:22
 )	)	27:23
 ==	==	27:26
 KW_true	true	27:31
-}	}	28:2
+KW_end	end	28:4
 KW_test	test	30:5
-STRING	Complex logical expressions	30:35
-{	{	30:37
+IDENT	complex_logical_expressions	30:33
+(	(	30:34
+)	)	30:35
+KW_is	is	30:38
 KW_var	var	31:8
 IDENT	a	31:10
 :=	:=	31:13
@@ -2772,10 +2896,12 @@ KW_assert	assert	40:11
 IDENT	result4	40:19
 ==	==	40:22
 KW_false	false	40:28
-}	}	41:2
+KW_end	end	41:4
 KW_test	test	43:5
-STRING	Logical operations with comparison results	43:50
-{	{	43:52
+IDENT	logical_operations_with_comparison_results	43:48
+(	(	43:49
+)	)	43:50
+KW_is	is	43:53
 KW_var	var	44:8
 IDENT	x	44:10
 :=	:=	44:13
@@ -2829,10 +2955,12 @@ KW_assert	assert	51:11
 IDENT	result3	51:19
 ==	==	51:22
 KW_true	true	51:27
-}	}	52:2
+KW_end	end	52:4
 KW_test	test	54:5
-STRING	Short-circuit evaluation	54:32
-{	{	54:34
+IDENT	short_circuit_evaluation	54:30
+(	(	54:31
+)	)	54:32
+KW_is	is	54:35
 KW_var	var	55:8
 IDENT	called	55:15
 :=	:=	55:18
@@ -2868,10 +2996,12 @@ KW_assert	assert	61:11
 IDENT	called	61:18
 ==	==	61:21
 KW_false	false	61:27
-}	}	62:2
+KW_end	end	62:4
 KW_test	test	64:5
-STRING	Logical operations precedence	64:37
-{	{	64:39
+IDENT	logical_operations_precedence	64:35
+(	(	64:36
+)	)	64:37
+KW_is	is	64:40
 KW_var	var	66:8
 IDENT	result1	66:16
 :=	:=	66:19
@@ -2907,11 +3037,13 @@ KW_assert	assert	72:11
 IDENT	result3	72:19
 ==	==	72:22
 KW_true	true	72:27
-}	}	73:2
+KW_end	end	73:4
 EOF		74:1
 KW_test	test	4:5
-STRING	Arrow function syntax (=>)	4:34
-{	{	4:36
+IDENT	arrow_function_syntax	4:27
+(	(	4:28
+)	)	4:29
+KW_is	is	4:32
 KW_var	var	5:8
 IDENT	square	5:15
 :=	:=	5:18
@@ -2934,10 +3066,12 @@ KW_assert	assert	7:11
 IDENT	result	7:18
 ==	==	7:21
 INT	36	7:24
-}	}	8:2
+KW_end	end	8:4
 KW_test	test	10:5
-STRING	Arrow function with multiple statements	10:47
-{	{	10:49
+IDENT	arrow_function_with_multiple_statements	10:45
+(	(	10:46
+)	)	10:47
+KW_is	is	10:50
 KW_var	var	11:8
 IDENT	process	11:16
 :=	:=	11:19
@@ -2967,10 +3101,12 @@ KW_assert	assert	16:11
 IDENT	result	16:18
 ==	==	16:21
 INT	11	16:24
-}	}	17:2
+KW_end	end	17:4
 KW_test	test	19:5
-STRING	Function literal in assignment	19:38
-{	{	19:40
+IDENT	function_literal_in_assignment	19:36
+(	(	19:37
+)	)	19:38
+KW_is	is	19:41
 KW_var	var	20:8
 IDENT	f	20:10
 IDENT	f	21:6
@@ -2994,10 +3130,12 @@ KW_assert	assert	23:11
 IDENT	result	23:18
 ==	==	23:21
 INT	15	23:24
-}	}	24:2
+KW_end	end	24:4
 KW_test	test	26:5
-STRING	Function literal as array element	26:41
-{	{	26:43
+IDENT	function_literal_as_array_element	26:39
+(	(	26:40
+)	)	26:41
+KW_is	is	26:44
 KW_var	var	27:8
 IDENT	operations	27:19
 :=	:=	27:22
@@ -3059,10 +3197,12 @@ INT	10	35:28
 )	)	35:29
 ==	==	35:32
 INT	20	35:35
-}	}	36:2
+KW_end	end	36:4
 KW_test	test	38:5
-STRING	Function literal in tuple	38:33
-{	{	38:35
+IDENT	function_literal_in_tuple	38:31
+(	(	38:32
+)	)	38:33
+KW_is	is	38:36
 KW_var	var	39:8
 IDENT	math_ops	39:17
 :=	:=	39:20
@@ -3099,7 +3239,7 @@ IDENT	x	42:25
 IDENT	x	42:31
 *	*	42:33
 INT	2	42:35
-}	}	43:6
+KW_end	end	43:8
 KW_assert	assert	45:11
 IDENT	math_ops	45:20
 .	.	45:21
@@ -3127,10 +3267,12 @@ INT	5	47:29
 )	)	47:30
 ==	==	47:33
 INT	10	47:36
-}	}	48:2
+KW_end	end	48:4
 KW_test	test	50:5
-STRING	Function literal with no parameters	50:43
-{	{	50:45
+IDENT	function_literal_with_no_parameters	50:41
+(	(	50:42
+)	)	50:43
+KW_is	is	50:46
 KW_var	var	51:8
 IDENT	get_message	51:20
 :=	:=	51:23
@@ -3149,10 +3291,12 @@ KW_assert	assert	53:11
 IDENT	message	53:19
 ==	==	53:22
 STRING	Hello from function!	53:45
-}	}	54:2
+KW_end	end	54:4
 KW_test	test	56:5
-STRING	Complex arrow function	56:30
-{	{	56:32
+IDENT	complex_arrow_function	56:28
+(	(	56:29
+)	)	56:30
+KW_is	is	56:33
 KW_var	var	57:8
 IDENT	calculate	57:18
 :=	:=	57:21
@@ -3210,10 +3354,12 @@ KW_assert	assert	68:11
 IDENT	result2	68:19
 ==	==	68:22
 INT	10	68:25
-}	}	69:2
+KW_end	end	69:4
 KW_test	test	71:5
-STRING	Function literal with array operations	71:46
-{	{	71:48
+IDENT	function_literal_with_array_operations	71:44
+(	(	71:45
+)	)	71:46
+KW_is	is	71:49
 KW_var	var	72:8
 IDENT	sum_array	72:18
 :=	:=	72:21
@@ -3264,10 +3410,12 @@ KW_assert	assert	81:11
 IDENT	result	81:18
 ==	==	81:21
 INT	15	81:24
-}	}	82:2
+KW_end	end	82:4
 KW_test	test	84:5
-STRING	Higher-order function with arrow syntax	84:47
-{	{	84:49
+IDENT	higher_order_function_with_arrow_syntax	84:45
+(	(	84:46
+)	)	84:47
+KW_is	is	84:50
 KW_var	var	85:8
 IDENT	apply_twice	85:20
 :=	:=	85:23
@@ -3310,10 +3458,12 @@ KW_assert	assert	90:11
 IDENT	result	90:18
 ==	==	90:21
 INT	20	90:24
-}	}	91:2
+KW_end	end	91:4
 KW_test	test	93:5
-STRING	Function literal returning function	93:43
-{	{	93:45
+IDENT	function_literal_returning_function	93:41
+(	(	93:42
+)	)	93:43
+KW_is	is	93:46
 KW_var	var	94:8
 IDENT	make_multiplier	94:24
 :=	:=	94:27
@@ -3359,10 +3509,12 @@ INT	5	101:20
 )	)	101:21
 ==	==	101:24
 INT	15	101:27
-}	}	102:2
+KW_end	end	102:4
 KW_test	test	104:5
-STRING	Recursive arrow function	104:32
-{	{	104:34
+IDENT	recursive_arrow_function	104:30
+(	(	104:31
+)	)	104:32
+KW_is	is	104:35
 KW_var	var	105:8
 IDENT	fib	105:12
 :=	:=	105:15
@@ -3408,11 +3560,13 @@ INT	4	113:17
 )	)	113:18
 ==	==	113:21
 INT	3	113:23
-}	}	114:2
+KW_end	end	114:4
 EOF		115:1
 KW_test	test	4:5
-STRING	Simple function without parameters	4:42
-{	{	4:44
+IDENT	simple_function_without_parameters	4:40
+(	(	4:41
+)	)	4:42
+KW_is	is	4:45
 KW_var	var	5:8
 IDENT	greet	5:14
 :=	:=	5:17
@@ -3433,10 +3587,12 @@ KW_assert	assert	10:11
 IDENT	result	10:18
 ==	==	10:21
 STRING	Hello, World!	10:37
-}	}	11:2
+KW_end	end	11:4
 KW_test	test	13:5
-STRING	Function with single parameter	13:38
-{	{	13:40
+IDENT	function_with_single_parameter	13:36
+(	(	13:37
+)	)	13:38
+KW_is	is	13:41
 KW_var	var	14:8
 IDENT	square	14:15
 :=	:=	14:18
@@ -3472,10 +3628,12 @@ KW_assert	assert	21:11
 IDENT	result2	21:19
 ==	==	21:22
 REAL	12.25	21:28
-}	}	22:2
+KW_end	end	22:4
 KW_test	test	24:5
-STRING	Function with multiple parameters	24:41
-{	{	24:43
+IDENT	function_with_multiple_parameters	24:39
+(	(	24:40
+)	)	24:41
+KW_is	is	24:44
 KW_var	var	25:8
 IDENT	add	25:12
 :=	:=	25:15
@@ -3530,10 +3688,12 @@ KW_assert	assert	34:11
 IDENT	result3	34:19
 ==	==	34:22
 STRING	hello world	34:36
-}	}	35:2
+KW_end	end	35:4
 KW_test	test	37:5
-STRING	Function with return statement in middle	37:48
-{	{	37:50
+IDENT	function_with_return_statement_in_middle	37:46
+(	(	37:47
+)	)	37:48
+KW_is	is	37:51
 KW_var	var	38:8
 IDENT	check_positive	38:23
 :=	:=	38:26
@@ -3576,10 +3736,12 @@ INT	0	48:28
 )	)	48:29
 ==	==	48:32
 KW_false	false	48:38
-}	}	49:2
+KW_end	end	49:4
 KW_test	test	51:5
-STRING	Function without explicit return	51:40
-{	{	51:42
+IDENT	function_without_explicit_return	51:38
+(	(	51:39
+)	)	51:40
+KW_is	is	51:43
 KW_var	var	52:8
 IDENT	print_message	52:22
 :=	:=	52:25
@@ -3595,10 +3757,12 @@ IDENT	print_message	56:18
 (	(	56:19
 STRING	test	56:25
 )	)	56:26
-}	}	58:2
+KW_end	end	58:4
 KW_test	test	60:5
-STRING	Nested function calls	60:29
-{	{	60:31
+IDENT	nested_function_calls	60:27
+(	(	60:28
+)	)	60:29
+KW_is	is	60:32
 KW_var	var	61:8
 IDENT	double	61:15
 :=	:=	61:18
@@ -3639,10 +3803,12 @@ KW_assert	assert	65:11
 IDENT	result	65:18
 ==	==	65:21
 INT	12	65:24
-}	}	66:2
+KW_end	end	66:4
 KW_test	test	68:5
-STRING	Recursive function	68:26
-{	{	68:28
+IDENT	recursive_function	68:24
+(	(	68:25
+)	)	68:26
+KW_is	is	68:29
 KW_var	var	69:8
 IDENT	factorial	69:18
 :=	:=	69:21
@@ -3691,10 +3857,12 @@ INT	1	79:23
 )	)	79:24
 ==	==	79:27
 INT	1	79:29
-}	}	80:2
+KW_end	end	80:4
 KW_test	test	82:5
-STRING	Function stored in array	82:32
-{	{	82:34
+IDENT	function_stored_in_array	82:30
+(	(	82:31
+)	)	82:32
+KW_is	is	82:35
 KW_var	var	83:8
 IDENT	functions	83:18
 :=	:=	83:21
@@ -3774,10 +3942,12 @@ KW_assert	assert	95:11
 IDENT	result3	95:19
 ==	==	95:22
 INT	25	95:25
-}	}	96:2
+KW_end	end	96:4
 KW_test	test	98:5
-STRING	Function stored in tuple	98:32
-{	{	98:34
+IDENT	function_stored_in_tuple	98:30
+(	(	98:31
+)	)	98:32
+KW_is	is	98:35
 KW_var	var	99:8
 IDENT	calculator	99:19
 :=	:=	99:22
@@ -3811,7 +3981,7 @@ IDENT	a	101:43
 *	*	101:45
 IDENT	b	101:47
 KW_end	end	101:51
-}	}	102:6
+KW_end	end	102:8
 KW_var	var	104:8
 IDENT	sum	104:12
 :=	:=	104:15
@@ -3842,10 +4012,12 @@ KW_assert	assert	108:11
 IDENT	product	108:19
 ==	==	108:22
 INT	50	108:25
-}	}	109:2
+KW_end	end	109:4
 KW_test	test	111:5
-STRING	Function as parameter	111:29
-{	{	111:31
+IDENT	function_as_parameter	111:27
+(	(	111:28
+)	)	111:29
+KW_is	is	111:32
 KW_var	var	112:8
 IDENT	apply_operation	112:24
 :=	:=	112:27
@@ -3926,10 +4098,12 @@ KW_assert	assert	123:11
 IDENT	result2	123:19
 ==	==	123:22
 INT	15	123:25
-}	}	124:2
+KW_end	end	124:4
 KW_test	test	126:5
-STRING	Anonymous function in expression	126:40
-{	{	126:42
+IDENT	anonymous_function_in_expression	126:38
+(	(	126:39
+)	)	126:40
+KW_is	is	126:43
 KW_var	var	127:8
 IDENT	result	127:15
 :=	:=	127:18
@@ -3952,10 +4126,12 @@ KW_assert	assert	128:11
 IDENT	result	128:18
 ==	==	128:21
 INT	20	128:24
-}	}	129:2
+KW_end	end	129:4
 KW_test	test	131:5
-STRING	Function with local variables	131:37
-{	{	131:39
+IDENT	function_with_local_variables	131:35
+(	(	131:36
+)	)	131:37
+KW_is	is	131:40
 KW_var	var	132:8
 IDENT	complex_calc	132:21
 :=	:=	132:24
@@ -4004,11 +4180,13 @@ KW_assert	assert	141:11
 IDENT	result	141:18
 ==	==	141:21
 INT	18	141:24
-}	}	142:2
+KW_end	end	142:4
 EOF		143:1
 KW_test	test	4:5
-STRING	Simple tuple creation	4:29
-{	{	4:31
+IDENT	simple_tuple_creation	4:27
+(	(	4:28
+)	)	4:29
+KW_is	is	4:32
 KW_var	var	5:8
 IDENT	person	5:15
 :=	:=	5:18
@@ -4033,10 +4211,12 @@ IDENT	person	7:18
 IDENT	age	7:22
 ==	==	7:25
 INT	25	7:28
-}	}	8:2
+KW_end	end	8:4
 KW_test	test	10:5
-STRING	Tuple with mixed types	10:30
-{	{	10:32
+IDENT	tuple_with_mixed_types	10:28
+(	(	10:29
+)	)	10:30
+KW_is	is	10:33
 KW_var	var	11:8
 IDENT	data	11:13
 :=	:=	11:16
@@ -4081,10 +4261,12 @@ IDENT	data	15:16
 IDENT	desc	15:21
 ==	==	15:24
 STRING	test	15:31
-}	}	16:2
+KW_end	end	16:4
 KW_test	test	18:5
-STRING	Tuple with unnamed elements	18:35
-{	{	18:37
+IDENT	tuple_with_unnamed_elements	18:33
+(	(	18:34
+)	)	18:35
+KW_is	is	18:38
 KW_var	var	19:8
 IDENT	point	19:14
 :=	:=	19:17
@@ -4113,10 +4295,12 @@ IDENT	point	22:17
 INT	3	22:19
 ==	==	22:22
 INT	30	22:25
-}	}	23:2
+KW_end	end	23:4
 KW_test	test	25:5
-STRING	Mixed named and unnamed tuple elements	25:46
-{	{	25:48
+IDENT	mixed_named_and_unnamed_tuple_elements	25:44
+(	(	25:45
+)	)	25:46
+KW_is	is	25:49
 KW_var	var	26:8
 IDENT	mixed	26:14
 :=	:=	26:17
@@ -4169,10 +4353,12 @@ IDENT	mixed	32:17
 INT	4	32:19
 ==	==	32:22
 INT	400	32:26
-}	}	33:2
+KW_end	end	33:4
 KW_test	test	35:5
-STRING	Tuple element modification	35:34
-{	{	35:36
+IDENT	tuple_element_modification	35:32
+(	(	35:33
+)	)	35:34
+KW_is	is	35:37
 KW_var	var	36:8
 IDENT	person	36:15
 :=	:=	36:18
@@ -4207,10 +4393,12 @@ IDENT	person	40:18
 IDENT	age	40:22
 ==	==	40:25
 INT	30	40:28
-}	}	41:2
+KW_end	end	41:4
 KW_test	test	43:5
-STRING	Tuple concatenation	43:27
-{	{	43:29
+IDENT	tuple_concatenation	43:25
+(	(	43:26
+)	)	43:27
+KW_is	is	43:30
 KW_var	var	44:8
 IDENT	t1	44:11
 :=	:=	44:14
@@ -4265,10 +4453,12 @@ IDENT	result	50:18
 IDENT	d	50:20
 ==	==	50:23
 INT	4	50:25
-}	}	51:2
+KW_end	end	51:4
 KW_test	test	53:5
-STRING	Tuple concatenation with unnamed elements	53:49
-{	{	53:51
+IDENT	tuple_concatenation_with_unnamed_elements	53:47
+(	(	53:48
+)	)	53:49
+KW_is	is	53:52
 KW_var	var	54:8
 IDENT	t1	54:11
 :=	:=	54:14
@@ -4315,10 +4505,12 @@ IDENT	result	60:18
 INT	4	60:20
 ==	==	60:23
 INT	40	60:26
-}	}	61:2
+KW_end	end	61:4
 KW_test	test	63:5
-STRING	Tuple concatenation with mixed types	63:44
-{	{	63:46
+IDENT	tuple_concatenation_with_mixed_types	63:42
+(	(	63:43
+)	)	63:44
+KW_is	is	63:47
 KW_var	var	64:8
 IDENT	t1	64:11
 :=	:=	64:14
@@ -4371,10 +4563,12 @@ IDENT	result	70:18
 IDENT	completed	70:28
 ==	==	70:31
 KW_true	true	70:36
-}	}	71:2
+KW_end	end	71:4
 KW_test	test	73:5
-STRING	Nested tuple access	73:27
-{	{	73:29
+IDENT	nested_tuple_access	73:25
+(	(	73:26
+)	)	73:27
+KW_is	is	73:30
 KW_var	var	74:8
 IDENT	company	74:16
 :=	:=	74:19
@@ -4399,8 +4593,8 @@ STRING	Sales	78:51
 ,	,	78:52
 STRING	HR	78:57
 }	}	78:58
-}	}	79:10
-}	}	80:6
+KW_end	end	79:12
+KW_end	end	80:8
 KW_assert	assert	81:11
 IDENT	company	81:19
 .	.	81:20
@@ -4445,10 +4639,12 @@ IDENT	departments	85:41
 INT	3	85:43
 ==	==	85:46
 STRING	HR	85:51
-}	}	86:2
+KW_end	end	86:4
 KW_test	test	88:5
-STRING	Tuple in array	88:22
-{	{	88:24
+IDENT	tuple_in_array	88:20
+(	(	88:21
+)	)	88:22
+KW_is	is	88:25
 KW_var	var	89:8
 IDENT	people	89:15
 :=	:=	89:18
@@ -4537,10 +4733,12 @@ INT	3	99:20
 IDENT	age	99:25
 ==	==	99:28
 INT	35	99:31
-}	}	100:2
+KW_end	end	100:4
 KW_test	test	102:5
-STRING	Array in tuple	102:22
-{	{	102:24
+IDENT	array_in_tuple	102:20
+(	(	102:21
+)	)	102:22
+KW_is	is	102:25
 KW_var	var	103:8
 IDENT	data	103:13
 :=	:=	103:16
@@ -4562,7 +4760,7 @@ INT	40	105:34
 ,	,	105:35
 INT	50	105:38
 ]	]	105:39
-}	}	106:6
+KW_end	end	106:8
 KW_assert	assert	107:11
 IDENT	data	107:16
 .	.	107:17
@@ -4596,10 +4794,12 @@ INT	5	110:25
 ]	]	110:26
 ==	==	110:29
 INT	50	110:32
-}	}	111:2
+KW_end	end	111:4
 KW_test	test	113:5
-STRING	Tuple field reassignment with different types	113:53
-{	{	113:55
+IDENT	tuple_field_reassignment_with_different_types	113:51
+(	(	113:52
+)	)	113:53
+KW_is	is	113:56
 KW_var	var	114:8
 IDENT	item	114:13
 :=	:=	114:16
@@ -4642,10 +4842,12 @@ IDENT	item	121:16
 IDENT	value	121:22
 KW_is	is	121:25
 KW_string	string	121:32
-}	}	122:2
+KW_end	end	122:4
 KW_test	test	124:5
-STRING	Complex tuple operations	124:32
-{	{	124:34
+IDENT	complex_tuple_operations	124:30
+(	(	124:31
+)	)	124:32
+KW_is	is	124:35
 KW_var	var	125:8
 IDENT	result	125:15
 :=	:=	125:18
@@ -4662,7 +4864,7 @@ IDENT	data	128:13
 :=	:=	128:16
 [	[	128:18
 ]	]	128:19
-}	}	129:6
+KW_end	end	129:8
 KW_for	for	131:8
 IDENT	i	131:10
 KW_in	in	131:13
@@ -4737,11 +4939,13 @@ INT	5	140:25
 ]	]	140:26
 ==	==	140:29
 INT	50	140:32
-}	}	141:2
+KW_end	end	141:4
 EOF		142:1
 KW_test	test	4:5
-STRING	Empty array creation	4:28
-{	{	4:30
+IDENT	empty_array_creation	4:26
+(	(	4:27
+)	)	4:28
+KW_is	is	4:31
 KW_var	var	5:8
 IDENT	arr	5:12
 :=	:=	5:15
@@ -4752,10 +4956,12 @@ IDENT	arr	6:15
 KW_is	is	6:18
 [	[	6:20
 ]	]	6:21
-}	}	8:2
+KW_end	end	8:4
 KW_test	test	10:5
-STRING	Array with single element	10:33
-{	{	10:35
+IDENT	array_with_single_element	10:31
+(	(	10:32
+)	)	10:33
+KW_is	is	10:36
 KW_var	var	11:8
 IDENT	arr	11:12
 :=	:=	11:15
@@ -4776,10 +4982,12 @@ INT	1	13:17
 ]	]	13:18
 KW_is	is	13:21
 KW_int	int	13:25
-}	}	14:2
+KW_end	end	14:4
 KW_test	test	16:5
-STRING	Array with multiple elements	16:36
-{	{	16:38
+IDENT	array_with_multiple_elements	16:34
+(	(	16:35
+)	)	16:36
+KW_is	is	16:39
 KW_var	var	17:8
 IDENT	arr	17:12
 :=	:=	17:15
@@ -4829,10 +5037,12 @@ INT	5	22:17
 ]	]	22:18
 ==	==	22:21
 INT	5	22:23
-}	}	23:2
+KW_end	end	23:4
 KW_test	test	25:5
-STRING	Array with mixed types	25:30
-{	{	25:32
+IDENT	array_with_mixed_types	25:28
+(	(	25:29
+)	)	25:30
+KW_is	is	25:33
 KW_var	var	26:8
 IDENT	arr	26:12
 :=	:=	26:15
@@ -4882,10 +5092,12 @@ INT	5	31:17
 ]	]	31:18
 KW_is	is	31:21
 KW_none	none	31:26
-}	}	32:2
+KW_end	end	32:4
 KW_test	test	34:5
-STRING	Array element assignment	34:32
-{	{	34:34
+IDENT	array_element_assignment	34:30
+(	(	34:31
+)	)	34:32
+KW_is	is	34:35
 KW_var	var	35:8
 IDENT	arr	35:12
 :=	:=	35:15
@@ -4935,10 +5147,12 @@ INT	3	41:17
 ]	]	41:18
 ==	==	41:21
 INT	30	41:24
-}	}	42:2
+KW_end	end	42:4
 KW_test	test	44:5
-STRING	Array with non-consecutive indices	44:42
-{	{	44:44
+IDENT	array_with_non_consecutive_indices	44:40
+(	(	44:41
+)	)	44:42
+KW_is	is	44:45
 KW_var	var	45:8
 IDENT	arr	45:12
 :=	:=	45:15
@@ -4983,10 +5197,12 @@ INT	1000	51:20
 ]	]	51:21
 ==	==	51:24
 INT	10000	51:30
-}	}	52:2
+KW_end	end	52:4
 KW_test	test	54:5
-STRING	Array element reassignment	54:34
-{	{	54:36
+IDENT	array_element_reassignment	54:32
+(	(	54:33
+)	)	54:34
+KW_is	is	54:37
 KW_var	var	55:8
 IDENT	arr	55:12
 :=	:=	55:15
@@ -5037,10 +5253,12 @@ INT	2	61:17
 ]	]	61:18
 KW_is	is	61:21
 KW_real	real	61:26
-}	}	62:2
+KW_end	end	62:4
 KW_test	test	64:5
-STRING	Array concatenation	64:27
-{	{	64:29
+IDENT	array_concatenation	64:25
+(	(	64:26
+)	)	64:27
+KW_is	is	64:30
 KW_var	var	65:8
 IDENT	arr1	65:13
 :=	:=	65:16
@@ -5109,10 +5327,12 @@ INT	6	73:20
 ]	]	73:21
 ==	==	73:24
 INT	6	73:26
-}	}	74:2
+KW_end	end	74:4
 KW_test	test	76:5
-STRING	Array concatenation with mixed types	76:44
-{	{	76:46
+IDENT	array_concatenation_with_mixed_types	76:42
+(	(	76:43
+)	)	76:44
+KW_is	is	76:47
 KW_var	var	77:8
 IDENT	arr1	77:13
 :=	:=	77:16
@@ -5163,10 +5383,12 @@ INT	4	83:20
 ]	]	83:21
 ==	==	83:24
 REAL	3.14	83:29
-}	}	84:2
+KW_end	end	84:4
 KW_test	test	86:5
-STRING	Array concatenation with empty arrays	86:45
-{	{	86:47
+IDENT	array_concatenation_with_empty_arrays	86:43
+(	(	86:44
+)	)	86:45
+KW_is	is	86:48
 KW_var	var	87:8
 IDENT	arr1	87:13
 :=	:=	87:16
@@ -5220,10 +5442,12 @@ INT	2	94:21
 ]	]	94:22
 ==	==	94:25
 INT	2	94:27
-}	}	95:2
+KW_end	end	95:4
 KW_test	test	97:5
-STRING	Array in expressions	97:28
-{	{	97:30
+IDENT	array_in_expressions	97:26
+(	(	97:27
+)	)	97:28
+KW_is	is	97:31
 KW_var	var	98:8
 IDENT	arr	98:12
 :=	:=	98:15
@@ -5255,10 +5479,12 @@ KW_assert	assert	100:11
 IDENT	result	100:18
 ==	==	100:21
 INT	60	100:24
-}	}	101:2
+KW_end	end	101:4
 KW_test	test	103:5
-STRING	Nested array access	103:27
-{	{	103:29
+IDENT	nested_array_access	103:25
+(	(	103:26
+)	)	103:27
+KW_is	is	103:30
 KW_var	var	104:8
 IDENT	matrix	104:15
 :=	:=	104:18
@@ -5341,10 +5567,12 @@ INT	2	110:23
 ]	]	110:24
 ==	==	110:27
 INT	6	110:29
-}	}	111:2
+KW_end	end	111:4
 KW_test	test	113:5
-STRING	Array modification in loop	113:34
-{	{	113:36
+IDENT	array_modification_in_loop	113:32
+(	(	113:33
+)	)	113:34
+KW_is	is	113:37
 KW_var	var	114:8
 IDENT	arr	114:12
 :=	:=	114:15
@@ -5411,21 +5639,25 @@ INT	5	122:17
 ]	]	122:18
 ==	==	122:21
 INT	50	122:24
-}	}	123:2
+KW_end	end	123:4
 EOF		124:1
 KW_test	test	4:5
-STRING	Print single value	4:26
-{	{	4:28
+IDENT	print_single_value	4:24
+(	(	4:25
+)	)	4:26
+KW_is	is	4:29
 KW_var	var	5:8
 IDENT	x	5:10
 :=	:=	5:13
 INT	42	5:16
 KW_print	print	6:10
 IDENT	x	6:12
-}	}	8:2
+KW_end	end	8:4
 KW_test	test	10:5
-STRING	Print multiple values	10:29
-{	{	10:31
+IDENT	print_multiple_values	10:27
+(	(	10:28
+)	)	10:29
+KW_is	is	10:32
 KW_var	var	11:8
 IDENT	a	11:10
 :=	:=	11:13
@@ -5444,10 +5676,12 @@ IDENT	a	12:12
 IDENT	b	12:15
 ,	,	12:16
 IDENT	c	12:18
-}	}	14:2
+KW_end	end	14:4
 KW_test	test	16:5
-STRING	Print boolean values	16:28
-{	{	16:30
+IDENT	print_boolean_values	16:26
+(	(	16:27
+)	)	16:28
+KW_is	is	16:31
 KW_var	var	17:8
 IDENT	t	17:10
 :=	:=	17:13
@@ -5460,20 +5694,24 @@ KW_print	print	18:10
 IDENT	t	18:12
 ,	,	18:13
 IDENT	f	18:15
-}	}	20:2
+KW_end	end	20:4
 KW_test	test	22:5
-STRING	Print none value	22:24
-{	{	22:26
+IDENT	print_none_value	22:22
+(	(	22:23
+)	)	22:24
+KW_is	is	22:27
 KW_var	var	23:8
 IDENT	n	23:10
 :=	:=	23:13
 KW_none	none	23:18
 KW_print	print	24:10
 IDENT	n	24:12
-}	}	26:2
+KW_end	end	26:4
 KW_test	test	28:5
-STRING	Print expressions	28:25
-{	{	28:27
+IDENT	print_expressions	28:23
+(	(	28:24
+)	)	28:25
+KW_is	is	28:28
 KW_var	var	29:8
 IDENT	x	29:10
 :=	:=	29:13
@@ -5490,10 +5728,12 @@ IDENT	y	30:16
 IDENT	x	30:19
 *	*	30:21
 INT	2	30:23
-}	}	32:2
+KW_end	end	32:4
 KW_test	test	34:5
-STRING	Print in loop	34:21
-{	{	34:23
+IDENT	print_in_loop	34:19
+(	(	34:20
+)	)	34:21
+KW_is	is	34:24
 KW_for	for	35:8
 IDENT	i	35:10
 KW_in	in	35:13
@@ -5507,11 +5747,13 @@ STRING	Iteration:	36:27
 ,	,	36:28
 IDENT	i	36:30
 KW_end	end	37:8
-}	}	42:2
+KW_end	end	42:4
 EOF		43:1
 KW_test	test	4:5
-STRING	Integer literals	4:24
-{	{	4:26
+IDENT	integer_literals	4:22
+(	(	4:23
+)	)	4:24
+KW_is	is	4:27
 KW_var	var	5:8
 IDENT	i1	5:11
 :=	:=	5:14
@@ -5550,10 +5792,12 @@ KW_assert	assert	13:11
 IDENT	i3	13:14
 KW_is	is	13:17
 KW_int	int	13:21
-}	}	14:2
+KW_end	end	14:4
 KW_test	test	16:5
-STRING	Real literals	16:21
-{	{	16:23
+IDENT	real_literals	16:19
+(	(	16:20
+)	)	16:21
+KW_is	is	16:24
 KW_var	var	17:8
 IDENT	r1	17:11
 :=	:=	17:14
@@ -5604,10 +5848,12 @@ KW_assert	assert	28:11
 IDENT	r4	28:14
 KW_is	is	28:17
 KW_real	real	28:22
-}	}	29:2
+KW_end	end	29:4
 KW_test	test	31:5
-STRING	Boolean literals	31:24
-{	{	31:26
+IDENT	boolean_literals	31:22
+(	(	31:23
+)	)	31:24
+KW_is	is	31:27
 KW_var	var	32:8
 IDENT	b1	32:11
 :=	:=	32:14
@@ -5632,10 +5878,12 @@ KW_assert	assert	37:11
 IDENT	b2	37:14
 KW_is	is	37:17
 KW_bool	bool	37:22
-}	}	38:2
+KW_end	end	38:4
 KW_test	test	40:5
-STRING	String literals	40:23
-{	{	40:25
+IDENT	string_literals	40:21
+(	(	40:22
+)	)	40:23
+KW_is	is	40:26
 KW_var	var	41:8
 IDENT	s1	41:11
 :=	:=	41:14
@@ -5684,5 +5932,5 @@ KW_assert	assert	52:11
 IDENT	s4	52:14
 KW_is	is	52:17
 KW_string	string	52:24
-}	}	53:2
+KW_end	end	53:4
 EOF		54:1

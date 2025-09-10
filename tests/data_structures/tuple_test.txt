@@ -1,28 +1,28 @@
 // Test: Tuple Operations
 // Tests tuple creation, access, modification, and operations
 
-test "Simple tuple creation" {
+test simple_tuple_creation() is
     var person := {name := "John", age := 25}
     assert person.name == "John"
     assert person.age == 25
-}
+end
 
-test "Tuple with mixed types" {
+test tuple_with_mixed_types() is
     var data := {id := 1, value := 3.14, active := true, desc := "test"}
     assert data.id == 1
     assert data.value == 3.14
     assert data.active == true
     assert data.desc == "test"
-}
+end
 
-test "Tuple with unnamed elements" {
+test tuple_with_unnamed_elements() is
     var point := {10, 20, 30}
     assert point.1 == 10
     assert point.2 == 20
     assert point.3 == 30
-}
+end
 
-test "Mixed named and unnamed tuple elements" {
+test mixed_named_and_unnamed_tuple_elements() is
     var mixed := {x := 100, 200, z := 300, 400}
     assert mixed.x == 100
     assert mixed.1 == 100  // first element by position
@@ -30,17 +30,17 @@ test "Mixed named and unnamed tuple elements" {
     assert mixed.z == 300
     assert mixed.3 == 300  // third element by position
     assert mixed.4 == 400  // fourth element by position
-}
+end
 
-test "Tuple element modification" {
+test tuple_element_modification() is
     var person := {name := "John", age := 25}
     person.name := "Jane"
     person.age := 30
     assert person.name == "Jane"
     assert person.age == 30
-}
+end
 
-test "Tuple concatenation" {
+test tuple_concatenation() is
     var t1 := {a := 1, b := 2}
     var t2 := {c := 3, d := 4}
     var result := t1 + t2
@@ -48,9 +48,9 @@ test "Tuple concatenation" {
     assert result.b == 2
     assert result.c == 3
     assert result.d == 4
-}
+end
 
-test "Tuple concatenation with unnamed elements" {
+test tuple_concatenation_with_unnamed_elements() is
     var t1 := {10, 20}
     var t2 := {30, 40}
     var result := t1 + t2
@@ -58,9 +58,9 @@ test "Tuple concatenation with unnamed elements" {
     assert result.2 == 20
     assert result.3 == 30
     assert result.4 == 40
-}
+end
 
-test "Tuple concatenation with mixed types" {
+test tuple_concatenation_with_mixed_types() is
     var t1 := {name := "John", score := 85}
     var t2 := {85.5, completed := true}
     var result := t1 + t2
@@ -68,24 +68,24 @@ test "Tuple concatenation with mixed types" {
     assert result.score == 85
     assert result.1 == 85.5
     assert result.completed == true
-}
+end
 
-test "Nested tuple access" {
+test nested_tuple_access() is
     var company := {
         name := "TechCorp",
         employees := {
             count := 50,
             departments := {"Engineering", "Sales", "HR"}
-        }
-    }
+        end
+    end
     assert company.name == "TechCorp"
     assert company.employees.count == 50
     assert company.employees.departments.1 == "Engineering"
     assert company.employees.departments.2 == "Sales"
     assert company.employees.departments.3 == "HR"
-}
+end
 
-test "Tuple in array" {
+test tuple_in_array() is
     var people := [
         {name := "Alice", age := 25},
         {name := "Bob", age := 30},
@@ -97,20 +97,20 @@ test "Tuple in array" {
     assert people[2].age == 30
     assert people[3].name == "Charlie"
     assert people[3].age == 35
-}
+end
 
-test "Array in tuple" {
+test array_in_tuple() is
     var data := {
         name := "Report",
         values := [10, 20, 30, 40, 50]
-    }
+    end
     assert data.name == "Report"
     assert data.values[1] == 10
     assert data.values[3] == 30
     assert data.values[5] == 50
-}
+end
 
-test "Tuple field reassignment with different types" {
+test tuple_field_reassignment_with_different_types() is
     var item := {value := 100}
     item.value := 200.5
     assert item.value == 200.5
@@ -119,14 +119,14 @@ test "Tuple field reassignment with different types" {
     item.value := "changed"
     assert item.value == "changed"
     assert item.value is string
-}
+end
 
-test "Complex tuple operations" {
+test complex_tuple_operations() is
     var result := {
         sum := 0,
         count := 0,
         data := []
-    }
+    end
 
     for i in 1..5 loop
         result.data := result.data + [i * 10]
@@ -138,4 +138,4 @@ test "Complex tuple operations" {
     assert result.sum == 150  // 10+20+30+40+50
     assert result.data[1] == 10
     assert result.data[5] == 50
-}
+end

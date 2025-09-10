@@ -1,33 +1,33 @@
 // Test: Logical Operations
 // Tests logical operations (and, or, xor, not)
 
-test "Logical AND operation" {
+test logical_and_operation() is
     assert (true and true) == true
     assert (true and false) == false
     assert (false and true) == false
     assert (false and false) == false
-}
+end
 
-test "Logical OR operation" {
+test logical_or_operation() is
     assert (true or true) == true
     assert (true or false) == true
     assert (false or true) == true
     assert (false or false) == false
-}
+end
 
-test "Logical XOR operation" {
+test logical_xor_operation() is
     assert (true xor true) == false
     assert (true xor false) == true
     assert (false xor true) == true
     assert (false xor false) == false
-}
+end
 
-test "Logical NOT operation" {
+test logical_not_operation() is
     assert (not true) == false
     assert (not false) == true
-}
+end
 
-test "Complex logical expressions" {
+test complex_logical_expressions() is
     var a := true, b := false, c := true
     var result1 := a and b or c
     var result2 := a or b and c
@@ -38,9 +38,9 @@ test "Complex logical expressions" {
     assert result2 == true   // true or false and true = true or false = true
     assert result3 == true   // not (true and false) = not false = true
     assert result4 == false  // true xor (false or true) = true xor true = false
-}
+end
 
-test "Logical operations with comparison results" {
+test logical_operations_with_comparison_results() is
     var x := 5, y := 10, z := 15
     var result1 := x < y and y < z
     var result2 := x > y or z > y
@@ -49,9 +49,9 @@ test "Logical operations with comparison results" {
     assert result1 == true
     assert result2 == true
     assert result3 == true
-}
+end
 
-test "Short-circuit evaluation" {
+test short_circuit_evaluation() is
     var called := false
     var result1 := false and (called := true)
     assert called == false  // should not be called due to short-circuit
@@ -59,9 +59,9 @@ test "Short-circuit evaluation" {
     called := false
     var result2 := true or (called := true)
     assert called == false  // should not be called due to short-circuit
-}
+end
 
-test "Logical operations precedence" {
+test logical_operations_precedence() is
     // Testing operator precedence: not > and > or > xor
     var result1 := not false and true
     var result2 := true or false and false
@@ -70,4 +70,4 @@ test "Logical operations precedence" {
     assert result1 == true   // (not false) and true = true and true = true
     assert result2 == true   // true or (false and false) = true or false = true
     assert result3 == true   // true xor (true and false) = true xor false = true
-}
+end

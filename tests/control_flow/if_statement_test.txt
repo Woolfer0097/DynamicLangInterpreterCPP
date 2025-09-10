@@ -1,15 +1,15 @@
 // Test: If Statement
 // Tests conditional execution with different conditions
 
-test "Simple if-then statement" {
+test simple_if_then_statement() is
     var x := 0
     if true then
         x := 42
     end
     assert x == 42
-}
+end
 
-test "If with else clause" {
+test if_with_else_clause() is
     var x := 0
     var condition := true
     if condition then
@@ -26,9 +26,9 @@ test "If with else clause" {
         x := 400
     end
     assert x == 400
-}
+end
 
-test "If with comparison condition" {
+test if_with_comparison_condition() is
     var x := 0
     var y := 5
     if y > 3 then
@@ -40,18 +40,18 @@ test "If with comparison condition" {
         x := 2
     end
     assert x == 1  // should remain 1
-}
+end
 
-test "If-short form (=>)" {
+test if_short_form() is
     var x := 0
     if 5 > 3 => x := 25
     assert x == 25
 
     if 3 > 5 => x := 50
     assert x == 25  // should not change
-}
+end
 
-test "Variable scope in if blocks" {
+test variable_scope_in_if_blocks() is
     var outer := 100
     if true then
         var inner := 200
@@ -60,9 +60,9 @@ test "Variable scope in if blocks" {
     end
     assert outer == 100
     // inner should be out of scope
-}
+end
 
-test "Multiple statements in if block" {
+test multiple_statements_in_if_block() is
     var a := 0, b := 0
     if true then
         a := 10
@@ -72,4 +72,4 @@ test "Multiple statements in if block" {
     end
     assert a == 10
     assert b == 20
-}
+end

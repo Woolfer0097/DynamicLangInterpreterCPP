@@ -1,37 +1,37 @@
 // Test: Array Operations
 // Tests array creation, access, modification, and operations
 
-test "Empty array creation" {
+test empty_array_creation() is
     var arr := []
     assert arr is []
     // Empty array should be valid
-}
+end
 
-test "Array with single element" {
+test array_with_single_element() is
     var arr := [42]
     assert arr[1] == 42
     assert arr[1] is int
-}
+end
 
-test "Array with multiple elements" {
+test array_with_multiple_elements() is
     var arr := [1, 2, 3, 4, 5]
     assert arr[1] == 1
     assert arr[2] == 2
     assert arr[3] == 3
     assert arr[4] == 4
     assert arr[5] == 5
-}
+end
 
-test "Array with mixed types" {
+test array_with_mixed_types() is
     var arr := [1, 2.5, "hello", true, none]
     assert arr[1] == 1
     assert arr[2] == 2.5
     assert arr[3] == "hello"
     assert arr[4] == true
     assert arr[5] is none
-}
+end
 
-test "Array element assignment" {
+test array_element_assignment() is
     var arr := [0, 0, 0]
     arr[1] := 10
     arr[2] := 20
@@ -39,9 +39,9 @@ test "Array element assignment" {
     assert arr[1] == 10
     assert arr[2] == 20
     assert arr[3] == 30
-}
+end
 
-test "Array with non-consecutive indices" {
+test array_with_non_consecutive_indices() is
     var arr := []
     arr[10] := 100
     arr[50] := 500
@@ -49,9 +49,9 @@ test "Array with non-consecutive indices" {
     assert arr[10] == 100
     assert arr[50] == 500
     assert arr[1000] == 10000
-}
+end
 
-test "Array element reassignment" {
+test array_element_reassignment() is
     var arr := [1, 2, 3]
     arr[2] := "changed"
     assert arr[2] == "changed"
@@ -59,9 +59,9 @@ test "Array element reassignment" {
     arr[2] := 42.5
     assert arr[2] == 42.5
     assert arr[2] is real
-}
+end
 
-test "Array concatenation" {
+test array_concatenation() is
     var arr1 := [1, 2, 3]
     var arr2 := [4, 5, 6]
     var result := arr1 + arr2
@@ -71,9 +71,9 @@ test "Array concatenation" {
     assert result[4] == 4
     assert result[5] == 5
     assert result[6] == 6
-}
+end
 
-test "Array concatenation with mixed types" {
+test array_concatenation_with_mixed_types() is
     var arr1 := [1, "hello"]
     var arr2 := [true, 3.14]
     var result := arr1 + arr2
@@ -81,9 +81,9 @@ test "Array concatenation with mixed types" {
     assert result[2] == "hello"
     assert result[3] == true
     assert result[4] == 3.14
-}
+end
 
-test "Array concatenation with empty arrays" {
+test array_concatenation_with_empty_arrays() is
     var arr1 := [1, 2]
     var empty := []
     var result1 := arr1 + empty
@@ -92,15 +92,15 @@ test "Array concatenation with empty arrays" {
     assert result1[2] == 2
     assert result2[1] == 1
     assert result2[2] == 2
-}
+end
 
-test "Array in expressions" {
+test array_in_expressions() is
     var arr := [10, 20, 30]
     var result := arr[1] + arr[2] + arr[3]
     assert result == 60
-}
+end
 
-test "Nested array access" {
+test nested_array_access() is
     var matrix := [[1, 2], [3, 4], [5, 6]]
     assert matrix[1][1] == 1
     assert matrix[1][2] == 2
@@ -108,9 +108,9 @@ test "Nested array access" {
     assert matrix[2][2] == 4
     assert matrix[3][1] == 5
     assert matrix[3][2] == 6
-}
+end
 
-test "Array modification in loop" {
+test array_modification_in_loop() is
     var arr := [0, 0, 0, 0, 0]
     for i in 1..5 loop
         arr[i] := i * 10
@@ -120,4 +120,4 @@ test "Array modification in loop" {
     assert arr[3] == 30
     assert arr[4] == 40
     assert arr[5] == 50
-}
+end

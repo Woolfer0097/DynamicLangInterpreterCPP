@@ -15,13 +15,7 @@ Run demo:
 ./dli
 ```
 
-Dump tokens from file:
-
-```bash
-./lexdump tests/lexer/keywords_identifiers.txt | sed -n '1,20p'
-```
-
-Run lexer over all tests (relative paths, no abbreviations):
+Run lexer over all tests:
 
 ```bash
 # Build lexdump from repo root
