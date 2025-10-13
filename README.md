@@ -25,3 +25,21 @@ g++ -std=c++17 -O2 -Wall -Wextra -I. -o lexdump tools/lexdump.cpp lexer/lexer.cp
 find tests -type f -name '*.txt' -print0 | xargs -0 -I{} sh -c './lexdump "$1"' _ {} > tokens.log
 ```
 
+Build parser (Bison C++), AST pretty-printer, and print tool:
+
+```bash
+# Generate parser (from repo root)
+bison -o lexer/parser.cpp -H lexer/parser.hpp lexer/parser.y
+
+# Build print_ast tool
+g++ -std=c++17 -O2 -Wall -Wextra -I. \
+    -o print_ast \
+    tools/print_ast.cpp \
+    lexer/lexer.cpp \
+    lexer/parser.cpp \
+    ast/AcceptImpl.cpp
+
+# Usage
+./print_ast tests/expressions/arithmetic_test.txt
+```
+

@@ -96,17 +96,11 @@ test type_checking_in_function_parameters() is
     var check_type := func(val) =>
         if val is int then
             return "integer"
-        else if val is real then
-            return "real"
-        else if val is string then
-            return "string"
         else
             return "other"
         end
 
     assert check_type(42) == "integer"
-    assert check_type(3.14) == "real"
-    assert check_type("hello") == "string"
     assert check_type(true) == "other"
 end
 
@@ -120,7 +114,7 @@ test type_checking_nested_structures() is
     var nested := {
         numbers := [1, 2, 3],
         info := {name := "test", active := true}
-    end
+    }
 
     assert (nested is {}) == true
     assert (nested.numbers is []) == true

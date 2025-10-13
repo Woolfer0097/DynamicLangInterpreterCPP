@@ -50,12 +50,12 @@ enum class TokenType {
     AssignColon,     // :=
     Equal,           // =
     EqualEqual,      // ==
+    Arrow,           // =>
     Less,            // <
     LessEqual,       // <=
     Greater,         // >
     GreaterEqual,    // >=
     NotEqualSlash,   // /=
-    Arrow,           // =>
     Plus,            // +
     Minus,           // -
     Star,            // *
@@ -67,6 +67,7 @@ enum class TokenType {
     LBrace,          // {
     RBrace,          // }
     Dot,             // .
+    DotDot,          // ..
     Semicolon,       // ;
     Comma            // ,
 };

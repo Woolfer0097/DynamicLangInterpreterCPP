@@ -196,7 +196,9 @@ Token Lexer::scanSymbol() {
         case ']': return makeToken(TokenType::RBracket, "]");
         case '{': return makeToken(TokenType::LBrace, "{");
         case '}': return makeToken(TokenType::RBrace, "}");
-        case '.': return makeToken(TokenType::Dot, ".");
+        case '.':
+            if (match('.')) return makeToken(TokenType::DotDot, "..");
+            return makeToken(TokenType::Dot, ".");
         case ';': return makeToken(TokenType::Semicolon, ";");
         case ',': return makeToken(TokenType::Comma, ",");
         default:
