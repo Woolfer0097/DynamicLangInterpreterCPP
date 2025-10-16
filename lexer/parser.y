@@ -40,7 +40,6 @@
     }
 
     namespace dli {
-        // Thread-local текущий лексер, настраивается в %initial-action
         thread_local Lexer* g_current_lexer = nullptr;
 
         Parser::symbol_type yylex() {

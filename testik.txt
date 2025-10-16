@@ -1,0 +1,4 @@
+test testik() is
+    var result := func(x, y) is return (x + y) end
+    assert result(1, 2) == 3
+end
