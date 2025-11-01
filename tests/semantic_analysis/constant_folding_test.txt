@@ -1,0 +1,47 @@
+// Test: constant expression simplification (optimization)
+// This test checks that constant expressions are evaluated at compile time
+
+test arithmetic_constants() is
+    var x := 5 + 3  // Should optimize to 8
+    var y := 10 - 4  // Should optimize to 6
+    var z := 2 * 3  // Should optimize to 6
+    var w := 15 / 3  // Should optimize to 5
+    
+    assert x = 8
+    assert y = 6
+    assert z = 6
+    assert w = 5
+end
+
+test nested_constants() is
+    var a := (5 + 3) * 2  // Should optimize to 16
+    var b := 10 + (4 - 2)  // Should optimize to 12
+    var c := (2 * 3) + (4 * 2)  // Should optimize to 14
+    
+    assert a = 16
+    assert b = 12
+    assert c = 14
+end
+
+test comparison_constants() is
+    var less := 5 < 10  // Should optimize to true
+    var greater := 10 > 5  // Should optimize to true
+    var equal := 5 = 5  // Should optimize to true
+    var not_equal := 5 /= 10  // Should optimize to true
+    
+    assert less = True
+    assert greater = True
+    assert equal = True
+    assert not_equal = True
+end
+
+test boolean_constants() is
+    var and_result := True and False  // Should optimize to false
+    var or_result := True or False  // Should optimize to true
+    var xor_result := True xor False  // Should optimize to true
+    
+    assert and_result = False
+    assert or_result = True
+    assert xor_result = True
+end
+

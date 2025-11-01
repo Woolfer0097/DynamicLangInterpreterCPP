@@ -43,3 +43,21 @@ g++ -std=c++17 -O2 -Wall -Wextra -I. \
 ./print_ast tests/expressions/arithmetic_test.txt
 ```
 
+Build semantic analyzer tool:
+
+```bash
+# Generate parser (from repo root) - if not already done
+bison -o lexer/parser.cpp -H lexer/parser.hpp lexer/parser.y
+
+# Build semantic_analyzer tool
+g++ -std=c++17 -O2 -Wall -Wextra -I. \
+    -o semantic_analyzer \
+    tools/semantic_analyzer.cpp \
+    lexer/lexer.cpp \
+    lexer/parser.cpp \
+    ast/AcceptImpl.cpp
+
+# Usage
+./semantic_analyzer tests/expressions/arithmetic_test.txt
+```
+

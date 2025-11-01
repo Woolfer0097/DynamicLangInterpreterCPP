@@ -1,0 +1,30 @@
+// Test: undeclared variables (should fail semantic check)
+// This test checks that variables must be declared before use
+
+test use_before_declaration() is
+    var x := y  // Error: y is used before declaration
+    var y := 5
+end
+
+test assign_before_declaration() is
+    x := 10  // Error: x is assigned before declaration
+    var x := 5
+end
+
+test use_in_expression() is
+    var result := unknown_var + 5  // Error: unknown_var not declared
+end
+
+test use_in_function_call() is
+    var result := some_func()  // Error: some_func not declared
+end
+
+test nested_scope() is
+    var outer := 10
+    
+    loop
+        var inner := outer  // OK: outer is declared
+        var result := not_declared  // Error: not_declared not declared
+    end
+end
+
