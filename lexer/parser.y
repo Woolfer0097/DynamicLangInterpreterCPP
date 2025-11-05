@@ -239,9 +239,21 @@ statement:
   | KW_WHILE expression KW_LOOP statement_list KW_END { $$ = dli::make_while($2, $4); }
   | KW_FOR IDENTIFIER KW_IN expression KW_LOOP statement_list KW_END { $$ = dli::make_for($2.lexeme, $4, $6); }
   | KW_LOOP statement_list KW_END               { $$ = dli::make_loop($2); }
-  | KW_EXIT                                     { $$ = dli::make_exit(); }
-  | KW_RETURN expression                        { $$ = dli::make_return($2); }
-  | KW_RETURN                                   { $$ = dli::make_return(); }
+  | KW_EXIT                                     { $$ = dli::make_exit();
+                                                  $$->loc.firstLine = @1.begin.line;
+                                                  $$->loc.firstColumn = @1.begin.column;
+                                                  $$->loc.lastLine = @1.end.line;
+                                                  $$->loc.lastColumn = @1.end.column; }
+  | KW_RETURN expression                        { $$ = dli::make_return($2);
+                                                  $$->loc.firstLine = @1.begin.line;
+                                                  $$->loc.firstColumn = @1.begin.column;
+                                                  $$->loc.lastLine = @2.end.line;
+                                                  $$->loc.lastColumn = @2.end.column; }
+  | KW_RETURN                                   { $$ = dli::make_return();
+                                                  $$->loc.firstLine = @1.begin.line;
+                                                  $$->loc.firstColumn = @1.begin.column;
+                                                  $$->loc.lastLine = @1.end.line;
+                                                  $$->loc.lastColumn = @1.end.column; }
   ;
 
 expression:

@@ -65,3 +65,8 @@ test loop_variable() is
     end
 end
 
+/*
+test loop_with_break_error() is
+    break  // Error: break statement not allowed in this context
+end
+*/

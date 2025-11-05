@@ -37,6 +37,13 @@ struct SemanticChecker : ASTVisitor {
         if (e.name == "True" || e.name == "False" || e.name == "None") {
             return;
         }
+        // Treat 'break' specially: if used outside loops, report; never treat as a variable
+        if (e.name == "break") {
+            if (!inLoop) {
+                reportError("'break' statement can only be used inside loops", e.loc);
+            }
+            return;
+        }
         
         if (declaredVars.find(e.name) == declaredVars.end() &&
             declaredFuncs.find(e.name) == declaredFuncs.end()) {
@@ -139,7 +146,24 @@ struct SemanticChecker : ASTVisitor {
 
     void visit(VarDecl& s) override {
         if (s.init) {
-            s.init->accept(*this);
+            if (auto fn = dynamic_cast<FunctionLiteral*>(s.init.get())) {
+                bool wasInFunction = inFunction;
+                inFunction = true;
+
+                std::unordered_set<std::string> savedVars = declaredVars;
+                for (const auto& param : fn->params) {
+                    declaredVars.insert(param);
+                }
+
+                if (fn->body) {
+                    fn->body->accept(*this);
+                }
+
+                declaredVars = savedVars;
+                inFunction = wasInFunction;
+            } else {
+                s.init->accept(*this);
+            }
         }
         declaredVars.insert(s.name);
         // Track functions assigned at declaration
@@ -235,6 +259,15 @@ struct SemanticChecker : ASTVisitor {
     }
 
     void visit(ExprStmt& s) override {
+        // Special-case: 'break' used as a statement parsed as a variable expression
+        if (auto var = dynamic_cast<VariableExpr*>(s.expr.get())) {
+            if (var->name == "break") {
+                if (!inLoop) {
+                    reportError("'break' statement can only be used inside loops", s.loc);
+                }
+                return; // Do not treat as variable usage
+            }
+        }
         s.expr->accept(*this);
     }
 };
@@ -244,6 +277,7 @@ struct SemanticOptimizer : ASTVisitor {
     bool modified {false};
     std::shared_ptr<Expression> optimizedExpr {nullptr};
     std::shared_ptr<Statement> optimizedStmt {nullptr};
+    int stmtListDepth {0};
 
     // Collect variable reads to enable removing unused variable declarations
     struct UsageCollector : ASTVisitor {
@@ -558,6 +592,7 @@ struct SemanticOptimizer : ASTVisitor {
 
     // Statements
     void visit(StatementList& s) override {
+        stmtListDepth++;
         // First, collect variable usage inside this block
         UsageCollector collector;
         s.accept(collector); // safe: UsageCollector doesn't modify
@@ -574,11 +609,12 @@ struct SemanticOptimizer : ASTVisitor {
             }
 
             // Remove unused variable declarations (never read)
+            // Only inside nested blocks (not at root), and keep function declarations
             if (auto vd = dynamic_cast<VarDecl*>(stmt.get())) {
-                if (collector.usedVars.find(vd->name) == collector.usedVars.end()) {
+                bool isFunctionDecl = vd->init && dynamic_cast<FunctionLiteral*>(vd->init.get());
+                if (stmtListDepth > 1 && !isFunctionDecl && collector.usedVars.find(vd->name) == collector.usedVars.end()) {
                     listModified = true;
                     modified = true;
-                    // Still visit init to allow fold side effects or sub-optimizations
                     if (vd->init) vd->init->accept(*this);
                     continue; // drop declaration
                 }
@@ -632,6 +668,7 @@ struct SemanticOptimizer : ASTVisitor {
         if (listModified) {
             s.statements = std::move(newStatements);
         }
+        stmtListDepth--;
     }
 
     void visit(VarDecl& s) override {

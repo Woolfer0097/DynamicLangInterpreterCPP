@@ -1,0 +1,3 @@
+test array_bound_test() is
+    var index := 5
+end

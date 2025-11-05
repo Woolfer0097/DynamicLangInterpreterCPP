@@ -1023,471 +1023,483 @@ namespace dli {
 
   case 21: // statement: KW_EXIT
 #line 242 "lexer/parser.y"
-                                                { yylhs.value.as < std::shared_ptr<dli::Statement> > () = dli::make_exit(); }
-#line 1028 "lexer/parser.cpp"
+                                                { yylhs.value.as < std::shared_ptr<dli::Statement> > () = dli::make_exit();
+                                                  yylhs.value.as < std::shared_ptr<dli::Statement> > ()->loc.firstLine = yystack_[0].location.begin.line;
+                                                  yylhs.value.as < std::shared_ptr<dli::Statement> > ()->loc.firstColumn = yystack_[0].location.begin.column;
+                                                  yylhs.value.as < std::shared_ptr<dli::Statement> > ()->loc.lastLine = yystack_[0].location.end.line;
+                                                  yylhs.value.as < std::shared_ptr<dli::Statement> > ()->loc.lastColumn = yystack_[0].location.end.column; }
+#line 1032 "lexer/parser.cpp"
     break;
 
   case 22: // statement: KW_RETURN expression
-#line 243 "lexer/parser.y"
-                                                { yylhs.value.as < std::shared_ptr<dli::Statement> > () = dli::make_return(yystack_[0].value.as < std::shared_ptr<dli::Expression> > ()); }
-#line 1034 "lexer/parser.cpp"
+#line 247 "lexer/parser.y"
+                                                { yylhs.value.as < std::shared_ptr<dli::Statement> > () = dli::make_return(yystack_[0].value.as < std::shared_ptr<dli::Expression> > ());
+                                                  yylhs.value.as < std::shared_ptr<dli::Statement> > ()->loc.firstLine = yystack_[1].location.begin.line;
+                                                  yylhs.value.as < std::shared_ptr<dli::Statement> > ()->loc.firstColumn = yystack_[1].location.begin.column;
+                                                  yylhs.value.as < std::shared_ptr<dli::Statement> > ()->loc.lastLine = yystack_[0].location.end.line;
+                                                  yylhs.value.as < std::shared_ptr<dli::Statement> > ()->loc.lastColumn = yystack_[0].location.end.column; }
+#line 1042 "lexer/parser.cpp"
     break;
 
   case 23: // statement: KW_RETURN
-#line 244 "lexer/parser.y"
-                                                { yylhs.value.as < std::shared_ptr<dli::Statement> > () = dli::make_return(); }
-#line 1040 "lexer/parser.cpp"
-    break;
-
-  case 24: // expression: relation
-#line 248 "lexer/parser.y"
-    { yylhs.value.as < std::shared_ptr<dli::Expression> > () = yystack_[0].value.as < std::shared_ptr<dli::Expression> > (); }
-#line 1046 "lexer/parser.cpp"
-    break;
-
-  case 25: // expression: if_expression
-#line 249 "lexer/parser.y"
-    { yylhs.value.as < std::shared_ptr<dli::Expression> > () = yystack_[0].value.as < std::shared_ptr<dli::Expression> > (); }
+#line 252 "lexer/parser.y"
+                                                { yylhs.value.as < std::shared_ptr<dli::Statement> > () = dli::make_return();
+                                                  yylhs.value.as < std::shared_ptr<dli::Statement> > ()->loc.firstLine = yystack_[0].location.begin.line;
+                                                  yylhs.value.as < std::shared_ptr<dli::Statement> > ()->loc.firstColumn = yystack_[0].location.begin.column;
+                                                  yylhs.value.as < std::shared_ptr<dli::Statement> > ()->loc.lastLine = yystack_[0].location.end.line;
+                                                  yylhs.value.as < std::shared_ptr<dli::Statement> > ()->loc.lastColumn = yystack_[0].location.end.column; }
 #line 1052 "lexer/parser.cpp"
     break;
 
-  case 26: // expression: expression KW_OR relation
-#line 250 "lexer/parser.y"
-                                 { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_binary("or", yystack_[2].value.as < std::shared_ptr<dli::Expression> > (), yystack_[0].value.as < std::shared_ptr<dli::Expression> > ()); }
+  case 24: // expression: relation
+#line 260 "lexer/parser.y"
+    { yylhs.value.as < std::shared_ptr<dli::Expression> > () = yystack_[0].value.as < std::shared_ptr<dli::Expression> > (); }
 #line 1058 "lexer/parser.cpp"
     break;
 
-  case 27: // expression: expression KW_AND relation
-#line 251 "lexer/parser.y"
-                                 { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_binary("and", yystack_[2].value.as < std::shared_ptr<dli::Expression> > (), yystack_[0].value.as < std::shared_ptr<dli::Expression> > ()); }
+  case 25: // expression: if_expression
+#line 261 "lexer/parser.y"
+    { yylhs.value.as < std::shared_ptr<dli::Expression> > () = yystack_[0].value.as < std::shared_ptr<dli::Expression> > (); }
 #line 1064 "lexer/parser.cpp"
     break;
 
-  case 28: // expression: expression KW_XOR relation
-#line 252 "lexer/parser.y"
-                                 { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_binary("xor", yystack_[2].value.as < std::shared_ptr<dli::Expression> > (), yystack_[0].value.as < std::shared_ptr<dli::Expression> > ()); }
+  case 26: // expression: expression KW_OR relation
+#line 262 "lexer/parser.y"
+                                 { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_binary("or", yystack_[2].value.as < std::shared_ptr<dli::Expression> > (), yystack_[0].value.as < std::shared_ptr<dli::Expression> > ()); }
 #line 1070 "lexer/parser.cpp"
     break;
 
-  case 29: // if_expression: KW_IF expression KW_THEN expression KW_ELSE expression KW_END
-#line 257 "lexer/parser.y"
-      { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_if_expr(yystack_[5].value.as < std::shared_ptr<dli::Expression> > (), yystack_[3].value.as < std::shared_ptr<dli::Expression> > (), yystack_[1].value.as < std::shared_ptr<dli::Expression> > ()); }
+  case 27: // expression: expression KW_AND relation
+#line 263 "lexer/parser.y"
+                                 { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_binary("and", yystack_[2].value.as < std::shared_ptr<dli::Expression> > (), yystack_[0].value.as < std::shared_ptr<dli::Expression> > ()); }
 #line 1076 "lexer/parser.cpp"
     break;
 
-  case 30: // if_expression: KW_IF expression KW_THEN expression KW_ELSE KW_IF expression KW_THEN expression KW_END
-#line 259 "lexer/parser.y"
-      { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_if_expr(yystack_[8].value.as < std::shared_ptr<dli::Expression> > (), yystack_[6].value.as < std::shared_ptr<dli::Expression> > (), dli::make_if_expr(yystack_[3].value.as < std::shared_ptr<dli::Expression> > (), yystack_[1].value.as < std::shared_ptr<dli::Expression> > (), dli::make_none())); }
+  case 28: // expression: expression KW_XOR relation
+#line 264 "lexer/parser.y"
+                                 { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_binary("xor", yystack_[2].value.as < std::shared_ptr<dli::Expression> > (), yystack_[0].value.as < std::shared_ptr<dli::Expression> > ()); }
 #line 1082 "lexer/parser.cpp"
     break;
 
-  case 31: // if_expression: KW_IF expression KW_THEN expression KW_ELSE KW_IF expression KW_THEN expression KW_ELSE expression KW_END
-#line 261 "lexer/parser.y"
-      { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_if_expr(yystack_[10].value.as < std::shared_ptr<dli::Expression> > (), yystack_[8].value.as < std::shared_ptr<dli::Expression> > (), dli::make_if_expr(yystack_[5].value.as < std::shared_ptr<dli::Expression> > (), yystack_[3].value.as < std::shared_ptr<dli::Expression> > (), yystack_[1].value.as < std::shared_ptr<dli::Expression> > ())); }
+  case 29: // if_expression: KW_IF expression KW_THEN expression KW_ELSE expression KW_END
+#line 269 "lexer/parser.y"
+      { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_if_expr(yystack_[5].value.as < std::shared_ptr<dli::Expression> > (), yystack_[3].value.as < std::shared_ptr<dli::Expression> > (), yystack_[1].value.as < std::shared_ptr<dli::Expression> > ()); }
 #line 1088 "lexer/parser.cpp"
     break;
 
-  case 32: // relation: term
-#line 265 "lexer/parser.y"
-    { yylhs.value.as < std::shared_ptr<dli::Expression> > () = yystack_[0].value.as < std::shared_ptr<dli::Expression> > (); }
+  case 30: // if_expression: KW_IF expression KW_THEN expression KW_ELSE KW_IF expression KW_THEN expression KW_END
+#line 271 "lexer/parser.y"
+      { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_if_expr(yystack_[8].value.as < std::shared_ptr<dli::Expression> > (), yystack_[6].value.as < std::shared_ptr<dli::Expression> > (), dli::make_if_expr(yystack_[3].value.as < std::shared_ptr<dli::Expression> > (), yystack_[1].value.as < std::shared_ptr<dli::Expression> > (), dli::make_none())); }
 #line 1094 "lexer/parser.cpp"
     break;
 
-  case 33: // relation: relation LESS term
-#line 266 "lexer/parser.y"
-                                 { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_binary("<", yystack_[2].value.as < std::shared_ptr<dli::Expression> > (), yystack_[0].value.as < std::shared_ptr<dli::Expression> > ()); }
+  case 31: // if_expression: KW_IF expression KW_THEN expression KW_ELSE KW_IF expression KW_THEN expression KW_ELSE expression KW_END
+#line 273 "lexer/parser.y"
+      { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_if_expr(yystack_[10].value.as < std::shared_ptr<dli::Expression> > (), yystack_[8].value.as < std::shared_ptr<dli::Expression> > (), dli::make_if_expr(yystack_[5].value.as < std::shared_ptr<dli::Expression> > (), yystack_[3].value.as < std::shared_ptr<dli::Expression> > (), yystack_[1].value.as < std::shared_ptr<dli::Expression> > ())); }
 #line 1100 "lexer/parser.cpp"
     break;
 
-  case 34: // relation: relation LESS_EQUAL term
-#line 267 "lexer/parser.y"
-                                 { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_binary("<=", yystack_[2].value.as < std::shared_ptr<dli::Expression> > (), yystack_[0].value.as < std::shared_ptr<dli::Expression> > ()); }
+  case 32: // relation: term
+#line 277 "lexer/parser.y"
+    { yylhs.value.as < std::shared_ptr<dli::Expression> > () = yystack_[0].value.as < std::shared_ptr<dli::Expression> > (); }
 #line 1106 "lexer/parser.cpp"
     break;
 
-  case 35: // relation: relation GREATER term
-#line 268 "lexer/parser.y"
-                                 { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_binary(">", yystack_[2].value.as < std::shared_ptr<dli::Expression> > (), yystack_[0].value.as < std::shared_ptr<dli::Expression> > ()); }
+  case 33: // relation: relation LESS term
+#line 278 "lexer/parser.y"
+                                 { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_binary("<", yystack_[2].value.as < std::shared_ptr<dli::Expression> > (), yystack_[0].value.as < std::shared_ptr<dli::Expression> > ()); }
 #line 1112 "lexer/parser.cpp"
     break;
 
-  case 36: // relation: relation GREATER_EQUAL term
-#line 269 "lexer/parser.y"
-                                 { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_binary(">=", yystack_[2].value.as < std::shared_ptr<dli::Expression> > (), yystack_[0].value.as < std::shared_ptr<dli::Expression> > ()); }
+  case 34: // relation: relation LESS_EQUAL term
+#line 279 "lexer/parser.y"
+                                 { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_binary("<=", yystack_[2].value.as < std::shared_ptr<dli::Expression> > (), yystack_[0].value.as < std::shared_ptr<dli::Expression> > ()); }
 #line 1118 "lexer/parser.cpp"
     break;
 
-  case 37: // relation: relation EQUAL term
-#line 270 "lexer/parser.y"
-                                 { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_binary("=", yystack_[2].value.as < std::shared_ptr<dli::Expression> > (), yystack_[0].value.as < std::shared_ptr<dli::Expression> > ()); }
+  case 35: // relation: relation GREATER term
+#line 280 "lexer/parser.y"
+                                 { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_binary(">", yystack_[2].value.as < std::shared_ptr<dli::Expression> > (), yystack_[0].value.as < std::shared_ptr<dli::Expression> > ()); }
 #line 1124 "lexer/parser.cpp"
     break;
 
-  case 38: // relation: relation EQUAL_EQUAL term
-#line 271 "lexer/parser.y"
-                                 { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_binary("==", yystack_[2].value.as < std::shared_ptr<dli::Expression> > (), yystack_[0].value.as < std::shared_ptr<dli::Expression> > ()); }
+  case 36: // relation: relation GREATER_EQUAL term
+#line 281 "lexer/parser.y"
+                                 { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_binary(">=", yystack_[2].value.as < std::shared_ptr<dli::Expression> > (), yystack_[0].value.as < std::shared_ptr<dli::Expression> > ()); }
 #line 1130 "lexer/parser.cpp"
     break;
 
-  case 39: // relation: relation NOT_EQUAL_SLASH term
-#line 272 "lexer/parser.y"
-                                 { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_binary("/=", yystack_[2].value.as < std::shared_ptr<dli::Expression> > (), yystack_[0].value.as < std::shared_ptr<dli::Expression> > ()); }
+  case 37: // relation: relation EQUAL term
+#line 282 "lexer/parser.y"
+                                 { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_binary("=", yystack_[2].value.as < std::shared_ptr<dli::Expression> > (), yystack_[0].value.as < std::shared_ptr<dli::Expression> > ()); }
 #line 1136 "lexer/parser.cpp"
     break;
 
-  case 40: // relation: relation KW_IS type_name
-#line 273 "lexer/parser.y"
-                                 { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_is(yystack_[2].value.as < std::shared_ptr<dli::Expression> > (), yystack_[0].value.as < std::shared_ptr<dli::TypeExpr> > ()); }
+  case 38: // relation: relation EQUAL_EQUAL term
+#line 283 "lexer/parser.y"
+                                 { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_binary("==", yystack_[2].value.as < std::shared_ptr<dli::Expression> > (), yystack_[0].value.as < std::shared_ptr<dli::Expression> > ()); }
 #line 1142 "lexer/parser.cpp"
     break;
 
-  case 41: // term: unary
-#line 277 "lexer/parser.y"
-    { yylhs.value.as < std::shared_ptr<dli::Expression> > () = yystack_[0].value.as < std::shared_ptr<dli::Expression> > (); }
+  case 39: // relation: relation NOT_EQUAL_SLASH term
+#line 284 "lexer/parser.y"
+                                 { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_binary("/=", yystack_[2].value.as < std::shared_ptr<dli::Expression> > (), yystack_[0].value.as < std::shared_ptr<dli::Expression> > ()); }
 #line 1148 "lexer/parser.cpp"
     break;
 
-  case 42: // term: term PLUS unary
-#line 278 "lexer/parser.y"
-                        { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_binary("+", yystack_[2].value.as < std::shared_ptr<dli::Expression> > (), yystack_[0].value.as < std::shared_ptr<dli::Expression> > ()); }
+  case 40: // relation: relation KW_IS type_name
+#line 285 "lexer/parser.y"
+                                 { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_is(yystack_[2].value.as < std::shared_ptr<dli::Expression> > (), yystack_[0].value.as < std::shared_ptr<dli::TypeExpr> > ()); }
 #line 1154 "lexer/parser.cpp"
     break;
 
-  case 43: // term: term MINUS unary
-#line 279 "lexer/parser.y"
-                        { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_binary("-", yystack_[2].value.as < std::shared_ptr<dli::Expression> > (), yystack_[0].value.as < std::shared_ptr<dli::Expression> > ()); }
+  case 41: // term: unary
+#line 289 "lexer/parser.y"
+    { yylhs.value.as < std::shared_ptr<dli::Expression> > () = yystack_[0].value.as < std::shared_ptr<dli::Expression> > (); }
 #line 1160 "lexer/parser.cpp"
     break;
 
-  case 44: // term: term STAR unary
-#line 280 "lexer/parser.y"
-                        { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_binary("*", yystack_[2].value.as < std::shared_ptr<dli::Expression> > (), yystack_[0].value.as < std::shared_ptr<dli::Expression> > ()); }
+  case 42: // term: term PLUS unary
+#line 290 "lexer/parser.y"
+                        { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_binary("+", yystack_[2].value.as < std::shared_ptr<dli::Expression> > (), yystack_[0].value.as < std::shared_ptr<dli::Expression> > ()); }
 #line 1166 "lexer/parser.cpp"
     break;
 
-  case 45: // term: term SLASH unary
-#line 281 "lexer/parser.y"
-                        { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_binary("/", yystack_[2].value.as < std::shared_ptr<dli::Expression> > (), yystack_[0].value.as < std::shared_ptr<dli::Expression> > ()); }
+  case 43: // term: term MINUS unary
+#line 291 "lexer/parser.y"
+                        { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_binary("-", yystack_[2].value.as < std::shared_ptr<dli::Expression> > (), yystack_[0].value.as < std::shared_ptr<dli::Expression> > ()); }
 #line 1172 "lexer/parser.cpp"
     break;
 
-  case 46: // term: term DOT_DOT unary
-#line 282 "lexer/parser.y"
-                        { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_range(yystack_[2].value.as < std::shared_ptr<dli::Expression> > (), yystack_[0].value.as < std::shared_ptr<dli::Expression> > ()); }
+  case 44: // term: term STAR unary
+#line 292 "lexer/parser.y"
+                        { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_binary("*", yystack_[2].value.as < std::shared_ptr<dli::Expression> > (), yystack_[0].value.as < std::shared_ptr<dli::Expression> > ()); }
 #line 1178 "lexer/parser.cpp"
     break;
 
-  case 47: // unary: postfix
-#line 286 "lexer/parser.y"
-    { yylhs.value.as < std::shared_ptr<dli::Expression> > () = yystack_[0].value.as < std::shared_ptr<dli::Expression> > (); }
+  case 45: // term: term SLASH unary
+#line 293 "lexer/parser.y"
+                        { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_binary("/", yystack_[2].value.as < std::shared_ptr<dli::Expression> > (), yystack_[0].value.as < std::shared_ptr<dli::Expression> > ()); }
 #line 1184 "lexer/parser.cpp"
     break;
 
-  case 48: // unary: MINUS unary
-#line 287 "lexer/parser.y"
-                             { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_unary("-", yystack_[0].value.as < std::shared_ptr<dli::Expression> > ()); }
+  case 46: // term: term DOT_DOT unary
+#line 294 "lexer/parser.y"
+                        { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_range(yystack_[2].value.as < std::shared_ptr<dli::Expression> > (), yystack_[0].value.as < std::shared_ptr<dli::Expression> > ()); }
 #line 1190 "lexer/parser.cpp"
     break;
 
-  case 49: // unary: PLUS unary
-#line 288 "lexer/parser.y"
-                             { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_unary("+", yystack_[0].value.as < std::shared_ptr<dli::Expression> > ()); }
+  case 47: // unary: postfix
+#line 298 "lexer/parser.y"
+    { yylhs.value.as < std::shared_ptr<dli::Expression> > () = yystack_[0].value.as < std::shared_ptr<dli::Expression> > (); }
 #line 1196 "lexer/parser.cpp"
     break;
 
-  case 50: // unary: KW_NOT unary
-#line 289 "lexer/parser.y"
-                             { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_unary("not", yystack_[0].value.as < std::shared_ptr<dli::Expression> > ()); }
+  case 48: // unary: MINUS unary
+#line 299 "lexer/parser.y"
+                             { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_unary("-", yystack_[0].value.as < std::shared_ptr<dli::Expression> > ()); }
 #line 1202 "lexer/parser.cpp"
     break;
 
-  case 51: // postfix: primary
-#line 293 "lexer/parser.y"
-    { yylhs.value.as < std::shared_ptr<dli::Expression> > () = yystack_[0].value.as < std::shared_ptr<dli::Expression> > (); }
+  case 49: // unary: PLUS unary
+#line 300 "lexer/parser.y"
+                             { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_unary("+", yystack_[0].value.as < std::shared_ptr<dli::Expression> > ()); }
 #line 1208 "lexer/parser.cpp"
     break;
 
-  case 52: // postfix: postfix LBRACKET expression RBRACKET
-#line 294 "lexer/parser.y"
-                                         { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_index(yystack_[3].value.as < std::shared_ptr<dli::Expression> > (), yystack_[1].value.as < std::shared_ptr<dli::Expression> > ()); }
+  case 50: // unary: KW_NOT unary
+#line 301 "lexer/parser.y"
+                             { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_unary("not", yystack_[0].value.as < std::shared_ptr<dli::Expression> > ()); }
 #line 1214 "lexer/parser.cpp"
     break;
 
-  case 53: // postfix: postfix LPAREN RPAREN
-#line 295 "lexer/parser.y"
-                          { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_call(yystack_[2].value.as < std::shared_ptr<dli::Expression> > (), std::vector<std::shared_ptr<dli::Expression>>()); }
+  case 51: // postfix: primary
+#line 305 "lexer/parser.y"
+    { yylhs.value.as < std::shared_ptr<dli::Expression> > () = yystack_[0].value.as < std::shared_ptr<dli::Expression> > (); }
 #line 1220 "lexer/parser.cpp"
     break;
 
-  case 54: // postfix: postfix LPAREN expression_list_nonempty RPAREN
-#line 296 "lexer/parser.y"
-                                                   { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_call(yystack_[3].value.as < std::shared_ptr<dli::Expression> > (), yystack_[1].value.as < std::vector<std::shared_ptr<dli::Expression>> > ()); }
+  case 52: // postfix: postfix LBRACKET expression RBRACKET
+#line 306 "lexer/parser.y"
+                                         { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_index(yystack_[3].value.as < std::shared_ptr<dli::Expression> > (), yystack_[1].value.as < std::shared_ptr<dli::Expression> > ()); }
 #line 1226 "lexer/parser.cpp"
     break;
 
-  case 55: // postfix: postfix DOT IDENTIFIER
-#line 297 "lexer/parser.y"
-                           { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_field_access(yystack_[2].value.as < std::shared_ptr<dli::Expression> > (), yystack_[0].value.as < dli::Token > ().lexeme); }
+  case 53: // postfix: postfix LPAREN RPAREN
+#line 307 "lexer/parser.y"
+                          { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_call(yystack_[2].value.as < std::shared_ptr<dli::Expression> > (), std::vector<std::shared_ptr<dli::Expression>>()); }
 #line 1232 "lexer/parser.cpp"
     break;
 
-  case 56: // postfix: postfix DOT INTEGER
-#line 298 "lexer/parser.y"
-                           { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_field_access(yystack_[2].value.as < std::shared_ptr<dli::Expression> > (), yystack_[0].value.as < dli::Token > ().lexeme); }
+  case 54: // postfix: postfix LPAREN expression_list_nonempty RPAREN
+#line 308 "lexer/parser.y"
+                                                   { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_call(yystack_[3].value.as < std::shared_ptr<dli::Expression> > (), yystack_[1].value.as < std::vector<std::shared_ptr<dli::Expression>> > ()); }
 #line 1238 "lexer/parser.cpp"
     break;
 
-  case 57: // primary: INTEGER
-#line 302 "lexer/parser.y"
-               { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_number(std::stod(yystack_[0].value.as < dli::Token > ().lexeme)); }
+  case 55: // postfix: postfix DOT IDENTIFIER
+#line 309 "lexer/parser.y"
+                           { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_field_access(yystack_[2].value.as < std::shared_ptr<dli::Expression> > (), yystack_[0].value.as < dli::Token > ().lexeme); }
 #line 1244 "lexer/parser.cpp"
     break;
 
-  case 58: // primary: REAL
-#line 303 "lexer/parser.y"
-               { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_number(std::stod(yystack_[0].value.as < dli::Token > ().lexeme)); }
+  case 56: // postfix: postfix DOT INTEGER
+#line 310 "lexer/parser.y"
+                           { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_field_access(yystack_[2].value.as < std::shared_ptr<dli::Expression> > (), yystack_[0].value.as < dli::Token > ().lexeme); }
 #line 1250 "lexer/parser.cpp"
     break;
 
-  case 59: // primary: STRING
-#line 304 "lexer/parser.y"
-               { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_string(yystack_[0].value.as < dli::Token > ().lexeme); }
+  case 57: // primary: INTEGER
+#line 314 "lexer/parser.y"
+               { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_number(std::stod(yystack_[0].value.as < dli::Token > ().lexeme)); }
 #line 1256 "lexer/parser.cpp"
     break;
 
-  case 60: // primary: KW_TRUE
-#line 305 "lexer/parser.y"
-               { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_boolean(true); }
+  case 58: // primary: REAL
+#line 315 "lexer/parser.y"
+               { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_number(std::stod(yystack_[0].value.as < dli::Token > ().lexeme)); }
 #line 1262 "lexer/parser.cpp"
     break;
 
-  case 61: // primary: KW_FALSE
-#line 306 "lexer/parser.y"
-               { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_boolean(false); }
+  case 59: // primary: STRING
+#line 316 "lexer/parser.y"
+               { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_string(yystack_[0].value.as < dli::Token > ().lexeme); }
 #line 1268 "lexer/parser.cpp"
     break;
 
-  case 62: // primary: KW_NONE
-#line 307 "lexer/parser.y"
-               { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_none(); }
+  case 60: // primary: KW_TRUE
+#line 317 "lexer/parser.y"
+               { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_boolean(true); }
 #line 1274 "lexer/parser.cpp"
     break;
 
-  case 63: // primary: IDENTIFIER
-#line 308 "lexer/parser.y"
-               { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_variable(yystack_[0].value.as < dli::Token > ().lexeme); }
+  case 61: // primary: KW_FALSE
+#line 318 "lexer/parser.y"
+               { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_boolean(false); }
 #line 1280 "lexer/parser.cpp"
     break;
 
-  case 64: // primary: LPAREN expression RPAREN
-#line 309 "lexer/parser.y"
-                             { yylhs.value.as < std::shared_ptr<dli::Expression> > () = yystack_[1].value.as < std::shared_ptr<dli::Expression> > (); }
+  case 62: // primary: KW_NONE
+#line 319 "lexer/parser.y"
+               { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_none(); }
 #line 1286 "lexer/parser.cpp"
     break;
 
-  case 65: // primary: LPAREN IDENTIFIER ASSIGN_COLON expression RPAREN
-#line 310 "lexer/parser.y"
-                                                     { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_assign_expr(yystack_[3].value.as < dli::Token > ().lexeme, yystack_[1].value.as < std::shared_ptr<dli::Expression> > ()); }
+  case 63: // primary: IDENTIFIER
+#line 320 "lexer/parser.y"
+               { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_variable(yystack_[0].value.as < dli::Token > ().lexeme); }
 #line 1292 "lexer/parser.cpp"
     break;
 
-  case 66: // primary: LBRACKET expression_list_nonempty RBRACKET
-#line 311 "lexer/parser.y"
-                                               { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_array(yystack_[1].value.as < std::vector<std::shared_ptr<dli::Expression>> > ()); }
+  case 64: // primary: LPAREN expression RPAREN
+#line 321 "lexer/parser.y"
+                             { yylhs.value.as < std::shared_ptr<dli::Expression> > () = yystack_[1].value.as < std::shared_ptr<dli::Expression> > (); }
 #line 1298 "lexer/parser.cpp"
     break;
 
-  case 67: // primary: LBRACKET RBRACKET
-#line 312 "lexer/parser.y"
-                      { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_array(std::vector<std::shared_ptr<dli::Expression>>()); }
+  case 65: // primary: LPAREN IDENTIFIER ASSIGN_COLON expression RPAREN
+#line 322 "lexer/parser.y"
+                                                     { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_assign_expr(yystack_[3].value.as < dli::Token > ().lexeme, yystack_[1].value.as < std::shared_ptr<dli::Expression> > ()); }
 #line 1304 "lexer/parser.cpp"
     break;
 
-  case 68: // primary: LBRACE tuple_field_list RBRACE
-#line 313 "lexer/parser.y"
-                                   { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_tuple(yystack_[1].value.as < std::vector<dli::TupleField> > ()); }
+  case 66: // primary: LBRACKET expression_list_nonempty RBRACKET
+#line 323 "lexer/parser.y"
+                                               { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_array(yystack_[1].value.as < std::vector<std::shared_ptr<dli::Expression>> > ()); }
 #line 1310 "lexer/parser.cpp"
     break;
 
-  case 69: // primary: LBRACE RBRACE
-#line 314 "lexer/parser.y"
-                  { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_tuple(std::vector<dli::TupleField>()); }
+  case 67: // primary: LBRACKET RBRACKET
+#line 324 "lexer/parser.y"
+                      { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_array(std::vector<std::shared_ptr<dli::Expression>>()); }
 #line 1316 "lexer/parser.cpp"
     break;
 
-  case 70: // primary: LBRACE tuple_field_list KW_END
-#line 315 "lexer/parser.y"
+  case 68: // primary: LBRACE tuple_field_list RBRACE
+#line 325 "lexer/parser.y"
                                    { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_tuple(yystack_[1].value.as < std::vector<dli::TupleField> > ()); }
 #line 1322 "lexer/parser.cpp"
     break;
 
-  case 71: // primary: LBRACE KW_END
-#line 316 "lexer/parser.y"
+  case 69: // primary: LBRACE RBRACE
+#line 326 "lexer/parser.y"
                   { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_tuple(std::vector<dli::TupleField>()); }
 #line 1328 "lexer/parser.cpp"
     break;
 
-  case 72: // primary: KW_FUNC LPAREN param_list RPAREN KW_IS statement_list KW_END
-#line 318 "lexer/parser.y"
-      { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_function(yystack_[4].value.as < std::vector<std::string> > (), yystack_[1].value.as < std::shared_ptr<dli::StatementList> > (), false); }
+  case 70: // primary: LBRACE tuple_field_list KW_END
+#line 327 "lexer/parser.y"
+                                   { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_tuple(yystack_[1].value.as < std::vector<dli::TupleField> > ()); }
 #line 1334 "lexer/parser.cpp"
     break;
 
+  case 71: // primary: LBRACE KW_END
+#line 328 "lexer/parser.y"
+                  { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_tuple(std::vector<dli::TupleField>()); }
+#line 1340 "lexer/parser.cpp"
+    break;
+
+  case 72: // primary: KW_FUNC LPAREN param_list RPAREN KW_IS statement_list KW_END
+#line 330 "lexer/parser.y"
+      { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_function(yystack_[4].value.as < std::vector<std::string> > (), yystack_[1].value.as < std::shared_ptr<dli::StatementList> > (), false); }
+#line 1346 "lexer/parser.cpp"
+    break;
+
   case 73: // primary: KW_FUNC LPAREN param_list RPAREN ARROW statement
-#line 320 "lexer/parser.y"
+#line 332 "lexer/parser.y"
       { auto stmts = dli::make_stmt_list();
         stmts->push(yystack_[0].value.as < std::shared_ptr<dli::Statement> > ());
         yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_function(yystack_[3].value.as < std::vector<std::string> > (), stmts, true); }
-#line 1342 "lexer/parser.cpp"
-    break;
-
-  case 74: // expression_list_nonempty: expression
-#line 326 "lexer/parser.y"
-               { yylhs.value.as < std::vector<std::shared_ptr<dli::Expression>> > () = std::vector<std::shared_ptr<dli::Expression>>(); yylhs.value.as < std::vector<std::shared_ptr<dli::Expression>> > ().push_back(yystack_[0].value.as < std::shared_ptr<dli::Expression> > ()); }
-#line 1348 "lexer/parser.cpp"
-    break;
-
-  case 75: // expression_list_nonempty: expression_list_nonempty COMMA expression
-#line 327 "lexer/parser.y"
-                                              { yylhs.value.as < std::vector<std::shared_ptr<dli::Expression>> > () = yystack_[2].value.as < std::vector<std::shared_ptr<dli::Expression>> > (); yylhs.value.as < std::vector<std::shared_ptr<dli::Expression>> > ().push_back(yystack_[0].value.as < std::shared_ptr<dli::Expression> > ()); }
 #line 1354 "lexer/parser.cpp"
     break;
 
-  case 76: // type_name: KW_INT
-#line 331 "lexer/parser.y"
-              { yylhs.value.as < std::shared_ptr<dli::TypeExpr> > () = dli::make_type("int"); }
+  case 74: // expression_list_nonempty: expression
+#line 338 "lexer/parser.y"
+               { yylhs.value.as < std::vector<std::shared_ptr<dli::Expression>> > () = std::vector<std::shared_ptr<dli::Expression>>(); yylhs.value.as < std::vector<std::shared_ptr<dli::Expression>> > ().push_back(yystack_[0].value.as < std::shared_ptr<dli::Expression> > ()); }
 #line 1360 "lexer/parser.cpp"
     break;
 
-  case 77: // type_name: KW_REAL
-#line 332 "lexer/parser.y"
-              { yylhs.value.as < std::shared_ptr<dli::TypeExpr> > () = dli::make_type("real"); }
+  case 75: // expression_list_nonempty: expression_list_nonempty COMMA expression
+#line 339 "lexer/parser.y"
+                                              { yylhs.value.as < std::vector<std::shared_ptr<dli::Expression>> > () = yystack_[2].value.as < std::vector<std::shared_ptr<dli::Expression>> > (); yylhs.value.as < std::vector<std::shared_ptr<dli::Expression>> > ().push_back(yystack_[0].value.as < std::shared_ptr<dli::Expression> > ()); }
 #line 1366 "lexer/parser.cpp"
     break;
 
-  case 78: // type_name: KW_BOOL
-#line 333 "lexer/parser.y"
-              { yylhs.value.as < std::shared_ptr<dli::TypeExpr> > () = dli::make_type("bool"); }
+  case 76: // type_name: KW_INT
+#line 343 "lexer/parser.y"
+              { yylhs.value.as < std::shared_ptr<dli::TypeExpr> > () = dli::make_type("int"); }
 #line 1372 "lexer/parser.cpp"
     break;
 
-  case 79: // type_name: KW_STRING
-#line 334 "lexer/parser.y"
-              { yylhs.value.as < std::shared_ptr<dli::TypeExpr> > () = dli::make_type("string"); }
+  case 77: // type_name: KW_REAL
+#line 344 "lexer/parser.y"
+              { yylhs.value.as < std::shared_ptr<dli::TypeExpr> > () = dli::make_type("real"); }
 #line 1378 "lexer/parser.cpp"
     break;
 
-  case 80: // type_name: KW_NONE
-#line 335 "lexer/parser.y"
-              { yylhs.value.as < std::shared_ptr<dli::TypeExpr> > () = dli::make_type("none"); }
+  case 78: // type_name: KW_BOOL
+#line 345 "lexer/parser.y"
+              { yylhs.value.as < std::shared_ptr<dli::TypeExpr> > () = dli::make_type("bool"); }
 #line 1384 "lexer/parser.cpp"
     break;
 
-  case 81: // type_name: KW_FUNC
-#line 336 "lexer/parser.y"
-              { yylhs.value.as < std::shared_ptr<dli::TypeExpr> > () = dli::make_type("func"); }
+  case 79: // type_name: KW_STRING
+#line 346 "lexer/parser.y"
+              { yylhs.value.as < std::shared_ptr<dli::TypeExpr> > () = dli::make_type("string"); }
 #line 1390 "lexer/parser.cpp"
     break;
 
-  case 82: // type_name: LBRACKET RBRACKET
-#line 337 "lexer/parser.y"
-                      { yylhs.value.as < std::shared_ptr<dli::TypeExpr> > () = dli::make_type("[]"); }
+  case 80: // type_name: KW_NONE
+#line 347 "lexer/parser.y"
+              { yylhs.value.as < std::shared_ptr<dli::TypeExpr> > () = dli::make_type("none"); }
 #line 1396 "lexer/parser.cpp"
     break;
 
-  case 83: // type_name: LBRACE RBRACE
-#line 338 "lexer/parser.y"
-                      { yylhs.value.as < std::shared_ptr<dli::TypeExpr> > () = dli::make_type("{}"); }
+  case 81: // type_name: KW_FUNC
+#line 348 "lexer/parser.y"
+              { yylhs.value.as < std::shared_ptr<dli::TypeExpr> > () = dli::make_type("func"); }
 #line 1402 "lexer/parser.cpp"
     break;
 
-  case 84: // tuple_field_list: %empty
-#line 342 "lexer/parser.y"
-                 { yylhs.value.as < std::vector<dli::TupleField> > () = std::vector<dli::TupleField>(); }
+  case 82: // type_name: LBRACKET RBRACKET
+#line 349 "lexer/parser.y"
+                      { yylhs.value.as < std::shared_ptr<dli::TypeExpr> > () = dli::make_type("[]"); }
 #line 1408 "lexer/parser.cpp"
     break;
 
-  case 85: // tuple_field_list: tuple_field_list_nonempty
-#line 343 "lexer/parser.y"
-                              { yylhs.value.as < std::vector<dli::TupleField> > () = yystack_[0].value.as < std::vector<dli::TupleField> > (); }
+  case 83: // type_name: LBRACE RBRACE
+#line 350 "lexer/parser.y"
+                      { yylhs.value.as < std::shared_ptr<dli::TypeExpr> > () = dli::make_type("{}"); }
 #line 1414 "lexer/parser.cpp"
     break;
 
-  case 86: // tuple_field_list_nonempty: tuple_field
-#line 347 "lexer/parser.y"
-                { yylhs.value.as < std::vector<dli::TupleField> > () = std::vector<dli::TupleField>(); yylhs.value.as < std::vector<dli::TupleField> > ().push_back(yystack_[0].value.as < dli::TupleField > ()); }
+  case 84: // tuple_field_list: %empty
+#line 354 "lexer/parser.y"
+                 { yylhs.value.as < std::vector<dli::TupleField> > () = std::vector<dli::TupleField>(); }
 #line 1420 "lexer/parser.cpp"
     break;
 
-  case 87: // tuple_field_list_nonempty: tuple_field_list_nonempty COMMA tuple_field
-#line 348 "lexer/parser.y"
-                                                { yylhs.value.as < std::vector<dli::TupleField> > () = yystack_[2].value.as < std::vector<dli::TupleField> > (); yylhs.value.as < std::vector<dli::TupleField> > ().push_back(yystack_[0].value.as < dli::TupleField > ()); }
+  case 85: // tuple_field_list: tuple_field_list_nonempty
+#line 355 "lexer/parser.y"
+                              { yylhs.value.as < std::vector<dli::TupleField> > () = yystack_[0].value.as < std::vector<dli::TupleField> > (); }
 #line 1426 "lexer/parser.cpp"
     break;
 
-  case 88: // tuple_field: IDENTIFIER ASSIGN_COLON expression
-#line 352 "lexer/parser.y"
-                                       { yylhs.value.as < dli::TupleField > () = dli::TupleField(yystack_[2].value.as < dli::Token > ().lexeme, yystack_[0].value.as < std::shared_ptr<dli::Expression> > ()); }
+  case 86: // tuple_field_list_nonempty: tuple_field
+#line 359 "lexer/parser.y"
+                { yylhs.value.as < std::vector<dli::TupleField> > () = std::vector<dli::TupleField>(); yylhs.value.as < std::vector<dli::TupleField> > ().push_back(yystack_[0].value.as < dli::TupleField > ()); }
 #line 1432 "lexer/parser.cpp"
     break;
 
-  case 89: // tuple_field: expression
-#line 353 "lexer/parser.y"
-               { yylhs.value.as < dli::TupleField > () = dli::TupleField("", yystack_[0].value.as < std::shared_ptr<dli::Expression> > ()); }
+  case 87: // tuple_field_list_nonempty: tuple_field_list_nonempty COMMA tuple_field
+#line 360 "lexer/parser.y"
+                                                { yylhs.value.as < std::vector<dli::TupleField> > () = yystack_[2].value.as < std::vector<dli::TupleField> > (); yylhs.value.as < std::vector<dli::TupleField> > ().push_back(yystack_[0].value.as < dli::TupleField > ()); }
 #line 1438 "lexer/parser.cpp"
     break;
 
-  case 90: // param_list: %empty
-#line 357 "lexer/parser.y"
-                { yylhs.value.as < std::vector<std::string> > () = std::vector<std::string>(); }
+  case 88: // tuple_field: IDENTIFIER ASSIGN_COLON expression
+#line 364 "lexer/parser.y"
+                                       { yylhs.value.as < dli::TupleField > () = dli::TupleField(yystack_[2].value.as < dli::Token > ().lexeme, yystack_[0].value.as < std::shared_ptr<dli::Expression> > ()); }
 #line 1444 "lexer/parser.cpp"
     break;
 
-  case 91: // param_list: param_list_nonempty
-#line 358 "lexer/parser.y"
-                        { yylhs.value.as < std::vector<std::string> > () = yystack_[0].value.as < std::vector<std::string> > (); }
+  case 89: // tuple_field: expression
+#line 365 "lexer/parser.y"
+               { yylhs.value.as < dli::TupleField > () = dli::TupleField("", yystack_[0].value.as < std::shared_ptr<dli::Expression> > ()); }
 #line 1450 "lexer/parser.cpp"
     break;
 
-  case 92: // param_list_nonempty: IDENTIFIER
-#line 362 "lexer/parser.y"
-               { yylhs.value.as < std::vector<std::string> > () = std::vector<std::string>(); yylhs.value.as < std::vector<std::string> > ().push_back(yystack_[0].value.as < dli::Token > ().lexeme); }
+  case 90: // param_list: %empty
+#line 369 "lexer/parser.y"
+                { yylhs.value.as < std::vector<std::string> > () = std::vector<std::string>(); }
 #line 1456 "lexer/parser.cpp"
     break;
 
-  case 93: // param_list_nonempty: param_list_nonempty COMMA IDENTIFIER
-#line 363 "lexer/parser.y"
-                                         { yylhs.value.as < std::vector<std::string> > () = yystack_[2].value.as < std::vector<std::string> > (); yylhs.value.as < std::vector<std::string> > ().push_back(yystack_[0].value.as < dli::Token > ().lexeme); }
+  case 91: // param_list: param_list_nonempty
+#line 370 "lexer/parser.y"
+                        { yylhs.value.as < std::vector<std::string> > () = yystack_[0].value.as < std::vector<std::string> > (); }
 #line 1462 "lexer/parser.cpp"
     break;
 
-  case 94: // var_decl_list: var_decl_list_nonempty
-#line 367 "lexer/parser.y"
-                           { yylhs.value.as < std::vector<std::pair<std::string, std::shared_ptr<dli::Expression>>> > () = yystack_[0].value.as < std::vector<std::pair<std::string, std::shared_ptr<dli::Expression>>> > (); }
+  case 92: // param_list_nonempty: IDENTIFIER
+#line 374 "lexer/parser.y"
+               { yylhs.value.as < std::vector<std::string> > () = std::vector<std::string>(); yylhs.value.as < std::vector<std::string> > ().push_back(yystack_[0].value.as < dli::Token > ().lexeme); }
 #line 1468 "lexer/parser.cpp"
     break;
 
+  case 93: // param_list_nonempty: param_list_nonempty COMMA IDENTIFIER
+#line 375 "lexer/parser.y"
+                                         { yylhs.value.as < std::vector<std::string> > () = yystack_[2].value.as < std::vector<std::string> > (); yylhs.value.as < std::vector<std::string> > ().push_back(yystack_[0].value.as < dli::Token > ().lexeme); }
+#line 1474 "lexer/parser.cpp"
+    break;
+
+  case 94: // var_decl_list: var_decl_list_nonempty
+#line 379 "lexer/parser.y"
+                           { yylhs.value.as < std::vector<std::pair<std::string, std::shared_ptr<dli::Expression>>> > () = yystack_[0].value.as < std::vector<std::pair<std::string, std::shared_ptr<dli::Expression>>> > (); }
+#line 1480 "lexer/parser.cpp"
+    break;
+
   case 95: // var_decl_list_nonempty: var_decl_item
-#line 372 "lexer/parser.y"
+#line 384 "lexer/parser.y"
       { yylhs.value.as < std::vector<std::pair<std::string, std::shared_ptr<dli::Expression>>> > () = std::vector<std::pair<std::string, std::shared_ptr<dli::Expression>>>(); 
         yylhs.value.as < std::vector<std::pair<std::string, std::shared_ptr<dli::Expression>>> > ().push_back(yystack_[0].value.as < std::pair<std::string, std::shared_ptr<dli::Expression>> > ()); }
-#line 1475 "lexer/parser.cpp"
-    break;
-
-  case 96: // var_decl_list_nonempty: var_decl_list_nonempty COMMA var_decl_item
-#line 375 "lexer/parser.y"
-      { yylhs.value.as < std::vector<std::pair<std::string, std::shared_ptr<dli::Expression>>> > () = yystack_[2].value.as < std::vector<std::pair<std::string, std::shared_ptr<dli::Expression>>> > (); yylhs.value.as < std::vector<std::pair<std::string, std::shared_ptr<dli::Expression>>> > ().push_back(yystack_[0].value.as < std::pair<std::string, std::shared_ptr<dli::Expression>> > ()); }
-#line 1481 "lexer/parser.cpp"
-    break;
-
-  case 97: // var_decl_item: IDENTIFIER ASSIGN_COLON expression
-#line 380 "lexer/parser.y"
-      { yylhs.value.as < std::pair<std::string, std::shared_ptr<dli::Expression>> > () = std::make_pair(yystack_[2].value.as < dli::Token > ().lexeme, yystack_[0].value.as < std::shared_ptr<dli::Expression> > ()); }
 #line 1487 "lexer/parser.cpp"
     break;
 
+  case 96: // var_decl_list_nonempty: var_decl_list_nonempty COMMA var_decl_item
+#line 387 "lexer/parser.y"
+      { yylhs.value.as < std::vector<std::pair<std::string, std::shared_ptr<dli::Expression>>> > () = yystack_[2].value.as < std::vector<std::pair<std::string, std::shared_ptr<dli::Expression>>> > (); yylhs.value.as < std::vector<std::pair<std::string, std::shared_ptr<dli::Expression>>> > ().push_back(yystack_[0].value.as < std::pair<std::string, std::shared_ptr<dli::Expression>> > ()); }
+#line 1493 "lexer/parser.cpp"
+    break;
 
-#line 1491 "lexer/parser.cpp"
+  case 97: // var_decl_item: IDENTIFIER ASSIGN_COLON expression
+#line 392 "lexer/parser.y"
+      { yylhs.value.as < std::pair<std::string, std::shared_ptr<dli::Expression>> > () = std::make_pair(yystack_[2].value.as < dli::Token > ().lexeme, yystack_[0].value.as < std::shared_ptr<dli::Expression> > ()); }
+#line 1499 "lexer/parser.cpp"
+    break;
+
+
+#line 1503 "lexer/parser.cpp"
 
             default:
               break;
@@ -2180,14 +2192,14 @@ namespace dli {
   {
        0,   208,   208,   209,   213,   214,   215,   219,   222,   228,
      230,   231,   232,   233,   234,   235,   237,   238,   239,   240,
-     241,   242,   243,   244,   248,   249,   250,   251,   252,   256,
-     258,   260,   265,   266,   267,   268,   269,   270,   271,   272,
-     273,   277,   278,   279,   280,   281,   282,   286,   287,   288,
-     289,   293,   294,   295,   296,   297,   298,   302,   303,   304,
-     305,   306,   307,   308,   309,   310,   311,   312,   313,   314,
-     315,   316,   317,   319,   326,   327,   331,   332,   333,   334,
-     335,   336,   337,   338,   342,   343,   347,   348,   352,   353,
-     357,   358,   362,   363,   367,   371,   374,   379
+     241,   242,   247,   252,   260,   261,   262,   263,   264,   268,
+     270,   272,   277,   278,   279,   280,   281,   282,   283,   284,
+     285,   289,   290,   291,   292,   293,   294,   298,   299,   300,
+     301,   305,   306,   307,   308,   309,   310,   314,   315,   316,
+     317,   318,   319,   320,   321,   322,   323,   324,   325,   326,
+     327,   328,   329,   331,   338,   339,   343,   344,   345,   346,
+     347,   348,   349,   350,   354,   355,   359,   360,   364,   365,
+     369,   370,   374,   375,   379,   383,   386,   391
   };
 
   void
@@ -2220,7 +2232,7 @@ namespace dli {
 
 #line 5 "lexer/parser.y"
 } // dli
-#line 2224 "lexer/parser.cpp"
+#line 2236 "lexer/parser.cpp"
 
-#line 383 "lexer/parser.y"
+#line 395 "lexer/parser.y"
 
