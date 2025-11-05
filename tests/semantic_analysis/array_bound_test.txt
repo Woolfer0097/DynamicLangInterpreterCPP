@@ -1,3 +1,4 @@
 test array_bound_test() is
-    var index := 5
+    var array := ["a", "b", "c"]
+    print(array[30])
 end

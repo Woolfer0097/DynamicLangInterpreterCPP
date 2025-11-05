@@ -20,6 +20,7 @@ struct SemanticChecker : ASTVisitor {
     bool inFunction {false};
     std::unordered_set<std::string> declaredVars;
     std::unordered_map<std::string, std::shared_ptr<FunctionLiteral>> declaredFuncs;
+    std::unordered_map<std::string, std::size_t> arrayLiteralSizes; // track known array literal sizes by variable name
 
     void reportError(const std::string& msg, const SourceLocation& loc) {
         errors.push_back("Error at " + std::to_string(loc.firstLine) + 
@@ -82,7 +83,24 @@ struct SemanticChecker : ASTVisitor {
                 double d = idxNum->value;
                 long long i = static_cast<long long>(d);
                 if (static_cast<double>(i) != d || i < 0 || i >= static_cast<long long>(arr->elements.size())) {
-                    reportError("Array index out of bounds", e.loc);
+                    SourceLocation loc = e.loc;
+                    if (loc.firstLine == 1 && loc.firstColumn == 1 && e.index) loc = e.index->loc;
+                    reportError("Array index out of bounds", loc);
+                }
+            }
+        }
+        // Array bounds check when array is a variable bound to a known literal array size
+        if (auto var = dynamic_cast<VariableExpr*>(e.array.get())) {
+            auto it = arrayLiteralSizes.find(var->name);
+            if (it != arrayLiteralSizes.end()) {
+                if (auto idxNum = dynamic_cast<NumberExpr*>(e.index.get())) {
+                    double d = idxNum->value;
+                    long long i = static_cast<long long>(d);
+                    if (static_cast<double>(i) != d || i < 0 || i >= static_cast<long long>(it->second)) {
+                        SourceLocation loc = e.loc;
+                        if (loc.firstLine == 1 && loc.firstColumn == 1 && e.index) loc = e.index->loc;
+                        reportError("Array index out of bounds", loc);
+                    }
                 }
             }
         }
@@ -171,6 +189,9 @@ struct SemanticChecker : ASTVisitor {
             if (auto fn = std::dynamic_pointer_cast<FunctionLiteral>(s.init)) {
                 declaredFuncs[s.name] = fn;
             }
+            if (auto arr = std::dynamic_pointer_cast<ArrayLiteral>(s.init)) {
+                arrayLiteralSizes[s.name] = arr->elements.size();
+            }
         }
     }
 
@@ -183,6 +204,13 @@ struct SemanticChecker : ASTVisitor {
         // Track functions assigned after declaration
         if (auto fn = std::dynamic_pointer_cast<FunctionLiteral>(s.value)) {
             declaredFuncs[s.name] = fn;
+        }
+        // Track/clear known array literal sizes
+        if (auto arr = std::dynamic_pointer_cast<ArrayLiteral>(s.value)) {
+            arrayLiteralSizes[s.name] = arr->elements.size();
+        } else {
+            // If reassigned to unknown, forget precise size
+            arrayLiteralSizes.erase(s.name);
         }
     }
 
