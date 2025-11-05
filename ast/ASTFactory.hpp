@@ -13,7 +13,14 @@ inline std::shared_ptr<StatementList> make_stmt_list() {
 
 inline std::shared_ptr<StatementList> append_stmt(std::shared_ptr<StatementList> list,
                                                   std::shared_ptr<Statement> stmt) {
-    list->push(std::move(stmt));
+    // Flatten nested StatementList to avoid double StmtList in bodies
+    if (auto nested = dynamic_cast<StatementList*>(stmt.get())) {
+        for (auto& sub : nested->statements) {
+            list->push(std::move(sub));
+        }
+    } else {
+        list->push(std::move(stmt));
+    }
     return list;
 }
 

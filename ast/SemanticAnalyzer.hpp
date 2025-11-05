@@ -13,7 +13,7 @@
 
 namespace dli {
 
-// SemanticChecker: проверки, которые НЕ модифицируют AST
+// SemanticChecker: checks that do NOT modify the AST
 struct SemanticChecker : ASTVisitor {
     std::vector<std::string> errors;
     bool inLoop {false};
@@ -33,7 +33,7 @@ struct SemanticChecker : ASTVisitor {
     void visit(NoneExpr&) override {}
 
     void visit(VariableExpr& e) override {
-        // True, False, None - это встроенные константы
+        // True, False, None are built-in constants
         if (e.name == "True" || e.name == "False" || e.name == "None") {
             return;
         }
@@ -100,7 +100,7 @@ struct SemanticChecker : ASTVisitor {
         inFunction = true;
         
         std::unordered_set<std::string> savedVars = declaredVars;
-        // Параметры функции доступны в теле функции
+        // Function parameters are available in the function body
         for (const auto& param : e.params) {
             declaredVars.insert(param);
         }
@@ -172,7 +172,7 @@ struct SemanticChecker : ASTVisitor {
         bool wasInLoop = inLoop;
         inLoop = true;
         std::unordered_set<std::string> savedVars = declaredVars;
-        declaredVars.insert(s.variable); // переменная цикла доступна в теле
+        declaredVars.insert(s.variable); // loop variable is available in the loop body
         s.body->accept(*this);
         declaredVars = savedVars;
         inLoop = wasInLoop;
@@ -210,13 +210,13 @@ struct SemanticChecker : ASTVisitor {
     }
 };
 
-// SemanticOptimizer: оптимизации, которые МОДИФИЦИРУЮТ AST
+// SemanticOptimizer: optimizations that MODIFY the AST
 struct SemanticOptimizer : ASTVisitor {
     bool modified {false};
     std::shared_ptr<Expression> optimizedExpr {nullptr};
     std::shared_ptr<Statement> optimizedStmt {nullptr};
 
-    // Вспомогательная функция для вычисления константных выражений
+    // Helper function to evaluate constant expressions
     std::shared_ptr<Expression> evaluateConstant(BinaryExpr& e) {
         auto lhs = dynamic_cast<NumberExpr*>(e.lhs.get());
         auto rhs = dynamic_cast<NumberExpr*>(e.rhs.get());
@@ -292,7 +292,7 @@ struct SemanticOptimizer : ASTVisitor {
             optimizedExpr = nullptr;
         }
         
-        // Оптимизация: -(-x) -> x, !(!x) -> x (если нужно)
+        // Optimization: -(-x) -> x, !(!x) -> x (if needed)
         if (auto nested = dynamic_cast<UnaryExpr*>(e.rhs.get())) {
             if (e.op == nested->op && (e.op == "-" || e.op == "!" || e.op == "not")) {
                 optimizedExpr = nested->rhs;
@@ -314,7 +314,7 @@ struct SemanticOptimizer : ASTVisitor {
             optimizedExpr = nullptr;
         }
         
-        // Оптимизация: упрощение константных выражений
+        // Optimization: simplify constant expressions
         auto constant = evaluateConstant(e);
         if (constant) {
             optimizedExpr = constant;
@@ -439,7 +439,7 @@ struct SemanticOptimizer : ASTVisitor {
             }
         }
         
-        // Проверяем, является ли условие булевой константой
+        // Check if the condition is a boolean constant
         bool isTrue = false;
         bool isFalse = false;
         
@@ -455,7 +455,7 @@ struct SemanticOptimizer : ASTVisitor {
             }
         }
         
-        // Оптимизация: if True then X else Y -> X
+        // Optimization: if True then X else Y -> X
         if (isTrue) {
             optimizedExpr = e.thenExpr;
             modified = true;
@@ -473,7 +473,7 @@ struct SemanticOptimizer : ASTVisitor {
         
         for (auto& stmt : s.statements) {
             if (foundReturn) {
-                // Удаляем недоступный код после return
+                // Remove unreachable code after return
                 listModified = true;
                 modified = true;
                 continue;
@@ -481,10 +481,10 @@ struct SemanticOptimizer : ASTVisitor {
             
             stmt->accept(*this);
             
-            // Заменяем утверждение на оптимизированное, если есть
-            // Для IfStmt может быть замена на thenBranch или elseBranch
+            // Replace statement with optimized, if there is
+            // For IfStmt, it may be replaced with thenBranch or elseBranch
             if (optimizedStmt) {
-                // Если IfStmt был заменен на StatementList, разворачиваем его
+                // If IfStmt was replaced with StatementList, expand it
                 if (auto list = dynamic_cast<StatementList*>(optimizedStmt.get())) {
                     for (auto& substmt : list->statements) {
                         newStatements.push_back(substmt);
@@ -499,7 +499,7 @@ struct SemanticOptimizer : ASTVisitor {
                 newStatements.push_back(stmt);
             }
             
-            // Проверяем, является ли это return
+            // Check if this is a return
             if (dynamic_cast<ReturnStmt*>(stmt.get())) {
                 foundReturn = true;
             }
@@ -535,7 +535,7 @@ struct SemanticOptimizer : ASTVisitor {
             optimizedExpr = nullptr;
         }
         
-        // Проверяем, является ли условие булевой константой
+        // Check if the condition is a boolean constant
         bool isTrue = false;
         bool isFalse = false;
         
@@ -544,7 +544,7 @@ struct SemanticOptimizer : ASTVisitor {
             isTrue = condBool->value;
             isFalse = !condBool->value;
         } else if (auto varExpr = dynamic_cast<VariableExpr*>(s.cond.get())) {
-            // Обрабатываем True/False как переменные (если парсер так их распознает)
+            // Process True/False as variables (if the parser recognizes them)
             if (varExpr->name == "True") {
                 isTrue = true;
             } else if (varExpr->name == "False") {
@@ -552,21 +552,21 @@ struct SemanticOptimizer : ASTVisitor {
             }
         }
         
-        // Оптимизация: if True then X else Y -> X
+        // Optimization: if True then X else Y -> X
         if (isTrue) {
             s.thenBranch->accept(*this);
-            // Если thenBranch - это StatementList, используем его напрямую
+            // If thenBranch is a StatementList, use it directly
             if (dynamic_cast<StatementList*>(s.thenBranch.get())) {
                 optimizedStmt = s.thenBranch;
             } else {
-                // Оборачиваем в StatementList
+                // Wrap in StatementList
                 auto newList = make_stmt_list();
                 newList->push(s.thenBranch);
                 optimizedStmt = newList;
             }
             modified = true;
         } 
-        // Оптимизация: if False then X else Y -> Y (или удалить)
+        // Optimization: if False then X else Y -> Y (or remove)
         else if (isFalse) {
             if (s.elseBranch) {
                 s.elseBranch->accept(*this);
@@ -579,7 +579,7 @@ struct SemanticOptimizer : ASTVisitor {
                 }
                 modified = true;
             } else {
-                // Удаляем весь if (заменяем на пустой StatementList)
+                // Remove the entire if (replace with empty StatementList)
                 optimizedStmt = make_stmt_list();
                 modified = true;
             }
@@ -625,10 +625,10 @@ struct SemanticOptimizer : ASTVisitor {
             optimizedExpr = nullptr;
         }
         
-        // Оптимизация: while False -> удалить тело
+        // Optimization: while False -> remove the body
         auto condBool = dynamic_cast<BooleanExpr*>(s.condition.get());
         if (condBool && !condBool->value) {
-            // Заменяем на пустой StatementList
+            // Replace with empty StatementList
             s.body = make_stmt_list();
             modified = true;
             return;
@@ -699,4 +699,3 @@ struct SemanticOptimizer : ASTVisitor {
 };
 
 } // namespace dli
-

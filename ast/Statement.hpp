@@ -12,7 +12,16 @@ struct Statement : ASTNode {};
 
 struct StatementList : Statement {
     std::vector<std::shared_ptr<Statement>> statements;
-    void push(std::shared_ptr<Statement> s) { statements.push_back(std::move(s)); }
+    void push(std::shared_ptr<Statement> s) {
+        // Flatten nested StatementList to avoid double StmtList
+        if (auto nested = dynamic_cast<StatementList*>(s.get())) {
+            for (auto& sub : nested->statements) {
+                statements.push_back(std::move(sub));
+            }
+        } else {
+            statements.push_back(std::move(s));
+        }
+    }
     void accept(class ASTVisitor& v) override;
 };
 
@@ -44,7 +53,7 @@ struct IfStmt : Statement {
 };
 
 struct PrintStmt : Statement {
-    std::vector<std::shared_ptr<Expression>> exprs; // Множественные аргументы
+    std::vector<std::shared_ptr<Expression>> exprs; // Multiple arguments
     explicit PrintStmt(std::vector<std::shared_ptr<Expression>> e) : exprs(std::move(e)) {}
     void accept(class ASTVisitor& v) override;
 };
@@ -84,14 +93,14 @@ struct ExitStmt : Statement {
 };
 
 struct ReturnStmt : Statement {
-    std::shared_ptr<class Expression> value; // nullptr для return без значения
+    std::shared_ptr<class Expression> value; // nullptr for return without value
     ReturnStmt() = default;
     explicit ReturnStmt(std::shared_ptr<class Expression> v) : value(std::move(v)) {}
     void accept(class ASTVisitor& v) override;
 };
 
 struct IndexedAssign : Statement {
-    std::shared_ptr<class Expression> target; // должен быть IndexExpr или FieldAccessExpr
+    std::shared_ptr<class Expression> target; // should be IndexExpr or FieldAccessExpr
     std::shared_ptr<class Expression> value;
     IndexedAssign(std::shared_ptr<class Expression> t, std::shared_ptr<class Expression> v)
         : target(std::move(t)), value(std::move(v)) {}

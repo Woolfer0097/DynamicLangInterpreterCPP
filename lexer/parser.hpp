@@ -2632,7 +2632,7 @@ switch (yykind)
 
 
 // "%code provides" blocks.
-#line 125 "lexer/parser.y"
+#line 124 "lexer/parser.y"
 
     // Provide Parser::error implementation after class declaration
     inline void dli::Parser::error(const dli::Parser::location_type& loc, const std::string& msg) {
