@@ -31,7 +31,7 @@ int main(int argc, char** argv) {
         return 2;
     }
 
-    // Семантические проверки (не модифицируют AST)
+    // Semantic checks (do not modify AST)
     dli::SemanticChecker checker;
     dli::g_root->accept(checker);
     
@@ -45,7 +45,7 @@ int main(int argc, char** argv) {
     
     std::cout << "Semantic checks passed.\n";
 
-    // Семантические оптимизации (модифицируют AST)
+    // Semantic optimizations (modify AST)
     dli::SemanticOptimizer optimizer;
     dli::g_root->accept(optimizer);
     
@@ -55,11 +55,11 @@ int main(int argc, char** argv) {
         std::cout << "No optimizations applied.\n";
     }
 
-    // Выводим оптимизированный AST
+    // Print optimized AST
     dli::AstPrettyPrinter pp(std::cout);
     std::cout << "\nOptimized AST:\n";
     dli::g_root->accept(pp);
-    
+
     return 0;
 }
 
