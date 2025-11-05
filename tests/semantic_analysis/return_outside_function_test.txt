@@ -1,0 +1,21 @@
+// Test: return statement outside function (should fail semantic check)
+// This test checks that 'return' can only be used inside functions
+
+// Error: return at top level
+return 5
+
+test return_at_top_level_in_test() is
+    // This test itself is a function, but we'll check nested functions
+    return 10  // Actually OK - test is a function
+end
+
+test return_in_nested_structure() is
+    if True then
+        return 20  // Error: return outside function
+    end
+    
+    loop
+        return 30  // Error: return outside function
+    end
+end
+

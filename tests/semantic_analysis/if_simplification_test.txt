@@ -1,0 +1,48 @@
+// Test: if statement simplification (optimization)
+// This test checks that if True/False statements are optimized
+
+test if_true_simplification() is
+    // Before optimization: if True then print "Hello" else print "World" end
+    // After optimization: print "Hello"
+    if True then
+        print "Hello"
+        print "should remain"
+    else
+        print "World"
+        print "should be removed"
+    end
+end
+
+test if_false_simplification() is
+    // Before optimization: if False then print "Hello" else print "World" end
+    // After optimization: print "World"
+    if False then
+        print "Hello"
+        print "should be removed"
+    else
+        print "World"
+        print "should remain"
+    end
+end
+
+test if_false_no_else() is
+    // Before optimization: if False then print "Hello" end
+    // After optimization: (empty statement list)
+    if False then
+        print "Hello"
+        print "should be removed"
+    end
+end
+
+test nested_if_simplification() is
+    if True then
+        if False then
+            print "nested false - should be removed"
+        else
+            print "nested else - should remain"
+        end
+    else
+        print "outer else - should be removed"
+    end
+end
+

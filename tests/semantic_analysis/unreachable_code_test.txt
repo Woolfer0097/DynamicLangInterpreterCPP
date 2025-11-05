@@ -1,0 +1,43 @@
+// Test: unreachable code removal (optimization)
+// This test checks that code after return is removed
+
+test unreachable_after_return() is
+    var myfunc := func() is
+        return 10
+        print "This should be removed"  // Unreachable
+        var x := 5  // Unreachable
+        var y := x + 1  // Unreachable
+    end
+end
+
+test unreachable_in_if() is
+    var myfunc := func() is
+        if True then
+            return 20
+            print "Unreachable in if"  // Unreachable
+        end
+        print "This is reachable"
+    end
+end
+
+test multiple_returns() is
+    var myfunc := func(x) is
+        if x > 0 then
+            return 1
+            print "Unreachable after return 1"  // Unreachable
+        else
+            return 2
+            print "Unreachable after return 2"  // Unreachable
+        end
+        print "Unreachable after if"  // Actually might be reachable if no return in branches
+    end
+end
+
+test unreachable_after_exit() is
+    loop
+        exit
+        print "Unreachable after exit"  // This is a semantic error - exit in loop is OK
+        var z := 10  // Unreachable
+    end
+end
+

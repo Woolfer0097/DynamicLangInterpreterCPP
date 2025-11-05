@@ -1,0 +1,67 @@
+// Test: correct usage that should pass semantic checks
+// This test checks valid code that should pass all semantic checks
+
+test exit_in_loop() is
+    loop
+        exit  // OK: exit inside loop
+    end
+end
+
+test exit_in_while() is
+    var i := 0
+    while i < 10 loop
+        if i > 5 then
+            exit  // OK: exit inside while loop
+        end
+        i := i + 1
+    end
+end
+
+test exit_in_for() is
+    for x in [1, 2, 3] loop
+        if x > 2 then
+            exit  // OK: exit inside for loop
+        end
+    end
+end
+
+test return_in_function() is
+    var myfunc := func(x) is
+        return x * 2  // OK: return inside function
+    end
+end
+
+test nested_return() is
+    var outer := func() is
+        var inner := func(y) is
+            return y + 1  // OK: return in nested function
+        end
+        return inner(5)  // OK: return in outer function
+    end
+end
+
+test variable_scoping() is
+    var x := 10
+    
+    loop
+        var y := x  // OK: x is declared in outer scope
+        var z := 5
+        var result := y + z  // OK: both declared
+    end
+    
+    var w := x  // OK: x still in scope
+end
+
+test function_parameters() is
+    var add := func(a, b) is
+        var sum := a + b  // OK: a and b are function parameters (declared)
+        return sum
+    end
+end
+
+test loop_variable() is
+    for item in [1, 2, 3] loop
+        var doubled := item * 2  // OK: item is loop variable (declared)
+    end
+end
+

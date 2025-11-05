@@ -1,0 +1,19 @@
+// Test: exit statement outside loop (should fail semantic check)
+// This test checks that 'exit' can only be used inside loops
+
+test exit_at_top_level() is
+    exit  // Error: exit outside loop
+end
+
+test exit_in_function() is
+    var myfunc := func() is
+        exit  // Error: exit outside loop (not in loop context)
+    end
+end
+
+test exit_after_if() is
+    if True then
+        exit  // Error: exit outside loop
+    end
+end
+
