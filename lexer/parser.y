@@ -126,6 +126,15 @@
     inline void dli::Parser::error(const dli::Parser::location_type& loc, const std::string& msg) {
         std::cerr << loc << ": " << msg << '\n';
     }
+    
+    // Helper macro to set location on AST nodes
+    #define SET_LOC(node, location) \
+        do { \
+            (node)->loc.firstLine = (location).begin.line; \
+            (node)->loc.firstColumn = (location).begin.column; \
+            (node)->loc.lastLine = (location).end.line; \
+            (node)->loc.lastColumn = (location).end.column; \
+        } while(0)
 }
 
 %token <dli::Token> IDENTIFIER INTEGER REAL STRING
@@ -226,112 +235,100 @@ statement:
         }
         $$ = stmts; }
   | KW_VAR IDENTIFIER
-      { $$ = dli::make_var_decl($2.lexeme, dli::make_none()); }
-  | IDENTIFIER ASSIGN_COLON expression          { $$ = dli::make_assignment($1.lexeme, $3); }
-  | postfix ASSIGN_COLON expression             { $$ = dli::make_indexed_assign($1, $3); }
-  | postfix                                     { $$ = dli::make_expr_stmt($1); }
-  | KW_IF expression ARROW statement            { $$ = dli::make_if($2, $4, nullptr); }
-  | KW_IF expression KW_THEN statement_list KW_END   { $$ = dli::make_if($2, $4, nullptr); }
+      { $$ = dli::make_var_decl($2.lexeme, dli::make_none()); SET_LOC($$, @$); }
+  | IDENTIFIER ASSIGN_COLON expression          { $$ = dli::make_assignment($1.lexeme, $3); SET_LOC($$, @$); }
+  | postfix ASSIGN_COLON expression             { $$ = dli::make_indexed_assign($1, $3); SET_LOC($$, @$); }
+  | postfix                                     { $$ = dli::make_expr_stmt($1); SET_LOC($$, @$); }
+  | KW_IF expression ARROW statement            { $$ = dli::make_if($2, $4, nullptr); SET_LOC($$, @$); }
+  | KW_IF expression KW_THEN statement_list KW_END   { $$ = dli::make_if($2, $4, nullptr); SET_LOC($$, @$); }
   | KW_IF expression KW_THEN statement_list KW_ELSE statement_list KW_END 
-      { $$ = dli::make_if($2, $4, $6); }
-  | KW_PRINT expression_list_nonempty           { $$ = dli::make_print($2); }
-  | KW_ASSERT expression                        { $$ = dli::make_assert($2); }
-  | KW_WHILE expression KW_LOOP statement_list KW_END { $$ = dli::make_while($2, $4); }
-  | KW_FOR IDENTIFIER KW_IN expression KW_LOOP statement_list KW_END { $$ = dli::make_for($2.lexeme, $4, $6); }
-  | KW_LOOP statement_list KW_END               { $$ = dli::make_loop($2); }
-  | KW_EXIT                                     { $$ = dli::make_exit();
-                                                  $$->loc.firstLine = @1.begin.line;
-                                                  $$->loc.firstColumn = @1.begin.column;
-                                                  $$->loc.lastLine = @1.end.line;
-                                                  $$->loc.lastColumn = @1.end.column; }
-  | KW_RETURN expression                        { $$ = dli::make_return($2);
-                                                  $$->loc.firstLine = @1.begin.line;
-                                                  $$->loc.firstColumn = @1.begin.column;
-                                                  $$->loc.lastLine = @2.end.line;
-                                                  $$->loc.lastColumn = @2.end.column; }
-  | KW_RETURN                                   { $$ = dli::make_return();
-                                                  $$->loc.firstLine = @1.begin.line;
-                                                  $$->loc.firstColumn = @1.begin.column;
-                                                  $$->loc.lastLine = @1.end.line;
-                                                  $$->loc.lastColumn = @1.end.column; }
+      { $$ = dli::make_if($2, $4, $6); SET_LOC($$, @$); }
+  | KW_PRINT expression_list_nonempty           { $$ = dli::make_print($2); SET_LOC($$, @$); }
+  | KW_ASSERT expression                        { $$ = dli::make_assert($2); SET_LOC($$, @$); }
+  | KW_WHILE expression KW_LOOP statement_list KW_END { $$ = dli::make_while($2, $4); SET_LOC($$, @$); }
+  | KW_FOR IDENTIFIER KW_IN expression KW_LOOP statement_list KW_END { $$ = dli::make_for($2.lexeme, $4, $6); SET_LOC($$, @$); }
+  | KW_LOOP statement_list KW_END               { $$ = dli::make_loop($2); SET_LOC($$, @$); }
+  | KW_EXIT                                     { $$ = dli::make_exit(); SET_LOC($$, @$); }
+  | KW_RETURN expression                        { $$ = dli::make_return($2); SET_LOC($$, @$); }
+  | KW_RETURN                                   { $$ = dli::make_return(); SET_LOC($$, @$); }
   ;
 
 expression:
     relation
   | if_expression
-  | expression KW_OR relation    { $$ = dli::make_binary("or", $1, $3); }
-  | expression KW_AND relation   { $$ = dli::make_binary("and", $1, $3); }
-  | expression KW_XOR relation   { $$ = dli::make_binary("xor", $1, $3); }
+  | expression KW_OR relation    { $$ = dli::make_binary("or", $1, $3); SET_LOC($$, @$); }
+  | expression KW_AND relation   { $$ = dli::make_binary("and", $1, $3); SET_LOC($$, @$); }
+  | expression KW_XOR relation   { $$ = dli::make_binary("xor", $1, $3); SET_LOC($$, @$); }
   ;
 
 if_expression:
     KW_IF expression KW_THEN expression KW_ELSE expression KW_END
-      { $$ = dli::make_if_expr($2, $4, $6); }
+      { $$ = dli::make_if_expr($2, $4, $6); SET_LOC($$, @$); }
   | KW_IF expression KW_THEN expression KW_ELSE KW_IF expression KW_THEN expression KW_END
-      { $$ = dli::make_if_expr($2, $4, dli::make_if_expr($7, $9, dli::make_none())); }
+      { $$ = dli::make_if_expr($2, $4, dli::make_if_expr($7, $9, dli::make_none())); SET_LOC($$, @$); }
   | KW_IF expression KW_THEN expression KW_ELSE KW_IF expression KW_THEN expression KW_ELSE expression KW_END
-      { $$ = dli::make_if_expr($2, $4, dli::make_if_expr($7, $9, $11)); }
+      { $$ = dli::make_if_expr($2, $4, dli::make_if_expr($7, $9, $11)); SET_LOC($$, @$); }
   ;
 
 relation:
     term
-  | relation LESS term           { $$ = dli::make_binary("<", $1, $3); }
-  | relation LESS_EQUAL term     { $$ = dli::make_binary("<=", $1, $3); }
-  | relation GREATER term        { $$ = dli::make_binary(">", $1, $3); }
-  | relation GREATER_EQUAL term  { $$ = dli::make_binary(">=", $1, $3); }
-  | relation EQUAL term          { $$ = dli::make_binary("=", $1, $3); }
-  | relation EQUAL_EQUAL term    { $$ = dli::make_binary("==", $1, $3); }
-  | relation NOT_EQUAL_SLASH term{ $$ = dli::make_binary("/=", $1, $3); }
-  | relation KW_IS type_name     { $$ = dli::make_is($1, $3); }
+  | relation LESS term           { $$ = dli::make_binary("<", $1, $3); SET_LOC($$, @$); }
+  | relation LESS_EQUAL term     { $$ = dli::make_binary("<=", $1, $3); SET_LOC($$, @$); }
+  | relation GREATER term        { $$ = dli::make_binary(">", $1, $3); SET_LOC($$, @$); }
+  | relation GREATER_EQUAL term  { $$ = dli::make_binary(">=", $1, $3); SET_LOC($$, @$); }
+  | relation EQUAL term          { $$ = dli::make_binary("=", $1, $3); SET_LOC($$, @$); }
+  | relation EQUAL_EQUAL term    { $$ = dli::make_binary("==", $1, $3); SET_LOC($$, @$); }
+  | relation NOT_EQUAL_SLASH term{ $$ = dli::make_binary("/=", $1, $3); SET_LOC($$, @$); }
+  | relation KW_IS type_name     { $$ = dli::make_is($1, $3); SET_LOC($$, @$); }
   ;
 
 term:
     unary
-  | term PLUS unary     { $$ = dli::make_binary("+", $1, $3); }
-  | term MINUS unary    { $$ = dli::make_binary("-", $1, $3); }
-  | term STAR unary     { $$ = dli::make_binary("*", $1, $3); }
-  | term SLASH unary    { $$ = dli::make_binary("/", $1, $3); }
-  | term DOT_DOT unary  { $$ = dli::make_range($1, $3); }
+  | term PLUS unary     { $$ = dli::make_binary("+", $1, $3); SET_LOC($$, @$); }
+  | term MINUS unary    { $$ = dli::make_binary("-", $1, $3); SET_LOC($$, @$); }
+  | term STAR unary     { $$ = dli::make_binary("*", $1, $3); SET_LOC($$, @$); }
+  | term SLASH unary    { $$ = dli::make_binary("/", $1, $3); SET_LOC($$, @$); }
+  | term DOT_DOT unary  { $$ = dli::make_range($1, $3); SET_LOC($$, @$); }
   ;
 
 unary:
     postfix
-  | MINUS unary %prec UMINUS { $$ = dli::make_unary("-", $2); }
-  | PLUS unary               { $$ = dli::make_unary("+", $2); }
-  | KW_NOT unary             { $$ = dli::make_unary("not", $2); }
+  | MINUS unary %prec UMINUS { $$ = dli::make_unary("-", $2); SET_LOC($$, @$); }
+  | PLUS unary               { $$ = dli::make_unary("+", $2); SET_LOC($$, @$); }
+  | KW_NOT unary             { $$ = dli::make_unary("not", $2); SET_LOC($$, @$); }
   ;
 
 postfix:
     primary
-  | postfix LBRACKET expression RBRACKET { $$ = dli::make_index($1, $3); }
-  | postfix LPAREN RPAREN { $$ = dli::make_call($1, std::vector<std::shared_ptr<dli::Expression>>()); }
-  | postfix LPAREN expression_list_nonempty RPAREN { $$ = dli::make_call($1, $3); }
-  | postfix DOT IDENTIFIER { $$ = dli::make_field_access($1, $3.lexeme); }
-  | postfix DOT INTEGER    { $$ = dli::make_field_access($1, $3.lexeme); }
+  | postfix LBRACKET expression RBRACKET { $$ = dli::make_index($1, $3); SET_LOC($$, @$); }
+  | postfix LPAREN RPAREN { $$ = dli::make_call($1, std::vector<std::shared_ptr<dli::Expression>>()); SET_LOC($$, @$); }
+  | postfix LPAREN expression_list_nonempty RPAREN { $$ = dli::make_call($1, $3); SET_LOC($$, @$); }
+  | postfix DOT IDENTIFIER { $$ = dli::make_field_access($1, $3.lexeme); SET_LOC($$, @$); }
+  | postfix DOT INTEGER    { $$ = dli::make_field_access($1, $3.lexeme); SET_LOC($$, @$); }
   ;
 
 primary:
-    INTEGER    { $$ = dli::make_number(std::stod($1.lexeme)); }
-  | REAL       { $$ = dli::make_number(std::stod($1.lexeme)); }
-  | STRING     { $$ = dli::make_string($1.lexeme); }
-  | KW_TRUE    { $$ = dli::make_boolean(true); }
-  | KW_FALSE   { $$ = dli::make_boolean(false); }
-  | KW_NONE    { $$ = dli::make_none(); }
-  | IDENTIFIER { $$ = dli::make_variable($1.lexeme); }
+    INTEGER    { $$ = dli::make_number(std::stod($1.lexeme)); SET_LOC($$, @1); }
+  | REAL       { $$ = dli::make_number(std::stod($1.lexeme)); SET_LOC($$, @1); }
+  | STRING     { $$ = dli::make_string($1.lexeme); SET_LOC($$, @1); }
+  | KW_TRUE    { $$ = dli::make_boolean(true); SET_LOC($$, @1); }
+  | KW_FALSE   { $$ = dli::make_boolean(false); SET_LOC($$, @1); }
+  | KW_NONE    { $$ = dli::make_none(); SET_LOC($$, @1); }
+  | IDENTIFIER { $$ = dli::make_variable($1.lexeme); SET_LOC($$, @1); }
   | LPAREN expression RPAREN { $$ = $2; }
-  | LPAREN IDENTIFIER ASSIGN_COLON expression RPAREN { $$ = dli::make_assign_expr($2.lexeme, $4); }
-  | LBRACKET expression_list_nonempty RBRACKET { $$ = dli::make_array($2); }
-  | LBRACKET RBRACKET { $$ = dli::make_array(std::vector<std::shared_ptr<dli::Expression>>()); }
-  | LBRACE tuple_field_list RBRACE { $$ = dli::make_tuple($2); }
-  | LBRACE RBRACE { $$ = dli::make_tuple(std::vector<dli::TupleField>()); }
-  | LBRACE tuple_field_list KW_END { $$ = dli::make_tuple($2); }
-  | LBRACE KW_END { $$ = dli::make_tuple(std::vector<dli::TupleField>()); }
+  | LPAREN IDENTIFIER ASSIGN_COLON expression RPAREN { $$ = dli::make_assign_expr($2.lexeme, $4); SET_LOC($$, @$); }
+  | LBRACKET expression_list_nonempty RBRACKET { $$ = dli::make_array($2); SET_LOC($$, @$); }
+  | LBRACKET RBRACKET { $$ = dli::make_array(std::vector<std::shared_ptr<dli::Expression>>()); SET_LOC($$, @$); }
+  | LBRACE tuple_field_list RBRACE { $$ = dli::make_tuple($2); SET_LOC($$, @$); }
+  | LBRACE RBRACE { $$ = dli::make_tuple(std::vector<dli::TupleField>()); SET_LOC($$, @$); }
+  | LBRACE tuple_field_list KW_END { $$ = dli::make_tuple($2); SET_LOC($$, @$); }
+  | LBRACE KW_END { $$ = dli::make_tuple(std::vector<dli::TupleField>()); SET_LOC($$, @$); }
   | KW_FUNC LPAREN param_list RPAREN KW_IS statement_list KW_END
-      { $$ = dli::make_function($3, $6, false); }
-  | KW_FUNC LPAREN param_list RPAREN ARROW statement
+      { $$ = dli::make_function($3, $6, false); SET_LOC($$, @$); }
+  | KW_FUNC LPAREN param_list RPAREN ARROW expression
       { auto stmts = dli::make_stmt_list();
-        stmts->push($6);
-        $$ = dli::make_function($3, stmts, true); }
+        stmts->push(dli::make_return($6));
+        $$ = dli::make_function($3, stmts, true); SET_LOC($$, @$); }
   ;
 
 expression_list_nonempty:

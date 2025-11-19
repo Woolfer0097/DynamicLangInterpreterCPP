@@ -76,33 +76,21 @@ struct SemanticChecker : ASTVisitor {
     void visit(IndexExpr& e) override {
         e.array->accept(*this);
         e.index->accept(*this);
-        // Array bounds check when both sides are literals
-        if (auto arr = dynamic_cast<ArrayLiteral*>(e.array.get())) {
-            if (auto idxNum = dynamic_cast<NumberExpr*>(e.index.get())) {
-                // treat double as integer index if it is integral
-                double d = idxNum->value;
-                long long i = static_cast<long long>(d);
-                if (static_cast<double>(i) != d || i < 0 || i >= static_cast<long long>(arr->elements.size())) {
-                    SourceLocation loc = e.loc;
-                    if (loc.firstLine == 1 && loc.firstColumn == 1 && e.index) loc = e.index->loc;
-                    reportError("Array index out of bounds", loc);
-                }
+        // Basic validation for array indices
+        if (auto idxNum = dynamic_cast<NumberExpr*>(e.index.get())) {
+            double d = idxNum->value;
+            long long i = static_cast<long long>(d);
+            // Check for non-integral or non-positive indices
+            if (static_cast<double>(i) != d) {
+                SourceLocation loc = e.loc;
+                if (loc.firstLine == 1 && loc.firstColumn == 1 && e.index) loc = e.index->loc;
+                reportError("Array index must be an integer", loc);
+            } else if (i < 1) {
+                SourceLocation loc = e.loc;
+                if (loc.firstLine == 1 && loc.firstColumn == 1 && e.index) loc = e.index->loc;
+                reportError("Array index must be positive (1-based indexing)", loc);
             }
-        }
-        // Array bounds check when array is a variable bound to a known literal array size
-        if (auto var = dynamic_cast<VariableExpr*>(e.array.get())) {
-            auto it = arrayLiteralSizes.find(var->name);
-            if (it != arrayLiteralSizes.end()) {
-                if (auto idxNum = dynamic_cast<NumberExpr*>(e.index.get())) {
-                    double d = idxNum->value;
-                    long long i = static_cast<long long>(d);
-                    if (static_cast<double>(i) != d || i < 0 || i >= static_cast<long long>(it->second)) {
-                        SourceLocation loc = e.loc;
-                        if (loc.firstLine == 1 && loc.firstColumn == 1 && e.index) loc = e.index->loc;
-                        reportError("Array index out of bounds", loc);
-                    }
-                }
-            }
+            // Note: No upper bound check - arrays are dynamic and support sparse indices
         }
     }
 
@@ -163,6 +151,11 @@ struct SemanticChecker : ASTVisitor {
     }
 
     void visit(VarDecl& s) override {
+        // For recursive functions, declare the variable name before processing the function body
+        if (s.init && dynamic_cast<FunctionLiteral*>(s.init.get())) {
+            declaredVars.insert(s.name);
+        }
+        
         if (s.init) {
             if (auto fn = dynamic_cast<FunctionLiteral*>(s.init.get())) {
                 bool wasInFunction = inFunction;
@@ -178,6 +171,8 @@ struct SemanticChecker : ASTVisitor {
                 }
 
                 declaredVars = savedVars;
+                // Restore the function name declaration
+                declaredVars.insert(s.name);
                 inFunction = wasInFunction;
             } else {
                 s.init->accept(*this);

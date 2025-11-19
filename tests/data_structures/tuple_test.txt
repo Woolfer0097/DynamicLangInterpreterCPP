@@ -139,3 +139,15 @@ test complex_tuple_operations() is
     assert result.data[1] == 10
     assert result.data[5] == 50
 end
+
+// Execute all tests
+print "Running tuple tests..."
+simple_tuple_creation()
+tuple_with_mixed_types()
+tuple_with_unnamed_elements()
+tuple_element_modification()
+tuple_in_array()
+array_in_tuple()
+tuple_field_reassignment_with_different_types()
+complex_tuple_operations()
+print "All tuple tests passed!"

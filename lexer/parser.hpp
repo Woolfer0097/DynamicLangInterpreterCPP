@@ -32,7 +32,7 @@
 
 
 /**
- ** \file lexer/parser.hpp
+ ** \file parser.hpp
  ** Define the dli::parser class.
  */
 
@@ -42,10 +42,10 @@
 // especially those whose name start with YY_ or yy_.  They are
 // private implementation details that can be changed or removed.
 
-#ifndef YY_YY_LEXER_PARSER_HPP_INCLUDED
-# define YY_YY_LEXER_PARSER_HPP_INCLUDED
+#ifndef YY_YY_PARSER_HPP_INCLUDED
+# define YY_YY_PARSER_HPP_INCLUDED
 // "%code requires" blocks.
-#line 16 "lexer/parser.y"
+#line 16 "parser.y"
 
     #include <memory>
     #include <string>
@@ -66,7 +66,7 @@
         extern thread_local Lexer* g_current_lexer;
     }
 
-#line 70 "lexer/parser.hpp"
+#line 70 "parser.hpp"
 
 
 # include <cstdlib> // std::abort
@@ -200,9 +200,9 @@
 # define YYDEBUG 0
 #endif
 
-#line 5 "lexer/parser.y"
+#line 5 "parser.y"
 namespace dli {
-#line 206 "lexer/parser.hpp"
+#line 206 "parser.hpp"
 
 
 
@@ -2344,7 +2344,7 @@ switch (yykind)
     /// Constants.
     enum
     {
-      yylast_ = 867,     ///< Last index in yytable_.
+      yylast_ = 847,     ///< Last index in yytable_.
       yynnts_ = 21,  ///< Number of nonterminal symbols.
       yyfinal_ = 63 ///< Termination state number.
     };
@@ -2626,20 +2626,29 @@ switch (yykind)
   }
 
 
-#line 5 "lexer/parser.y"
+#line 5 "parser.y"
 } // dli
-#line 2632 "lexer/parser.hpp"
+#line 2632 "parser.hpp"
 
 
 // "%code provides" blocks.
-#line 124 "lexer/parser.y"
+#line 124 "parser.y"
 
     // Provide Parser::error implementation after class declaration
     inline void dli::Parser::error(const dli::Parser::location_type& loc, const std::string& msg) {
         std::cerr << loc << ": " << msg << '\n';
     }
+    
+    // Helper macro to set location on AST nodes
+    #define SET_LOC(node, location) \
+        do { \
+            (node)->loc.firstLine = (location).begin.line; \
+            (node)->loc.firstColumn = (location).begin.column; \
+            (node)->loc.lastLine = (location).end.line; \
+            (node)->loc.lastColumn = (location).end.column; \
+        } while(0)
 
-#line 2643 "lexer/parser.hpp"
+#line 2652 "parser.hpp"
 
 
-#endif // !YY_YY_LEXER_PARSER_HPP_INCLUDED
+#endif // !YY_YY_PARSER_HPP_INCLUDED

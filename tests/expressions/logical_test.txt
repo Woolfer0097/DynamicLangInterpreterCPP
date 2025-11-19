@@ -71,3 +71,14 @@ test logical_operations_precedence() is
     assert result2 == true   // true or (false and false) = true or false = true
     assert result3 == true   // true xor (true and false) = true xor false = true
 end
+
+// Execute all tests
+print "Running logical tests..."
+logical_and_operation()
+logical_or_operation()
+logical_xor_operation()
+logical_not_operation()
+complex_logical_expressions()
+logical_operations_with_comparison_results()
+logical_operations_precedence()
+print "All logical tests passed!"

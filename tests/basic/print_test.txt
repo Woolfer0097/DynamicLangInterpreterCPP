@@ -40,3 +40,13 @@ test print_in_loop() is
     // Iteration: 2
     // Iteration: 3
 end
+
+// Execute all tests
+print "Running print tests..."
+print_single_value()
+print_multiple_values()
+print_boolean_values()
+print_none_value()
+print_expressions()
+print_in_loop()
+print "All print tests passed!"

@@ -31,12 +31,12 @@
 // version 2.2 of Bison.
 
 /**
- ** \file lexer/location.hh
+ ** \file location.hh
  ** Define the dli::location class.
  */
 
-#ifndef YY_YY_LEXER_LOCATION_HH_INCLUDED
-# define YY_YY_LEXER_LOCATION_HH_INCLUDED
+#ifndef YY_YY_LOCATION_HH_INCLUDED
+# define YY_YY_LOCATION_HH_INCLUDED
 
 # include <iostream>
 # include <string>
@@ -53,9 +53,9 @@
 #  endif
 # endif
 
-#line 5 "lexer/parser.y"
+#line 5 "parser.y"
 namespace dli {
-#line 59 "lexer/location.hh"
+#line 59 "location.hh"
 
   /// A point in a source file.
   class position
@@ -299,8 +299,8 @@ namespace dli {
     return ostr;
   }
 
-#line 5 "lexer/parser.y"
+#line 5 "parser.y"
 } // dli
-#line 305 "lexer/location.hh"
+#line 305 "location.hh"
 
-#endif // !YY_YY_LEXER_LOCATION_HH_INCLUDED
+#endif // !YY_YY_LOCATION_HH_INCLUDED

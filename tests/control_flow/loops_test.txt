@@ -123,3 +123,17 @@ test multiple_exit_conditions() is
     assert count == 10
     assert sum == 55  // sum reached 55 at count=10
 end
+
+// Execute all tests
+print "Running loop tests..."
+simple_while_loop()
+while_loop_with_false_condition_initially()
+while_loop_with_complex_condition()
+infinite_loop_with_exit()
+for_loop_with_range()
+for_loop_with_range_and_variable()
+for_loop_iterating_over_array()
+nested_loops()
+loop_with_variable_scope()
+multiple_exit_conditions()
+print "All loop tests passed!"
