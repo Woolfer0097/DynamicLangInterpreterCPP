@@ -73,3 +73,13 @@ test multiple_statements_in_if_block() is
     assert a == 10
     assert b == 20
 end
+
+// Execute all tests
+print "Running if statement tests..."
+simple_if_then_statement()
+if_with_else_clause()
+if_with_comparison_condition()
+if_short_form()
+variable_scope_in_if_blocks()
+multiple_statements_in_if_block()
+print "All if statement tests passed!"

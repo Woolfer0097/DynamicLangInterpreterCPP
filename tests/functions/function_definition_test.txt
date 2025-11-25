@@ -136,7 +136,21 @@ test function_with_local_variables() is
     end
 
     var result := complex_calc(2, 3, 4)
-    assert result == 19  // ((2+3)*4) - 2 = 5*4 - 2 = 20 - 2 = 18? Wait, let me recalculate
-    // Actually: temp1 = 2+3 = 5, temp2 = 5*4 = 20, result = 20 - 2 = 18
     assert result == 18
 end
+
+// Execute all tests
+print "Running function definition tests..."
+simple_function_without_parameters()
+function_with_single_parameter()
+function_with_multiple_parameters()
+function_with_return_statement_in_middle()
+function_without_explicit_return()
+nested_function_calls()
+recursive_function()
+function_stored_in_array()
+function_stored_in_tuple()
+function_as_parameter()
+anonymous_function_in_expression()
+function_with_local_variables()
+print "All function definition tests passed!"

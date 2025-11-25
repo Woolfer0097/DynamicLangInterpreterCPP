@@ -103,3 +103,11 @@ test string_concatenation() is
     assert result2 is string
     assert result3 is string
 end
+
+// Execute all tests
+print "Running arithmetic tests..."
+integer_addition()
+integer_subtraction()
+integer_multiplication()
+integer_division()
+print "Arithmetic tests passed!"

@@ -42,7 +42,7 @@
 
 
 // Unqualified %code blocks.
-#line 37 "lexer/parser.y"
+#line 37 "parser.y"
 
     namespace dli {
         std::shared_ptr<ASTNode> g_root;
@@ -129,7 +129,7 @@
     }
 
 
-#line 133 "lexer/parser.cpp"
+#line 133 "parser.cpp"
 
 
 #ifndef YY_
@@ -220,9 +220,9 @@
 #define YYERROR         goto yyerrorlab
 #define YYRECOVERING()  (!!yyerrstatus_)
 
-#line 5 "lexer/parser.y"
+#line 5 "parser.y"
 namespace dli {
-#line 226 "lexer/parser.cpp"
+#line 226 "parser.cpp"
 
   /// Build a parser object.
   Parser::Parser (dli::Lexer& lexer_yyarg)
@@ -706,12 +706,12 @@ namespace dli {
 
 
     // User initialization code.
-#line 12 "lexer/parser.y"
+#line 12 "parser.y"
 {
     dli::g_current_lexer = &lexer;
 }
 
-#line 715 "lexer/parser.cpp"
+#line 715 "parser.cpp"
 
 
     /* Initialize the stack.  The initial state will be set in
@@ -903,591 +903,591 @@ namespace dli {
           switch (yyn)
             {
   case 2: // translation_unit: %empty
-#line 208 "lexer/parser.y"
+#line 217 "parser.y"
                                     { dli::g_root = nullptr; }
-#line 909 "lexer/parser.cpp"
+#line 909 "parser.cpp"
     break;
 
   case 3: // translation_unit: statement_list
-#line 209 "lexer/parser.y"
+#line 218 "parser.y"
                                     { dli::g_root = yystack_[0].value.as < std::shared_ptr<dli::StatementList> > (); }
-#line 915 "lexer/parser.cpp"
+#line 915 "parser.cpp"
     break;
 
   case 4: // statement_list: statement
-#line 213 "lexer/parser.y"
+#line 222 "parser.y"
                                     { yylhs.value.as < std::shared_ptr<dli::StatementList> > () = dli::make_stmt_list(); yylhs.value.as < std::shared_ptr<dli::StatementList> > ()->push(yystack_[0].value.as < std::shared_ptr<dli::Statement> > ()); }
-#line 921 "lexer/parser.cpp"
+#line 921 "parser.cpp"
     break;
 
   case 5: // statement_list: statement_list SEMICOLON statement
-#line 214 "lexer/parser.y"
+#line 223 "parser.y"
                                        { yylhs.value.as < std::shared_ptr<dli::StatementList> > () = dli::append_stmt(yystack_[2].value.as < std::shared_ptr<dli::StatementList> > (), yystack_[0].value.as < std::shared_ptr<dli::Statement> > ()); }
-#line 927 "lexer/parser.cpp"
+#line 927 "parser.cpp"
     break;
 
   case 6: // statement_list: statement_list statement
-#line 215 "lexer/parser.y"
+#line 224 "parser.y"
                                     { yylhs.value.as < std::shared_ptr<dli::StatementList> > () = dli::append_stmt(yystack_[1].value.as < std::shared_ptr<dli::StatementList> > (), yystack_[0].value.as < std::shared_ptr<dli::Statement> > ()); }
-#line 933 "lexer/parser.cpp"
+#line 933 "parser.cpp"
     break;
 
   case 7: // statement: KW_TEST IDENTIFIER LPAREN param_list RPAREN KW_IS statement_list KW_END
-#line 220 "lexer/parser.y"
+#line 229 "parser.y"
       { auto func = dli::make_function(yystack_[4].value.as < std::vector<std::string> > (), yystack_[1].value.as < std::shared_ptr<dli::StatementList> > (), false);
         yylhs.value.as < std::shared_ptr<dli::Statement> > () = dli::make_var_decl(yystack_[6].value.as < dli::Token > ().lexeme, func); }
-#line 940 "lexer/parser.cpp"
+#line 940 "parser.cpp"
     break;
 
   case 8: // statement: KW_VAR var_decl_list
-#line 223 "lexer/parser.y"
+#line 232 "parser.y"
       { auto stmts = dli::make_stmt_list();
         for (auto& [name, expr] : yystack_[0].value.as < std::vector<std::pair<std::string, std::shared_ptr<dli::Expression>>> > ()) {
           stmts->push(dli::make_var_decl(name, expr));
         }
         yylhs.value.as < std::shared_ptr<dli::Statement> > () = stmts; }
-#line 950 "lexer/parser.cpp"
+#line 950 "parser.cpp"
     break;
 
   case 9: // statement: KW_VAR IDENTIFIER
-#line 229 "lexer/parser.y"
-      { yylhs.value.as < std::shared_ptr<dli::Statement> > () = dli::make_var_decl(yystack_[0].value.as < dli::Token > ().lexeme, dli::make_none()); }
-#line 956 "lexer/parser.cpp"
+#line 238 "parser.y"
+      { yylhs.value.as < std::shared_ptr<dli::Statement> > () = dli::make_var_decl(yystack_[0].value.as < dli::Token > ().lexeme, dli::make_none()); SET_LOC(yylhs.value.as < std::shared_ptr<dli::Statement> > (), yylhs.location); }
+#line 956 "parser.cpp"
     break;
 
   case 10: // statement: IDENTIFIER ASSIGN_COLON expression
-#line 230 "lexer/parser.y"
-                                                { yylhs.value.as < std::shared_ptr<dli::Statement> > () = dli::make_assignment(yystack_[2].value.as < dli::Token > ().lexeme, yystack_[0].value.as < std::shared_ptr<dli::Expression> > ()); }
-#line 962 "lexer/parser.cpp"
+#line 239 "parser.y"
+                                                { yylhs.value.as < std::shared_ptr<dli::Statement> > () = dli::make_assignment(yystack_[2].value.as < dli::Token > ().lexeme, yystack_[0].value.as < std::shared_ptr<dli::Expression> > ()); SET_LOC(yylhs.value.as < std::shared_ptr<dli::Statement> > (), yylhs.location); }
+#line 962 "parser.cpp"
     break;
 
   case 11: // statement: postfix ASSIGN_COLON expression
-#line 231 "lexer/parser.y"
-                                                { yylhs.value.as < std::shared_ptr<dli::Statement> > () = dli::make_indexed_assign(yystack_[2].value.as < std::shared_ptr<dli::Expression> > (), yystack_[0].value.as < std::shared_ptr<dli::Expression> > ()); }
-#line 968 "lexer/parser.cpp"
+#line 240 "parser.y"
+                                                { yylhs.value.as < std::shared_ptr<dli::Statement> > () = dli::make_indexed_assign(yystack_[2].value.as < std::shared_ptr<dli::Expression> > (), yystack_[0].value.as < std::shared_ptr<dli::Expression> > ()); SET_LOC(yylhs.value.as < std::shared_ptr<dli::Statement> > (), yylhs.location); }
+#line 968 "parser.cpp"
     break;
 
   case 12: // statement: postfix
-#line 232 "lexer/parser.y"
-                                                { yylhs.value.as < std::shared_ptr<dli::Statement> > () = dli::make_expr_stmt(yystack_[0].value.as < std::shared_ptr<dli::Expression> > ()); }
-#line 974 "lexer/parser.cpp"
+#line 241 "parser.y"
+                                                { yylhs.value.as < std::shared_ptr<dli::Statement> > () = dli::make_expr_stmt(yystack_[0].value.as < std::shared_ptr<dli::Expression> > ()); SET_LOC(yylhs.value.as < std::shared_ptr<dli::Statement> > (), yylhs.location); }
+#line 974 "parser.cpp"
     break;
 
   case 13: // statement: KW_IF expression ARROW statement
-#line 233 "lexer/parser.y"
-                                                { yylhs.value.as < std::shared_ptr<dli::Statement> > () = dli::make_if(yystack_[2].value.as < std::shared_ptr<dli::Expression> > (), yystack_[0].value.as < std::shared_ptr<dli::Statement> > (), nullptr); }
-#line 980 "lexer/parser.cpp"
+#line 242 "parser.y"
+                                                { yylhs.value.as < std::shared_ptr<dli::Statement> > () = dli::make_if(yystack_[2].value.as < std::shared_ptr<dli::Expression> > (), yystack_[0].value.as < std::shared_ptr<dli::Statement> > (), nullptr); SET_LOC(yylhs.value.as < std::shared_ptr<dli::Statement> > (), yylhs.location); }
+#line 980 "parser.cpp"
     break;
 
   case 14: // statement: KW_IF expression KW_THEN statement_list KW_END
-#line 234 "lexer/parser.y"
-                                                     { yylhs.value.as < std::shared_ptr<dli::Statement> > () = dli::make_if(yystack_[3].value.as < std::shared_ptr<dli::Expression> > (), yystack_[1].value.as < std::shared_ptr<dli::StatementList> > (), nullptr); }
-#line 986 "lexer/parser.cpp"
+#line 243 "parser.y"
+                                                     { yylhs.value.as < std::shared_ptr<dli::Statement> > () = dli::make_if(yystack_[3].value.as < std::shared_ptr<dli::Expression> > (), yystack_[1].value.as < std::shared_ptr<dli::StatementList> > (), nullptr); SET_LOC(yylhs.value.as < std::shared_ptr<dli::Statement> > (), yylhs.location); }
+#line 986 "parser.cpp"
     break;
 
   case 15: // statement: KW_IF expression KW_THEN statement_list KW_ELSE statement_list KW_END
-#line 236 "lexer/parser.y"
-      { yylhs.value.as < std::shared_ptr<dli::Statement> > () = dli::make_if(yystack_[5].value.as < std::shared_ptr<dli::Expression> > (), yystack_[3].value.as < std::shared_ptr<dli::StatementList> > (), yystack_[1].value.as < std::shared_ptr<dli::StatementList> > ()); }
-#line 992 "lexer/parser.cpp"
+#line 245 "parser.y"
+      { yylhs.value.as < std::shared_ptr<dli::Statement> > () = dli::make_if(yystack_[5].value.as < std::shared_ptr<dli::Expression> > (), yystack_[3].value.as < std::shared_ptr<dli::StatementList> > (), yystack_[1].value.as < std::shared_ptr<dli::StatementList> > ()); SET_LOC(yylhs.value.as < std::shared_ptr<dli::Statement> > (), yylhs.location); }
+#line 992 "parser.cpp"
     break;
 
   case 16: // statement: KW_PRINT expression_list_nonempty
-#line 237 "lexer/parser.y"
-                                                { yylhs.value.as < std::shared_ptr<dli::Statement> > () = dli::make_print(yystack_[0].value.as < std::vector<std::shared_ptr<dli::Expression>> > ()); }
-#line 998 "lexer/parser.cpp"
+#line 246 "parser.y"
+                                                { yylhs.value.as < std::shared_ptr<dli::Statement> > () = dli::make_print(yystack_[0].value.as < std::vector<std::shared_ptr<dli::Expression>> > ()); SET_LOC(yylhs.value.as < std::shared_ptr<dli::Statement> > (), yylhs.location); }
+#line 998 "parser.cpp"
     break;
 
   case 17: // statement: KW_ASSERT expression
-#line 238 "lexer/parser.y"
-                                                { yylhs.value.as < std::shared_ptr<dli::Statement> > () = dli::make_assert(yystack_[0].value.as < std::shared_ptr<dli::Expression> > ()); }
-#line 1004 "lexer/parser.cpp"
+#line 247 "parser.y"
+                                                { yylhs.value.as < std::shared_ptr<dli::Statement> > () = dli::make_assert(yystack_[0].value.as < std::shared_ptr<dli::Expression> > ()); SET_LOC(yylhs.value.as < std::shared_ptr<dli::Statement> > (), yylhs.location); }
+#line 1004 "parser.cpp"
     break;
 
   case 18: // statement: KW_WHILE expression KW_LOOP statement_list KW_END
-#line 239 "lexer/parser.y"
-                                                      { yylhs.value.as < std::shared_ptr<dli::Statement> > () = dli::make_while(yystack_[3].value.as < std::shared_ptr<dli::Expression> > (), yystack_[1].value.as < std::shared_ptr<dli::StatementList> > ()); }
-#line 1010 "lexer/parser.cpp"
+#line 248 "parser.y"
+                                                      { yylhs.value.as < std::shared_ptr<dli::Statement> > () = dli::make_while(yystack_[3].value.as < std::shared_ptr<dli::Expression> > (), yystack_[1].value.as < std::shared_ptr<dli::StatementList> > ()); SET_LOC(yylhs.value.as < std::shared_ptr<dli::Statement> > (), yylhs.location); }
+#line 1010 "parser.cpp"
     break;
 
   case 19: // statement: KW_FOR IDENTIFIER KW_IN expression KW_LOOP statement_list KW_END
-#line 240 "lexer/parser.y"
-                                                                     { yylhs.value.as < std::shared_ptr<dli::Statement> > () = dli::make_for(yystack_[5].value.as < dli::Token > ().lexeme, yystack_[3].value.as < std::shared_ptr<dli::Expression> > (), yystack_[1].value.as < std::shared_ptr<dli::StatementList> > ()); }
-#line 1016 "lexer/parser.cpp"
+#line 249 "parser.y"
+                                                                     { yylhs.value.as < std::shared_ptr<dli::Statement> > () = dli::make_for(yystack_[5].value.as < dli::Token > ().lexeme, yystack_[3].value.as < std::shared_ptr<dli::Expression> > (), yystack_[1].value.as < std::shared_ptr<dli::StatementList> > ()); SET_LOC(yylhs.value.as < std::shared_ptr<dli::Statement> > (), yylhs.location); }
+#line 1016 "parser.cpp"
     break;
 
   case 20: // statement: KW_LOOP statement_list KW_END
-#line 241 "lexer/parser.y"
-                                                { yylhs.value.as < std::shared_ptr<dli::Statement> > () = dli::make_loop(yystack_[1].value.as < std::shared_ptr<dli::StatementList> > ()); }
-#line 1022 "lexer/parser.cpp"
+#line 250 "parser.y"
+                                                { yylhs.value.as < std::shared_ptr<dli::Statement> > () = dli::make_loop(yystack_[1].value.as < std::shared_ptr<dli::StatementList> > ()); SET_LOC(yylhs.value.as < std::shared_ptr<dli::Statement> > (), yylhs.location); }
+#line 1022 "parser.cpp"
     break;
 
   case 21: // statement: KW_EXIT
-#line 242 "lexer/parser.y"
-                                                { yylhs.value.as < std::shared_ptr<dli::Statement> > () = dli::make_exit(); }
-#line 1028 "lexer/parser.cpp"
+#line 251 "parser.y"
+                                                { yylhs.value.as < std::shared_ptr<dli::Statement> > () = dli::make_exit(); SET_LOC(yylhs.value.as < std::shared_ptr<dli::Statement> > (), yylhs.location); }
+#line 1028 "parser.cpp"
     break;
 
   case 22: // statement: KW_RETURN expression
-#line 243 "lexer/parser.y"
-                                                { yylhs.value.as < std::shared_ptr<dli::Statement> > () = dli::make_return(yystack_[0].value.as < std::shared_ptr<dli::Expression> > ()); }
-#line 1034 "lexer/parser.cpp"
+#line 252 "parser.y"
+                                                { yylhs.value.as < std::shared_ptr<dli::Statement> > () = dli::make_return(yystack_[0].value.as < std::shared_ptr<dli::Expression> > ()); SET_LOC(yylhs.value.as < std::shared_ptr<dli::Statement> > (), yylhs.location); }
+#line 1034 "parser.cpp"
     break;
 
   case 23: // statement: KW_RETURN
-#line 244 "lexer/parser.y"
-                                                { yylhs.value.as < std::shared_ptr<dli::Statement> > () = dli::make_return(); }
-#line 1040 "lexer/parser.cpp"
+#line 253 "parser.y"
+                                                { yylhs.value.as < std::shared_ptr<dli::Statement> > () = dli::make_return(); SET_LOC(yylhs.value.as < std::shared_ptr<dli::Statement> > (), yylhs.location); }
+#line 1040 "parser.cpp"
     break;
 
   case 24: // expression: relation
-#line 248 "lexer/parser.y"
+#line 257 "parser.y"
     { yylhs.value.as < std::shared_ptr<dli::Expression> > () = yystack_[0].value.as < std::shared_ptr<dli::Expression> > (); }
-#line 1046 "lexer/parser.cpp"
+#line 1046 "parser.cpp"
     break;
 
   case 25: // expression: if_expression
-#line 249 "lexer/parser.y"
+#line 258 "parser.y"
     { yylhs.value.as < std::shared_ptr<dli::Expression> > () = yystack_[0].value.as < std::shared_ptr<dli::Expression> > (); }
-#line 1052 "lexer/parser.cpp"
+#line 1052 "parser.cpp"
     break;
 
   case 26: // expression: expression KW_OR relation
-#line 250 "lexer/parser.y"
-                                 { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_binary("or", yystack_[2].value.as < std::shared_ptr<dli::Expression> > (), yystack_[0].value.as < std::shared_ptr<dli::Expression> > ()); }
-#line 1058 "lexer/parser.cpp"
+#line 259 "parser.y"
+                                 { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_binary("or", yystack_[2].value.as < std::shared_ptr<dli::Expression> > (), yystack_[0].value.as < std::shared_ptr<dli::Expression> > ()); SET_LOC(yylhs.value.as < std::shared_ptr<dli::Expression> > (), yylhs.location); }
+#line 1058 "parser.cpp"
     break;
 
   case 27: // expression: expression KW_AND relation
-#line 251 "lexer/parser.y"
-                                 { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_binary("and", yystack_[2].value.as < std::shared_ptr<dli::Expression> > (), yystack_[0].value.as < std::shared_ptr<dli::Expression> > ()); }
-#line 1064 "lexer/parser.cpp"
+#line 260 "parser.y"
+                                 { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_binary("and", yystack_[2].value.as < std::shared_ptr<dli::Expression> > (), yystack_[0].value.as < std::shared_ptr<dli::Expression> > ()); SET_LOC(yylhs.value.as < std::shared_ptr<dli::Expression> > (), yylhs.location); }
+#line 1064 "parser.cpp"
     break;
 
   case 28: // expression: expression KW_XOR relation
-#line 252 "lexer/parser.y"
-                                 { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_binary("xor", yystack_[2].value.as < std::shared_ptr<dli::Expression> > (), yystack_[0].value.as < std::shared_ptr<dli::Expression> > ()); }
-#line 1070 "lexer/parser.cpp"
+#line 261 "parser.y"
+                                 { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_binary("xor", yystack_[2].value.as < std::shared_ptr<dli::Expression> > (), yystack_[0].value.as < std::shared_ptr<dli::Expression> > ()); SET_LOC(yylhs.value.as < std::shared_ptr<dli::Expression> > (), yylhs.location); }
+#line 1070 "parser.cpp"
     break;
 
   case 29: // if_expression: KW_IF expression KW_THEN expression KW_ELSE expression KW_END
-#line 257 "lexer/parser.y"
-      { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_if_expr(yystack_[5].value.as < std::shared_ptr<dli::Expression> > (), yystack_[3].value.as < std::shared_ptr<dli::Expression> > (), yystack_[1].value.as < std::shared_ptr<dli::Expression> > ()); }
-#line 1076 "lexer/parser.cpp"
+#line 266 "parser.y"
+      { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_if_expr(yystack_[5].value.as < std::shared_ptr<dli::Expression> > (), yystack_[3].value.as < std::shared_ptr<dli::Expression> > (), yystack_[1].value.as < std::shared_ptr<dli::Expression> > ()); SET_LOC(yylhs.value.as < std::shared_ptr<dli::Expression> > (), yylhs.location); }
+#line 1076 "parser.cpp"
     break;
 
   case 30: // if_expression: KW_IF expression KW_THEN expression KW_ELSE KW_IF expression KW_THEN expression KW_END
-#line 259 "lexer/parser.y"
-      { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_if_expr(yystack_[8].value.as < std::shared_ptr<dli::Expression> > (), yystack_[6].value.as < std::shared_ptr<dli::Expression> > (), dli::make_if_expr(yystack_[3].value.as < std::shared_ptr<dli::Expression> > (), yystack_[1].value.as < std::shared_ptr<dli::Expression> > (), dli::make_none())); }
-#line 1082 "lexer/parser.cpp"
+#line 268 "parser.y"
+      { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_if_expr(yystack_[8].value.as < std::shared_ptr<dli::Expression> > (), yystack_[6].value.as < std::shared_ptr<dli::Expression> > (), dli::make_if_expr(yystack_[3].value.as < std::shared_ptr<dli::Expression> > (), yystack_[1].value.as < std::shared_ptr<dli::Expression> > (), dli::make_none())); SET_LOC(yylhs.value.as < std::shared_ptr<dli::Expression> > (), yylhs.location); }
+#line 1082 "parser.cpp"
     break;
 
   case 31: // if_expression: KW_IF expression KW_THEN expression KW_ELSE KW_IF expression KW_THEN expression KW_ELSE expression KW_END
-#line 261 "lexer/parser.y"
-      { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_if_expr(yystack_[10].value.as < std::shared_ptr<dli::Expression> > (), yystack_[8].value.as < std::shared_ptr<dli::Expression> > (), dli::make_if_expr(yystack_[5].value.as < std::shared_ptr<dli::Expression> > (), yystack_[3].value.as < std::shared_ptr<dli::Expression> > (), yystack_[1].value.as < std::shared_ptr<dli::Expression> > ())); }
-#line 1088 "lexer/parser.cpp"
+#line 270 "parser.y"
+      { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_if_expr(yystack_[10].value.as < std::shared_ptr<dli::Expression> > (), yystack_[8].value.as < std::shared_ptr<dli::Expression> > (), dli::make_if_expr(yystack_[5].value.as < std::shared_ptr<dli::Expression> > (), yystack_[3].value.as < std::shared_ptr<dli::Expression> > (), yystack_[1].value.as < std::shared_ptr<dli::Expression> > ())); SET_LOC(yylhs.value.as < std::shared_ptr<dli::Expression> > (), yylhs.location); }
+#line 1088 "parser.cpp"
     break;
 
   case 32: // relation: term
-#line 265 "lexer/parser.y"
+#line 274 "parser.y"
     { yylhs.value.as < std::shared_ptr<dli::Expression> > () = yystack_[0].value.as < std::shared_ptr<dli::Expression> > (); }
-#line 1094 "lexer/parser.cpp"
+#line 1094 "parser.cpp"
     break;
 
   case 33: // relation: relation LESS term
-#line 266 "lexer/parser.y"
-                                 { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_binary("<", yystack_[2].value.as < std::shared_ptr<dli::Expression> > (), yystack_[0].value.as < std::shared_ptr<dli::Expression> > ()); }
-#line 1100 "lexer/parser.cpp"
+#line 275 "parser.y"
+                                 { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_binary("<", yystack_[2].value.as < std::shared_ptr<dli::Expression> > (), yystack_[0].value.as < std::shared_ptr<dli::Expression> > ()); SET_LOC(yylhs.value.as < std::shared_ptr<dli::Expression> > (), yylhs.location); }
+#line 1100 "parser.cpp"
     break;
 
   case 34: // relation: relation LESS_EQUAL term
-#line 267 "lexer/parser.y"
-                                 { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_binary("<=", yystack_[2].value.as < std::shared_ptr<dli::Expression> > (), yystack_[0].value.as < std::shared_ptr<dli::Expression> > ()); }
-#line 1106 "lexer/parser.cpp"
+#line 276 "parser.y"
+                                 { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_binary("<=", yystack_[2].value.as < std::shared_ptr<dli::Expression> > (), yystack_[0].value.as < std::shared_ptr<dli::Expression> > ()); SET_LOC(yylhs.value.as < std::shared_ptr<dli::Expression> > (), yylhs.location); }
+#line 1106 "parser.cpp"
     break;
 
   case 35: // relation: relation GREATER term
-#line 268 "lexer/parser.y"
-                                 { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_binary(">", yystack_[2].value.as < std::shared_ptr<dli::Expression> > (), yystack_[0].value.as < std::shared_ptr<dli::Expression> > ()); }
-#line 1112 "lexer/parser.cpp"
+#line 277 "parser.y"
+                                 { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_binary(">", yystack_[2].value.as < std::shared_ptr<dli::Expression> > (), yystack_[0].value.as < std::shared_ptr<dli::Expression> > ()); SET_LOC(yylhs.value.as < std::shared_ptr<dli::Expression> > (), yylhs.location); }
+#line 1112 "parser.cpp"
     break;
 
   case 36: // relation: relation GREATER_EQUAL term
-#line 269 "lexer/parser.y"
-                                 { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_binary(">=", yystack_[2].value.as < std::shared_ptr<dli::Expression> > (), yystack_[0].value.as < std::shared_ptr<dli::Expression> > ()); }
-#line 1118 "lexer/parser.cpp"
+#line 278 "parser.y"
+                                 { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_binary(">=", yystack_[2].value.as < std::shared_ptr<dli::Expression> > (), yystack_[0].value.as < std::shared_ptr<dli::Expression> > ()); SET_LOC(yylhs.value.as < std::shared_ptr<dli::Expression> > (), yylhs.location); }
+#line 1118 "parser.cpp"
     break;
 
   case 37: // relation: relation EQUAL term
-#line 270 "lexer/parser.y"
-                                 { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_binary("=", yystack_[2].value.as < std::shared_ptr<dli::Expression> > (), yystack_[0].value.as < std::shared_ptr<dli::Expression> > ()); }
-#line 1124 "lexer/parser.cpp"
+#line 279 "parser.y"
+                                 { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_binary("=", yystack_[2].value.as < std::shared_ptr<dli::Expression> > (), yystack_[0].value.as < std::shared_ptr<dli::Expression> > ()); SET_LOC(yylhs.value.as < std::shared_ptr<dli::Expression> > (), yylhs.location); }
+#line 1124 "parser.cpp"
     break;
 
   case 38: // relation: relation EQUAL_EQUAL term
-#line 271 "lexer/parser.y"
-                                 { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_binary("==", yystack_[2].value.as < std::shared_ptr<dli::Expression> > (), yystack_[0].value.as < std::shared_ptr<dli::Expression> > ()); }
-#line 1130 "lexer/parser.cpp"
+#line 280 "parser.y"
+                                 { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_binary("==", yystack_[2].value.as < std::shared_ptr<dli::Expression> > (), yystack_[0].value.as < std::shared_ptr<dli::Expression> > ()); SET_LOC(yylhs.value.as < std::shared_ptr<dli::Expression> > (), yylhs.location); }
+#line 1130 "parser.cpp"
     break;
 
   case 39: // relation: relation NOT_EQUAL_SLASH term
-#line 272 "lexer/parser.y"
-                                 { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_binary("/=", yystack_[2].value.as < std::shared_ptr<dli::Expression> > (), yystack_[0].value.as < std::shared_ptr<dli::Expression> > ()); }
-#line 1136 "lexer/parser.cpp"
+#line 281 "parser.y"
+                                 { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_binary("/=", yystack_[2].value.as < std::shared_ptr<dli::Expression> > (), yystack_[0].value.as < std::shared_ptr<dli::Expression> > ()); SET_LOC(yylhs.value.as < std::shared_ptr<dli::Expression> > (), yylhs.location); }
+#line 1136 "parser.cpp"
     break;
 
   case 40: // relation: relation KW_IS type_name
-#line 273 "lexer/parser.y"
-                                 { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_is(yystack_[2].value.as < std::shared_ptr<dli::Expression> > (), yystack_[0].value.as < std::shared_ptr<dli::TypeExpr> > ()); }
-#line 1142 "lexer/parser.cpp"
+#line 282 "parser.y"
+                                 { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_is(yystack_[2].value.as < std::shared_ptr<dli::Expression> > (), yystack_[0].value.as < std::shared_ptr<dli::TypeExpr> > ()); SET_LOC(yylhs.value.as < std::shared_ptr<dli::Expression> > (), yylhs.location); }
+#line 1142 "parser.cpp"
     break;
 
   case 41: // term: unary
-#line 277 "lexer/parser.y"
+#line 286 "parser.y"
     { yylhs.value.as < std::shared_ptr<dli::Expression> > () = yystack_[0].value.as < std::shared_ptr<dli::Expression> > (); }
-#line 1148 "lexer/parser.cpp"
+#line 1148 "parser.cpp"
     break;
 
   case 42: // term: term PLUS unary
-#line 278 "lexer/parser.y"
-                        { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_binary("+", yystack_[2].value.as < std::shared_ptr<dli::Expression> > (), yystack_[0].value.as < std::shared_ptr<dli::Expression> > ()); }
-#line 1154 "lexer/parser.cpp"
+#line 287 "parser.y"
+                        { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_binary("+", yystack_[2].value.as < std::shared_ptr<dli::Expression> > (), yystack_[0].value.as < std::shared_ptr<dli::Expression> > ()); SET_LOC(yylhs.value.as < std::shared_ptr<dli::Expression> > (), yylhs.location); }
+#line 1154 "parser.cpp"
     break;
 
   case 43: // term: term MINUS unary
-#line 279 "lexer/parser.y"
-                        { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_binary("-", yystack_[2].value.as < std::shared_ptr<dli::Expression> > (), yystack_[0].value.as < std::shared_ptr<dli::Expression> > ()); }
-#line 1160 "lexer/parser.cpp"
+#line 288 "parser.y"
+                        { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_binary("-", yystack_[2].value.as < std::shared_ptr<dli::Expression> > (), yystack_[0].value.as < std::shared_ptr<dli::Expression> > ()); SET_LOC(yylhs.value.as < std::shared_ptr<dli::Expression> > (), yylhs.location); }
+#line 1160 "parser.cpp"
     break;
 
   case 44: // term: term STAR unary
-#line 280 "lexer/parser.y"
-                        { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_binary("*", yystack_[2].value.as < std::shared_ptr<dli::Expression> > (), yystack_[0].value.as < std::shared_ptr<dli::Expression> > ()); }
-#line 1166 "lexer/parser.cpp"
+#line 289 "parser.y"
+                        { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_binary("*", yystack_[2].value.as < std::shared_ptr<dli::Expression> > (), yystack_[0].value.as < std::shared_ptr<dli::Expression> > ()); SET_LOC(yylhs.value.as < std::shared_ptr<dli::Expression> > (), yylhs.location); }
+#line 1166 "parser.cpp"
     break;
 
   case 45: // term: term SLASH unary
-#line 281 "lexer/parser.y"
-                        { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_binary("/", yystack_[2].value.as < std::shared_ptr<dli::Expression> > (), yystack_[0].value.as < std::shared_ptr<dli::Expression> > ()); }
-#line 1172 "lexer/parser.cpp"
+#line 290 "parser.y"
+                        { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_binary("/", yystack_[2].value.as < std::shared_ptr<dli::Expression> > (), yystack_[0].value.as < std::shared_ptr<dli::Expression> > ()); SET_LOC(yylhs.value.as < std::shared_ptr<dli::Expression> > (), yylhs.location); }
+#line 1172 "parser.cpp"
     break;
 
   case 46: // term: term DOT_DOT unary
-#line 282 "lexer/parser.y"
-                        { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_range(yystack_[2].value.as < std::shared_ptr<dli::Expression> > (), yystack_[0].value.as < std::shared_ptr<dli::Expression> > ()); }
-#line 1178 "lexer/parser.cpp"
+#line 291 "parser.y"
+                        { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_range(yystack_[2].value.as < std::shared_ptr<dli::Expression> > (), yystack_[0].value.as < std::shared_ptr<dli::Expression> > ()); SET_LOC(yylhs.value.as < std::shared_ptr<dli::Expression> > (), yylhs.location); }
+#line 1178 "parser.cpp"
     break;
 
   case 47: // unary: postfix
-#line 286 "lexer/parser.y"
+#line 295 "parser.y"
     { yylhs.value.as < std::shared_ptr<dli::Expression> > () = yystack_[0].value.as < std::shared_ptr<dli::Expression> > (); }
-#line 1184 "lexer/parser.cpp"
+#line 1184 "parser.cpp"
     break;
 
   case 48: // unary: MINUS unary
-#line 287 "lexer/parser.y"
-                             { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_unary("-", yystack_[0].value.as < std::shared_ptr<dli::Expression> > ()); }
-#line 1190 "lexer/parser.cpp"
+#line 296 "parser.y"
+                             { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_unary("-", yystack_[0].value.as < std::shared_ptr<dli::Expression> > ()); SET_LOC(yylhs.value.as < std::shared_ptr<dli::Expression> > (), yylhs.location); }
+#line 1190 "parser.cpp"
     break;
 
   case 49: // unary: PLUS unary
-#line 288 "lexer/parser.y"
-                             { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_unary("+", yystack_[0].value.as < std::shared_ptr<dli::Expression> > ()); }
-#line 1196 "lexer/parser.cpp"
+#line 297 "parser.y"
+                             { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_unary("+", yystack_[0].value.as < std::shared_ptr<dli::Expression> > ()); SET_LOC(yylhs.value.as < std::shared_ptr<dli::Expression> > (), yylhs.location); }
+#line 1196 "parser.cpp"
     break;
 
   case 50: // unary: KW_NOT unary
-#line 289 "lexer/parser.y"
-                             { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_unary("not", yystack_[0].value.as < std::shared_ptr<dli::Expression> > ()); }
-#line 1202 "lexer/parser.cpp"
+#line 298 "parser.y"
+                             { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_unary("not", yystack_[0].value.as < std::shared_ptr<dli::Expression> > ()); SET_LOC(yylhs.value.as < std::shared_ptr<dli::Expression> > (), yylhs.location); }
+#line 1202 "parser.cpp"
     break;
 
   case 51: // postfix: primary
-#line 293 "lexer/parser.y"
+#line 302 "parser.y"
     { yylhs.value.as < std::shared_ptr<dli::Expression> > () = yystack_[0].value.as < std::shared_ptr<dli::Expression> > (); }
-#line 1208 "lexer/parser.cpp"
+#line 1208 "parser.cpp"
     break;
 
   case 52: // postfix: postfix LBRACKET expression RBRACKET
-#line 294 "lexer/parser.y"
-                                         { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_index(yystack_[3].value.as < std::shared_ptr<dli::Expression> > (), yystack_[1].value.as < std::shared_ptr<dli::Expression> > ()); }
-#line 1214 "lexer/parser.cpp"
+#line 303 "parser.y"
+                                         { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_index(yystack_[3].value.as < std::shared_ptr<dli::Expression> > (), yystack_[1].value.as < std::shared_ptr<dli::Expression> > ()); SET_LOC(yylhs.value.as < std::shared_ptr<dli::Expression> > (), yylhs.location); }
+#line 1214 "parser.cpp"
     break;
 
   case 53: // postfix: postfix LPAREN RPAREN
-#line 295 "lexer/parser.y"
-                          { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_call(yystack_[2].value.as < std::shared_ptr<dli::Expression> > (), std::vector<std::shared_ptr<dli::Expression>>()); }
-#line 1220 "lexer/parser.cpp"
+#line 304 "parser.y"
+                          { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_call(yystack_[2].value.as < std::shared_ptr<dli::Expression> > (), std::vector<std::shared_ptr<dli::Expression>>()); SET_LOC(yylhs.value.as < std::shared_ptr<dli::Expression> > (), yylhs.location); }
+#line 1220 "parser.cpp"
     break;
 
   case 54: // postfix: postfix LPAREN expression_list_nonempty RPAREN
-#line 296 "lexer/parser.y"
-                                                   { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_call(yystack_[3].value.as < std::shared_ptr<dli::Expression> > (), yystack_[1].value.as < std::vector<std::shared_ptr<dli::Expression>> > ()); }
-#line 1226 "lexer/parser.cpp"
+#line 305 "parser.y"
+                                                   { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_call(yystack_[3].value.as < std::shared_ptr<dli::Expression> > (), yystack_[1].value.as < std::vector<std::shared_ptr<dli::Expression>> > ()); SET_LOC(yylhs.value.as < std::shared_ptr<dli::Expression> > (), yylhs.location); }
+#line 1226 "parser.cpp"
     break;
 
   case 55: // postfix: postfix DOT IDENTIFIER
-#line 297 "lexer/parser.y"
-                           { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_field_access(yystack_[2].value.as < std::shared_ptr<dli::Expression> > (), yystack_[0].value.as < dli::Token > ().lexeme); }
-#line 1232 "lexer/parser.cpp"
+#line 306 "parser.y"
+                           { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_field_access(yystack_[2].value.as < std::shared_ptr<dli::Expression> > (), yystack_[0].value.as < dli::Token > ().lexeme); SET_LOC(yylhs.value.as < std::shared_ptr<dli::Expression> > (), yylhs.location); }
+#line 1232 "parser.cpp"
     break;
 
   case 56: // postfix: postfix DOT INTEGER
-#line 298 "lexer/parser.y"
-                           { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_field_access(yystack_[2].value.as < std::shared_ptr<dli::Expression> > (), yystack_[0].value.as < dli::Token > ().lexeme); }
-#line 1238 "lexer/parser.cpp"
+#line 307 "parser.y"
+                           { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_field_access(yystack_[2].value.as < std::shared_ptr<dli::Expression> > (), yystack_[0].value.as < dli::Token > ().lexeme); SET_LOC(yylhs.value.as < std::shared_ptr<dli::Expression> > (), yylhs.location); }
+#line 1238 "parser.cpp"
     break;
 
   case 57: // primary: INTEGER
-#line 302 "lexer/parser.y"
-               { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_number(std::stod(yystack_[0].value.as < dli::Token > ().lexeme)); }
-#line 1244 "lexer/parser.cpp"
+#line 311 "parser.y"
+               { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_number(std::stod(yystack_[0].value.as < dli::Token > ().lexeme)); SET_LOC(yylhs.value.as < std::shared_ptr<dli::Expression> > (), yystack_[0].location); }
+#line 1244 "parser.cpp"
     break;
 
   case 58: // primary: REAL
-#line 303 "lexer/parser.y"
-               { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_number(std::stod(yystack_[0].value.as < dli::Token > ().lexeme)); }
-#line 1250 "lexer/parser.cpp"
+#line 312 "parser.y"
+               { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_number(std::stod(yystack_[0].value.as < dli::Token > ().lexeme)); SET_LOC(yylhs.value.as < std::shared_ptr<dli::Expression> > (), yystack_[0].location); }
+#line 1250 "parser.cpp"
     break;
 
   case 59: // primary: STRING
-#line 304 "lexer/parser.y"
-               { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_string(yystack_[0].value.as < dli::Token > ().lexeme); }
-#line 1256 "lexer/parser.cpp"
+#line 313 "parser.y"
+               { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_string(yystack_[0].value.as < dli::Token > ().lexeme); SET_LOC(yylhs.value.as < std::shared_ptr<dli::Expression> > (), yystack_[0].location); }
+#line 1256 "parser.cpp"
     break;
 
   case 60: // primary: KW_TRUE
-#line 305 "lexer/parser.y"
-               { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_boolean(true); }
-#line 1262 "lexer/parser.cpp"
+#line 314 "parser.y"
+               { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_boolean(true); SET_LOC(yylhs.value.as < std::shared_ptr<dli::Expression> > (), yystack_[0].location); }
+#line 1262 "parser.cpp"
     break;
 
   case 61: // primary: KW_FALSE
-#line 306 "lexer/parser.y"
-               { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_boolean(false); }
-#line 1268 "lexer/parser.cpp"
+#line 315 "parser.y"
+               { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_boolean(false); SET_LOC(yylhs.value.as < std::shared_ptr<dli::Expression> > (), yystack_[0].location); }
+#line 1268 "parser.cpp"
     break;
 
   case 62: // primary: KW_NONE
-#line 307 "lexer/parser.y"
-               { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_none(); }
-#line 1274 "lexer/parser.cpp"
+#line 316 "parser.y"
+               { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_none(); SET_LOC(yylhs.value.as < std::shared_ptr<dli::Expression> > (), yystack_[0].location); }
+#line 1274 "parser.cpp"
     break;
 
   case 63: // primary: IDENTIFIER
-#line 308 "lexer/parser.y"
-               { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_variable(yystack_[0].value.as < dli::Token > ().lexeme); }
-#line 1280 "lexer/parser.cpp"
+#line 317 "parser.y"
+               { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_variable(yystack_[0].value.as < dli::Token > ().lexeme); SET_LOC(yylhs.value.as < std::shared_ptr<dli::Expression> > (), yystack_[0].location); }
+#line 1280 "parser.cpp"
     break;
 
   case 64: // primary: LPAREN expression RPAREN
-#line 309 "lexer/parser.y"
+#line 318 "parser.y"
                              { yylhs.value.as < std::shared_ptr<dli::Expression> > () = yystack_[1].value.as < std::shared_ptr<dli::Expression> > (); }
-#line 1286 "lexer/parser.cpp"
+#line 1286 "parser.cpp"
     break;
 
   case 65: // primary: LPAREN IDENTIFIER ASSIGN_COLON expression RPAREN
-#line 310 "lexer/parser.y"
-                                                     { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_assign_expr(yystack_[3].value.as < dli::Token > ().lexeme, yystack_[1].value.as < std::shared_ptr<dli::Expression> > ()); }
-#line 1292 "lexer/parser.cpp"
+#line 319 "parser.y"
+                                                     { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_assign_expr(yystack_[3].value.as < dli::Token > ().lexeme, yystack_[1].value.as < std::shared_ptr<dli::Expression> > ()); SET_LOC(yylhs.value.as < std::shared_ptr<dli::Expression> > (), yylhs.location); }
+#line 1292 "parser.cpp"
     break;
 
   case 66: // primary: LBRACKET expression_list_nonempty RBRACKET
-#line 311 "lexer/parser.y"
-                                               { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_array(yystack_[1].value.as < std::vector<std::shared_ptr<dli::Expression>> > ()); }
-#line 1298 "lexer/parser.cpp"
+#line 320 "parser.y"
+                                               { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_array(yystack_[1].value.as < std::vector<std::shared_ptr<dli::Expression>> > ()); SET_LOC(yylhs.value.as < std::shared_ptr<dli::Expression> > (), yylhs.location); }
+#line 1298 "parser.cpp"
     break;
 
   case 67: // primary: LBRACKET RBRACKET
-#line 312 "lexer/parser.y"
-                      { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_array(std::vector<std::shared_ptr<dli::Expression>>()); }
-#line 1304 "lexer/parser.cpp"
+#line 321 "parser.y"
+                      { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_array(std::vector<std::shared_ptr<dli::Expression>>()); SET_LOC(yylhs.value.as < std::shared_ptr<dli::Expression> > (), yylhs.location); }
+#line 1304 "parser.cpp"
     break;
 
   case 68: // primary: LBRACE tuple_field_list RBRACE
-#line 313 "lexer/parser.y"
-                                   { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_tuple(yystack_[1].value.as < std::vector<dli::TupleField> > ()); }
-#line 1310 "lexer/parser.cpp"
+#line 322 "parser.y"
+                                   { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_tuple(yystack_[1].value.as < std::vector<dli::TupleField> > ()); SET_LOC(yylhs.value.as < std::shared_ptr<dli::Expression> > (), yylhs.location); }
+#line 1310 "parser.cpp"
     break;
 
   case 69: // primary: LBRACE RBRACE
-#line 314 "lexer/parser.y"
-                  { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_tuple(std::vector<dli::TupleField>()); }
-#line 1316 "lexer/parser.cpp"
+#line 323 "parser.y"
+                  { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_tuple(std::vector<dli::TupleField>()); SET_LOC(yylhs.value.as < std::shared_ptr<dli::Expression> > (), yylhs.location); }
+#line 1316 "parser.cpp"
     break;
 
   case 70: // primary: LBRACE tuple_field_list KW_END
-#line 315 "lexer/parser.y"
-                                   { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_tuple(yystack_[1].value.as < std::vector<dli::TupleField> > ()); }
-#line 1322 "lexer/parser.cpp"
+#line 324 "parser.y"
+                                   { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_tuple(yystack_[1].value.as < std::vector<dli::TupleField> > ()); SET_LOC(yylhs.value.as < std::shared_ptr<dli::Expression> > (), yylhs.location); }
+#line 1322 "parser.cpp"
     break;
 
   case 71: // primary: LBRACE KW_END
-#line 316 "lexer/parser.y"
-                  { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_tuple(std::vector<dli::TupleField>()); }
-#line 1328 "lexer/parser.cpp"
+#line 325 "parser.y"
+                  { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_tuple(std::vector<dli::TupleField>()); SET_LOC(yylhs.value.as < std::shared_ptr<dli::Expression> > (), yylhs.location); }
+#line 1328 "parser.cpp"
     break;
 
   case 72: // primary: KW_FUNC LPAREN param_list RPAREN KW_IS statement_list KW_END
-#line 318 "lexer/parser.y"
-      { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_function(yystack_[4].value.as < std::vector<std::string> > (), yystack_[1].value.as < std::shared_ptr<dli::StatementList> > (), false); }
-#line 1334 "lexer/parser.cpp"
+#line 327 "parser.y"
+      { yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_function(yystack_[4].value.as < std::vector<std::string> > (), yystack_[1].value.as < std::shared_ptr<dli::StatementList> > (), false); SET_LOC(yylhs.value.as < std::shared_ptr<dli::Expression> > (), yylhs.location); }
+#line 1334 "parser.cpp"
     break;
 
-  case 73: // primary: KW_FUNC LPAREN param_list RPAREN ARROW statement
-#line 320 "lexer/parser.y"
+  case 73: // primary: KW_FUNC LPAREN param_list RPAREN ARROW expression
+#line 329 "parser.y"
       { auto stmts = dli::make_stmt_list();
-        stmts->push(yystack_[0].value.as < std::shared_ptr<dli::Statement> > ());
-        yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_function(yystack_[3].value.as < std::vector<std::string> > (), stmts, true); }
-#line 1342 "lexer/parser.cpp"
+        stmts->push(dli::make_return(yystack_[0].value.as < std::shared_ptr<dli::Expression> > ()));
+        yylhs.value.as < std::shared_ptr<dli::Expression> > () = dli::make_function(yystack_[3].value.as < std::vector<std::string> > (), stmts, true); SET_LOC(yylhs.value.as < std::shared_ptr<dli::Expression> > (), yylhs.location); }
+#line 1342 "parser.cpp"
     break;
 
   case 74: // expression_list_nonempty: expression
-#line 326 "lexer/parser.y"
+#line 335 "parser.y"
                { yylhs.value.as < std::vector<std::shared_ptr<dli::Expression>> > () = std::vector<std::shared_ptr<dli::Expression>>(); yylhs.value.as < std::vector<std::shared_ptr<dli::Expression>> > ().push_back(yystack_[0].value.as < std::shared_ptr<dli::Expression> > ()); }
-#line 1348 "lexer/parser.cpp"
+#line 1348 "parser.cpp"
     break;
 
   case 75: // expression_list_nonempty: expression_list_nonempty COMMA expression
-#line 327 "lexer/parser.y"
+#line 336 "parser.y"
                                               { yylhs.value.as < std::vector<std::shared_ptr<dli::Expression>> > () = yystack_[2].value.as < std::vector<std::shared_ptr<dli::Expression>> > (); yylhs.value.as < std::vector<std::shared_ptr<dli::Expression>> > ().push_back(yystack_[0].value.as < std::shared_ptr<dli::Expression> > ()); }
-#line 1354 "lexer/parser.cpp"
+#line 1354 "parser.cpp"
     break;
 
   case 76: // type_name: KW_INT
-#line 331 "lexer/parser.y"
+#line 340 "parser.y"
               { yylhs.value.as < std::shared_ptr<dli::TypeExpr> > () = dli::make_type("int"); }
-#line 1360 "lexer/parser.cpp"
+#line 1360 "parser.cpp"
     break;
 
   case 77: // type_name: KW_REAL
-#line 332 "lexer/parser.y"
+#line 341 "parser.y"
               { yylhs.value.as < std::shared_ptr<dli::TypeExpr> > () = dli::make_type("real"); }
-#line 1366 "lexer/parser.cpp"
+#line 1366 "parser.cpp"
     break;
 
   case 78: // type_name: KW_BOOL
-#line 333 "lexer/parser.y"
+#line 342 "parser.y"
               { yylhs.value.as < std::shared_ptr<dli::TypeExpr> > () = dli::make_type("bool"); }
-#line 1372 "lexer/parser.cpp"
+#line 1372 "parser.cpp"
     break;
 
   case 79: // type_name: KW_STRING
-#line 334 "lexer/parser.y"
+#line 343 "parser.y"
               { yylhs.value.as < std::shared_ptr<dli::TypeExpr> > () = dli::make_type("string"); }
-#line 1378 "lexer/parser.cpp"
+#line 1378 "parser.cpp"
     break;
 
   case 80: // type_name: KW_NONE
-#line 335 "lexer/parser.y"
+#line 344 "parser.y"
               { yylhs.value.as < std::shared_ptr<dli::TypeExpr> > () = dli::make_type("none"); }
-#line 1384 "lexer/parser.cpp"
+#line 1384 "parser.cpp"
     break;
 
   case 81: // type_name: KW_FUNC
-#line 336 "lexer/parser.y"
+#line 345 "parser.y"
               { yylhs.value.as < std::shared_ptr<dli::TypeExpr> > () = dli::make_type("func"); }
-#line 1390 "lexer/parser.cpp"
+#line 1390 "parser.cpp"
     break;
 
   case 82: // type_name: LBRACKET RBRACKET
-#line 337 "lexer/parser.y"
+#line 346 "parser.y"
                       { yylhs.value.as < std::shared_ptr<dli::TypeExpr> > () = dli::make_type("[]"); }
-#line 1396 "lexer/parser.cpp"
+#line 1396 "parser.cpp"
     break;
 
   case 83: // type_name: LBRACE RBRACE
-#line 338 "lexer/parser.y"
+#line 347 "parser.y"
                       { yylhs.value.as < std::shared_ptr<dli::TypeExpr> > () = dli::make_type("{}"); }
-#line 1402 "lexer/parser.cpp"
+#line 1402 "parser.cpp"
     break;
 
   case 84: // tuple_field_list: %empty
-#line 342 "lexer/parser.y"
+#line 351 "parser.y"
                  { yylhs.value.as < std::vector<dli::TupleField> > () = std::vector<dli::TupleField>(); }
-#line 1408 "lexer/parser.cpp"
+#line 1408 "parser.cpp"
     break;
 
   case 85: // tuple_field_list: tuple_field_list_nonempty
-#line 343 "lexer/parser.y"
+#line 352 "parser.y"
                               { yylhs.value.as < std::vector<dli::TupleField> > () = yystack_[0].value.as < std::vector<dli::TupleField> > (); }
-#line 1414 "lexer/parser.cpp"
+#line 1414 "parser.cpp"
     break;
 
   case 86: // tuple_field_list_nonempty: tuple_field
-#line 347 "lexer/parser.y"
+#line 356 "parser.y"
                 { yylhs.value.as < std::vector<dli::TupleField> > () = std::vector<dli::TupleField>(); yylhs.value.as < std::vector<dli::TupleField> > ().push_back(yystack_[0].value.as < dli::TupleField > ()); }
-#line 1420 "lexer/parser.cpp"
+#line 1420 "parser.cpp"
     break;
 
   case 87: // tuple_field_list_nonempty: tuple_field_list_nonempty COMMA tuple_field
-#line 348 "lexer/parser.y"
+#line 357 "parser.y"
                                                 { yylhs.value.as < std::vector<dli::TupleField> > () = yystack_[2].value.as < std::vector<dli::TupleField> > (); yylhs.value.as < std::vector<dli::TupleField> > ().push_back(yystack_[0].value.as < dli::TupleField > ()); }
-#line 1426 "lexer/parser.cpp"
+#line 1426 "parser.cpp"
     break;
 
   case 88: // tuple_field: IDENTIFIER ASSIGN_COLON expression
-#line 352 "lexer/parser.y"
+#line 361 "parser.y"
                                        { yylhs.value.as < dli::TupleField > () = dli::TupleField(yystack_[2].value.as < dli::Token > ().lexeme, yystack_[0].value.as < std::shared_ptr<dli::Expression> > ()); }
-#line 1432 "lexer/parser.cpp"
+#line 1432 "parser.cpp"
     break;
 
   case 89: // tuple_field: expression
-#line 353 "lexer/parser.y"
+#line 362 "parser.y"
                { yylhs.value.as < dli::TupleField > () = dli::TupleField("", yystack_[0].value.as < std::shared_ptr<dli::Expression> > ()); }
-#line 1438 "lexer/parser.cpp"
+#line 1438 "parser.cpp"
     break;
 
   case 90: // param_list: %empty
-#line 357 "lexer/parser.y"
+#line 366 "parser.y"
                 { yylhs.value.as < std::vector<std::string> > () = std::vector<std::string>(); }
-#line 1444 "lexer/parser.cpp"
+#line 1444 "parser.cpp"
     break;
 
   case 91: // param_list: param_list_nonempty
-#line 358 "lexer/parser.y"
+#line 367 "parser.y"
                         { yylhs.value.as < std::vector<std::string> > () = yystack_[0].value.as < std::vector<std::string> > (); }
-#line 1450 "lexer/parser.cpp"
+#line 1450 "parser.cpp"
     break;
 
   case 92: // param_list_nonempty: IDENTIFIER
-#line 362 "lexer/parser.y"
+#line 371 "parser.y"
                { yylhs.value.as < std::vector<std::string> > () = std::vector<std::string>(); yylhs.value.as < std::vector<std::string> > ().push_back(yystack_[0].value.as < dli::Token > ().lexeme); }
-#line 1456 "lexer/parser.cpp"
+#line 1456 "parser.cpp"
     break;
 
   case 93: // param_list_nonempty: param_list_nonempty COMMA IDENTIFIER
-#line 363 "lexer/parser.y"
+#line 372 "parser.y"
                                          { yylhs.value.as < std::vector<std::string> > () = yystack_[2].value.as < std::vector<std::string> > (); yylhs.value.as < std::vector<std::string> > ().push_back(yystack_[0].value.as < dli::Token > ().lexeme); }
-#line 1462 "lexer/parser.cpp"
+#line 1462 "parser.cpp"
     break;
 
   case 94: // var_decl_list: var_decl_list_nonempty
-#line 367 "lexer/parser.y"
+#line 376 "parser.y"
                            { yylhs.value.as < std::vector<std::pair<std::string, std::shared_ptr<dli::Expression>>> > () = yystack_[0].value.as < std::vector<std::pair<std::string, std::shared_ptr<dli::Expression>>> > (); }
-#line 1468 "lexer/parser.cpp"
+#line 1468 "parser.cpp"
     break;
 
   case 95: // var_decl_list_nonempty: var_decl_item
-#line 372 "lexer/parser.y"
+#line 381 "parser.y"
       { yylhs.value.as < std::vector<std::pair<std::string, std::shared_ptr<dli::Expression>>> > () = std::vector<std::pair<std::string, std::shared_ptr<dli::Expression>>>(); 
         yylhs.value.as < std::vector<std::pair<std::string, std::shared_ptr<dli::Expression>>> > ().push_back(yystack_[0].value.as < std::pair<std::string, std::shared_ptr<dli::Expression>> > ()); }
-#line 1475 "lexer/parser.cpp"
+#line 1475 "parser.cpp"
     break;
 
   case 96: // var_decl_list_nonempty: var_decl_list_nonempty COMMA var_decl_item
-#line 375 "lexer/parser.y"
+#line 384 "parser.y"
       { yylhs.value.as < std::vector<std::pair<std::string, std::shared_ptr<dli::Expression>>> > () = yystack_[2].value.as < std::vector<std::pair<std::string, std::shared_ptr<dli::Expression>>> > (); yylhs.value.as < std::vector<std::pair<std::string, std::shared_ptr<dli::Expression>>> > ().push_back(yystack_[0].value.as < std::pair<std::string, std::shared_ptr<dli::Expression>> > ()); }
-#line 1481 "lexer/parser.cpp"
+#line 1481 "parser.cpp"
     break;
 
   case 97: // var_decl_item: IDENTIFIER ASSIGN_COLON expression
-#line 380 "lexer/parser.y"
+#line 389 "parser.y"
       { yylhs.value.as < std::pair<std::string, std::shared_ptr<dli::Expression>> > () = std::make_pair(yystack_[2].value.as < dli::Token > ().lexeme, yystack_[0].value.as < std::shared_ptr<dli::Expression> > ()); }
-#line 1487 "lexer/parser.cpp"
+#line 1487 "parser.cpp"
     break;
 
 
-#line 1491 "lexer/parser.cpp"
+#line 1491 "parser.cpp"
 
             default:
               break;
@@ -1839,33 +1839,33 @@ namespace dli {
   }
 
 
-  const signed char Parser::yypact_ninf_ = -34;
+  const signed char Parser::yypact_ninf_ = -41;
 
   const signed char Parser::yytable_ninf_ = -30;
 
   const short
   Parser::yypact_[] =
   {
-     646,   -27,   -34,   -34,   -34,   -34,   -34,   -34,    10,   735,
-     -34,   735,   735,   735,    12,   735,    16,   646,   -22,   754,
-     673,   596,    33,   568,   -34,   -12,   -34,   735,    36,   -34,
-     -10,   -34,   -34,   735,   816,   816,   816,    -3,   -34,    96,
-     170,   -34,   104,   109,   109,    41,   109,    35,   146,    40,
-     244,    98,    65,    17,   -34,    19,    70,   -34,   -34,   109,
-      -8,    42,   -34,   -34,   646,   -34,   735,   704,   735,    86,
-     109,   735,   102,     9,   -34,   -34,   -34,   646,   816,   816,
-     816,   646,    58,   816,   816,   816,   816,   816,   816,   816,
-     816,   816,   816,   816,   816,   735,    98,   646,   735,   -34,
-     -34,    62,    59,   735,   -34,   -34,   735,   -34,   -34,   766,
-     -34,   109,   -34,    -2,   -20,   -34,   -34,   109,    36,   -34,
-     735,   190,    96,    96,    96,   -34,   -34,   -34,   -34,   -34,
-     -34,   -34,    63,    66,   -34,   170,   170,   170,   170,   170,
-     170,   170,   -34,   -34,   -34,   -34,   -34,   109,    71,   298,
-     196,    29,   124,    48,   109,   -34,   -34,   -34,    85,   646,
-     -34,   -34,   -34,   137,   -34,   646,   646,   646,   -34,   -34,
-     785,   352,   646,   406,   460,   -34,   735,    92,   -34,   514,
-     -34,   -34,    24,   -34,   -34,   735,    61,   785,   -34,   112,
-     115
+     657,   -14,   -41,   -41,   -41,   -41,   -41,   -41,    11,   101,
+     -41,   101,   101,   101,    13,   101,    15,   657,   -23,   746,
+     684,   607,    38,   579,   -41,   -28,   -41,   101,     5,   -41,
+       9,   -41,   -41,   101,   796,   796,   796,    10,   -41,   158,
+      83,   -41,    88,   157,   157,    17,   157,    -3,    43,    48,
+     255,    76,    46,   137,   -41,    93,    52,   -41,   -41,   157,
+      -7,    35,   -41,   -41,   657,   -41,   101,   715,   101,    30,
+     157,   101,   110,    36,   -41,   -41,   -41,   657,   796,   796,
+     796,   657,    27,   796,   796,   796,   796,   796,   796,   796,
+     796,   796,   796,   796,   796,   101,    76,   657,   101,   -41,
+     -41,    72,    65,   101,   -41,   -41,   101,   -41,   -41,   765,
+     -41,   157,   -41,   -40,   -20,   -41,   -41,   157,     5,   -41,
+     101,   201,   158,   158,   158,   -41,   -41,   -41,   -41,   -41,
+     -41,   -41,    74,    44,   -41,    83,    83,    83,    83,    83,
+      83,    83,   -41,   -41,   -41,   -41,   -41,   157,    84,   309,
+      63,    -9,   130,   194,   157,   -41,   -41,   -41,    70,   657,
+     -41,   -41,   -41,   123,   -41,   657,   657,   101,   -41,   -41,
+     777,   363,   657,   417,   471,   157,   101,   109,   -41,   525,
+     -41,   -41,    60,   -41,   -41,   101,    85,   777,   -41,   146,
+     213
   };
 
   const signed char
@@ -1896,9 +1896,9 @@ namespace dli {
   const short
   Parser::yypgoto_[] =
   {
-     -34,   -34,    -9,   -19,     5,   -34,   142,    99,   -33,     0,
-     -34,   -15,   -34,   -34,   -34,    53,    32,   -34,   -34,   -34,
-      97
+     -41,   -41,    -8,   -18,    16,   -41,   160,   148,   -33,     0,
+     -41,   -16,   -41,   -41,   -41,    45,    66,   -41,   -41,   -41,
+      91
   };
 
   const unsigned char
@@ -1912,91 +1912,89 @@ namespace dli {
   const short
   Parser::yytable_[] =
   {
-      25,    74,    75,    76,    65,    55,   107,    27,    50,    77,
-      78,    79,    80,    28,    37,    47,    43,    25,    46,    49,
-      48,   120,    66,    25,    53,    51,    59,    78,    79,    80,
-     157,    65,    70,    63,    81,    67,   185,    68,    73,    78,
-      79,    80,    69,    72,   108,   110,   156,    78,    79,    80,
-      25,    95,   113,   166,    78,    79,    80,   142,   143,   144,
-     145,   146,   125,    98,    25,   104,   167,   126,   121,   105,
-      71,   111,    95,   114,   187,   188,   117,    25,    78,    79,
-      80,    25,    96,   127,   128,   129,   130,   131,   149,   115,
-     116,    78,    79,    80,    95,   109,   169,    25,   170,   103,
-     147,   100,    65,   150,   106,   118,   183,   132,   153,   133,
-     151,   154,   152,   161,    59,    78,    79,    80,   162,   163,
-      82,    25,    78,    79,    80,   158,   190,   168,   148,   -29,
-      65,    83,    84,     0,    85,    86,    87,    88,    89,    78,
-      79,    80,    78,    79,    80,   -29,   -29,   -29,   175,    25,
-     171,    67,    65,    68,    65,    65,   173,   174,    69,    25,
-      65,   172,   155,   179,     0,    25,    25,    25,    97,   119,
-       0,    25,    25,    25,    25,   177,    78,    79,    80,    25,
-       0,   182,   135,   136,   137,   138,   139,   140,   141,     0,
-     186,     0,   189,     1,     2,     3,     4,     5,     6,     7,
-       8,     9,     0,   159,   160,    10,    11,    12,    13,    14,
-      15,    16,    17,    90,    91,    92,    93,     0,   165,    18,
-     122,   123,   124,     0,     0,    94,    78,    79,    80,     0,
-       0,     0,     0,     0,     0,     0,     0,    19,     0,    20,
-       0,    21,     0,     0,     0,     0,    64,     1,     2,     3,
-       4,     5,     6,     7,     8,     9,     0,     0,    99,    10,
-      11,    12,    13,    14,    15,    16,    17,     0,     0,     0,
-       0,     0,     0,    18,     0,     0,     0,     0,     0,     0,
+      25,    74,    75,    76,    55,    65,    66,   107,   156,    50,
+      78,    79,    80,    95,    28,   166,    47,    25,    49,    67,
+      27,    68,    77,    25,    51,    37,    69,    43,   167,    46,
+     157,    48,    65,   115,   116,    53,   126,    59,    63,    71,
+      78,    79,    80,    70,    96,   108,   110,    81,   120,    73,
+      25,   113,   127,   128,   129,   130,   131,   142,   143,   144,
+     145,   146,    72,   125,    25,    97,    78,    79,    80,   121,
+      95,    98,   185,    78,    79,    80,   132,    25,   133,   100,
+     103,    25,   111,   170,   114,   165,   106,   117,   109,   149,
+      78,    79,    80,    78,    79,    80,   162,    25,   187,   188,
+      78,    79,    80,    65,    32,     2,     3,     4,     5,     6,
+       7,   147,    33,   118,   150,    78,    79,    80,   152,   153,
+     151,    25,   154,   183,   161,    59,    90,    91,    92,    93,
+      18,    65,   163,   168,    34,    67,   158,    68,    94,    78,
+      79,    80,    69,   105,    35,    36,    95,   172,    19,    25,
+      20,   171,    21,    65,   155,    65,    65,   173,   174,    25,
+     190,    65,   148,   119,   179,    25,    25,    78,    79,    80,
+       0,    25,    25,    25,    25,     0,    78,    79,    80,    25,
+       0,     0,    82,   175,     0,   104,   177,    78,    79,    80,
+       0,     0,   182,    83,    84,     0,    85,    86,    87,    88,
+      89,   186,     0,   189,     1,     2,     3,     4,     5,     6,
+       7,     8,     9,     0,   159,   160,    10,    11,    12,    13,
+      14,    15,    16,    17,    78,    79,    80,   -29,     0,     0,
+      18,   135,   136,   137,   138,   139,   140,   141,   122,   123,
+     124,     0,   169,   -29,   -29,   -29,     0,     0,    19,     0,
+      20,     0,    21,     0,     0,     0,     0,    64,     1,     2,
+       3,     4,     5,     6,     7,     8,     9,     0,     0,    99,
+      10,    11,    12,    13,    14,    15,    16,    17,     0,     0,
+       0,     0,     0,     0,    18,     0,     0,     0,     0,     0,
        0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
-       0,    19,     0,    20,     0,    21,     0,     0,     0,     0,
-      64,     1,     2,     3,     4,     5,     6,     7,     8,     9,
-       0,     0,   164,    10,    11,    12,    13,    14,    15,    16,
-      17,     0,     0,     0,     0,     0,     0,    18,     0,     0,
+       0,     0,    19,     0,    20,     0,    21,     0,     0,     0,
+       0,    64,     1,     2,     3,     4,     5,     6,     7,     8,
+       9,     0,     0,   164,    10,    11,    12,    13,    14,    15,
+      16,    17,     0,     0,     0,     0,     0,     0,    18,     0,
        0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
-       0,     0,     0,     0,     0,    19,     0,    20,     0,    21,
-       0,     0,     0,     0,    64,     1,     2,     3,     4,     5,
-       6,     7,     8,     9,     0,     0,   178,    10,    11,    12,
-      13,    14,    15,    16,    17,     0,     0,     0,     0,     0,
-       0,    18,     0,     0,     0,     0,     0,     0,     0,     0,
-       0,     0,     0,     0,     0,     0,     0,     0,     0,    19,
-       0,    20,     0,    21,     0,     0,     0,     0,    64,     1,
-       2,     3,     4,     5,     6,     7,     8,     9,     0,     0,
-     180,    10,    11,    12,    13,    14,    15,    16,    17,     0,
-       0,     0,     0,     0,     0,    18,     0,     0,     0,     0,
+       0,     0,     0,     0,     0,     0,    19,     0,    20,     0,
+      21,     0,     0,     0,     0,    64,     1,     2,     3,     4,
+       5,     6,     7,     8,     9,     0,     0,   178,    10,    11,
+      12,    13,    14,    15,    16,    17,     0,     0,     0,     0,
+       0,     0,    18,     0,     0,     0,     0,     0,     0,     0,
        0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
-       0,     0,     0,    19,     0,    20,     0,    21,     0,     0,
-       0,     0,    64,     1,     2,     3,     4,     5,     6,     7,
-       8,     9,     0,     0,   181,    10,    11,    12,    13,    14,
-      15,    16,    17,     0,     0,     0,     0,     0,     0,    18,
+      19,     0,    20,     0,    21,     0,     0,     0,     0,    64,
+       1,     2,     3,     4,     5,     6,     7,     8,     9,     0,
+       0,   180,    10,    11,    12,    13,    14,    15,    16,    17,
+       0,     0,     0,     0,     0,     0,    18,     0,     0,     0,
        0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
-       0,     0,     0,     0,     0,     0,     0,    19,     0,    20,
-       0,    21,     0,     0,     0,     0,    64,     1,     2,     3,
-       4,     5,     6,     7,     8,     9,     0,     0,   184,    10,
-      11,    12,    13,    14,    15,    16,    17,     0,     0,     0,
-       0,     0,     0,    18,     0,     0,     0,     0,     0,     0,
+       0,     0,     0,     0,    19,     0,    20,     0,    21,     0,
+       0,     0,     0,    64,     1,     2,     3,     4,     5,     6,
+       7,     8,     9,     0,     0,   181,    10,    11,    12,    13,
+      14,    15,    16,    17,     0,     0,     0,     0,     0,     0,
+      18,     0,     0,     0,     0,     0,     0,     0,     0,     0,
+       0,     0,     0,     0,     0,     0,     0,     0,    19,     0,
+      20,     0,    21,     0,     0,     0,     0,    64,     1,     2,
+       3,     4,     5,     6,     7,     8,     9,     0,     0,   184,
+      10,    11,    12,    13,    14,    15,    16,    17,     0,     0,
+       0,     0,     0,     0,    18,     0,     0,     0,     0,     0,
        0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
-       0,    19,     0,    20,     0,    21,     0,     0,     0,     0,
-      64,     1,     2,     3,     4,     5,     6,     7,     8,     9,
-       0,     0,     0,    10,    11,    12,    13,    14,    15,    16,
-      17,     0,     0,     0,     0,     0,     0,    18,     0,    56,
-       2,     3,     4,     5,     6,     7,     0,    33,     0,     0,
-      57,     0,     0,     0,     0,    19,     0,    20,     0,    21,
-       0,     0,     0,     0,    64,    18,     0,     0,     0,    34,
-       0,     0,     0,     0,     0,     0,     0,     0,     0,    35,
-      36,     0,     0,    19,     0,    20,     0,    21,    58,     1,
-       2,     3,     4,     5,     6,     7,     8,     9,     0,     0,
-       0,    10,    11,    12,    13,    14,    15,    16,    17,     0,
-       0,     0,     0,     0,     0,    18,    32,     2,     3,     4,
-       5,     6,     7,     0,    33,     0,     0,     0,     0,     0,
-       0,     0,     0,    19,     0,    20,     0,    21,     0,     0,
-       0,     0,    18,     0,     0,     0,    34,    32,     2,     3,
-       4,     5,     6,     7,     0,    33,    35,    36,     0,     0,
-      19,     0,    20,    54,    21,     0,     0,     0,     0,     0,
+       0,     0,    19,     0,    20,     0,    21,     0,     0,     0,
+       0,    64,     1,     2,     3,     4,     5,     6,     7,     8,
+       9,     0,     0,     0,    10,    11,    12,    13,    14,    15,
+      16,    17,     0,     0,     0,     0,     0,     0,    18,     0,
+      56,     2,     3,     4,     5,     6,     7,     0,    33,     0,
+       0,    57,     0,     0,     0,     0,    19,     0,    20,     0,
+      21,     0,     0,     0,     0,    64,    18,     0,     0,     0,
+      34,     0,     0,     0,     0,     0,     0,     0,     0,     0,
+      35,    36,     0,     0,    19,     0,    20,     0,    21,    58,
+       1,     2,     3,     4,     5,     6,     7,     8,     9,     0,
+       0,     0,    10,    11,    12,    13,    14,    15,    16,    17,
+       0,     0,     0,     0,     0,     0,    18,    32,     2,     3,
+       4,     5,     6,     7,     0,    33,     0,     0,     0,     0,
+       0,     0,     0,     0,    19,     0,    20,     0,    21,     0,
        0,     0,     0,    18,     0,     0,     0,    34,    32,     2,
        3,     4,     5,     6,     7,     0,    33,    35,    36,     0,
-       0,    19,   112,    20,     0,    21,     0,    52,     2,     3,
-       4,     5,     6,     7,    18,    33,     0,     0,    34,    56,
+       0,    19,     0,    20,    54,    21,     0,     0,     0,     0,
+       0,     0,     0,     0,    18,     0,     0,     0,    34,    52,
        2,     3,     4,     5,     6,     7,     0,    33,    35,    36,
-       0,     0,    19,    18,    20,     0,    21,    34,    32,     2,
-       3,     4,     5,     6,     7,    18,   176,    35,    36,    34,
-       0,    19,     0,    20,     0,    21,     0,     0,     0,    35,
+       0,     0,    19,   112,    20,     0,    21,     0,    56,     2,
+       3,     4,     5,     6,     7,    18,    33,     0,     0,    34,
+      32,     2,     3,     4,     5,     6,     7,     0,   176,    35,
       36,     0,     0,    19,    18,    20,     0,    21,    34,    32,
-       2,     3,     4,     5,     6,     7,     0,     0,    35,    36,
-       0,     0,    19,     0,    20,     0,    21,     0,     0,     0,
-       0,     0,     0,     0,     0,    18,     0,     0,     0,    34,
+       2,     3,     4,     5,     6,     7,    18,     0,    35,    36,
+      34,     0,    19,     0,    20,     0,    21,     0,     0,     0,
+      35,    36,     0,     0,    19,    18,    20,     0,    21,    34,
        0,     0,     0,     0,     0,     0,     0,     0,     0,    35,
       36,     0,     0,    19,     0,    20,     0,    21
   };
@@ -2004,91 +2002,89 @@ namespace dli {
   const short
   Parser::yycheck_[] =
   {
-       0,    34,    35,    36,    23,    20,    14,    34,    17,    12,
-      30,    31,    32,     3,     9,     3,    11,    17,    13,     3,
-      15,    12,    34,    23,    19,    47,    21,    30,    31,    32,
-      50,    50,    27,     0,    37,    47,    12,    49,    33,    30,
-      31,    32,    54,    53,    52,    64,    48,    30,    31,    32,
-      50,    53,    67,    24,    30,    31,    32,    90,    91,    92,
-      93,    94,    81,    23,    64,    48,    37,     9,    77,    50,
-      34,    66,    53,    68,    13,    14,    71,    77,    30,    31,
-      32,    81,    47,    25,    26,    27,    28,    29,    97,     3,
-       4,    30,    31,    32,    53,    53,    48,    97,    13,    34,
-      95,     3,   121,    98,    34,     3,    14,    49,   103,    51,
-      48,   106,    53,    50,   109,    30,    31,    32,    52,    48,
-      24,   121,    30,    31,    32,   120,    14,     3,    96,    14,
-     149,    35,    36,    -1,    38,    39,    40,    41,    42,    30,
-      31,    32,    30,    31,    32,    30,    31,    32,   167,   149,
-     159,    47,   171,    49,   173,   174,   165,   166,    54,   159,
-     179,    24,   109,   172,    -1,   165,   166,   167,    22,    72,
-      -1,   171,   172,   173,   174,   170,    30,    31,    32,   179,
-      -1,   176,    83,    84,    85,    86,    87,    88,    89,    -1,
-     185,    -1,   187,     3,     4,     5,     6,     7,     8,     9,
-      10,    11,    -1,    13,    14,    15,    16,    17,    18,    19,
-      20,    21,    22,    43,    44,    45,    46,    -1,    22,    29,
-      78,    79,    80,    -1,    -1,    55,    30,    31,    32,    -1,
-      -1,    -1,    -1,    -1,    -1,    -1,    -1,    47,    -1,    49,
-      -1,    51,    -1,    -1,    -1,    -1,    56,     3,     4,     5,
-       6,     7,     8,     9,    10,    11,    -1,    -1,    14,    15,
-      16,    17,    18,    19,    20,    21,    22,    -1,    -1,    -1,
-      -1,    -1,    -1,    29,    -1,    -1,    -1,    -1,    -1,    -1,
+       0,    34,    35,    36,    20,    23,    34,    14,    48,    17,
+      30,    31,    32,    53,     3,    24,     3,    17,     3,    47,
+      34,    49,    12,    23,    47,     9,    54,    11,    37,    13,
+      50,    15,    50,     3,     4,    19,     9,    21,     0,    34,
+      30,    31,    32,    27,    47,    52,    64,    37,    12,    33,
+      50,    67,    25,    26,    27,    28,    29,    90,    91,    92,
+      93,    94,    53,    81,    64,    22,    30,    31,    32,    77,
+      53,    23,    12,    30,    31,    32,    49,    77,    51,     3,
+      34,    81,    66,    13,    68,    22,    34,    71,    53,    97,
+      30,    31,    32,    30,    31,    32,    52,    97,    13,    14,
+      30,    31,    32,   121,     3,     4,     5,     6,     7,     8,
+       9,    95,    11,     3,    98,    30,    31,    32,    53,   103,
+      48,   121,   106,    14,    50,   109,    43,    44,    45,    46,
+      29,   149,    48,     3,    33,    47,   120,    49,    55,    30,
+      31,    32,    54,    50,    43,    44,    53,    24,    47,   149,
+      49,   159,    51,   171,   109,   173,   174,   165,   166,   159,
+      14,   179,    96,    72,   172,   165,   166,    30,    31,    32,
+      -1,   171,   172,   173,   174,    -1,    30,    31,    32,   179,
+      -1,    -1,    24,   167,    -1,    48,   170,    30,    31,    32,
+      -1,    -1,   176,    35,    36,    -1,    38,    39,    40,    41,
+      42,   185,    -1,   187,     3,     4,     5,     6,     7,     8,
+       9,    10,    11,    -1,    13,    14,    15,    16,    17,    18,
+      19,    20,    21,    22,    30,    31,    32,    14,    -1,    -1,
+      29,    83,    84,    85,    86,    87,    88,    89,    78,    79,
+      80,    -1,    48,    30,    31,    32,    -1,    -1,    47,    -1,
+      49,    -1,    51,    -1,    -1,    -1,    -1,    56,     3,     4,
+       5,     6,     7,     8,     9,    10,    11,    -1,    -1,    14,
+      15,    16,    17,    18,    19,    20,    21,    22,    -1,    -1,
+      -1,    -1,    -1,    -1,    29,    -1,    -1,    -1,    -1,    -1,
       -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,
-      -1,    47,    -1,    49,    -1,    51,    -1,    -1,    -1,    -1,
-      56,     3,     4,     5,     6,     7,     8,     9,    10,    11,
-      -1,    -1,    14,    15,    16,    17,    18,    19,    20,    21,
-      22,    -1,    -1,    -1,    -1,    -1,    -1,    29,    -1,    -1,
+      -1,    -1,    47,    -1,    49,    -1,    51,    -1,    -1,    -1,
+      -1,    56,     3,     4,     5,     6,     7,     8,     9,    10,
+      11,    -1,    -1,    14,    15,    16,    17,    18,    19,    20,
+      21,    22,    -1,    -1,    -1,    -1,    -1,    -1,    29,    -1,
       -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,
-      -1,    -1,    -1,    -1,    -1,    47,    -1,    49,    -1,    51,
-      -1,    -1,    -1,    -1,    56,     3,     4,     5,     6,     7,
-       8,     9,    10,    11,    -1,    -1,    14,    15,    16,    17,
-      18,    19,    20,    21,    22,    -1,    -1,    -1,    -1,    -1,
-      -1,    29,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,
-      -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    47,
-      -1,    49,    -1,    51,    -1,    -1,    -1,    -1,    56,     3,
-       4,     5,     6,     7,     8,     9,    10,    11,    -1,    -1,
-      14,    15,    16,    17,    18,    19,    20,    21,    22,    -1,
-      -1,    -1,    -1,    -1,    -1,    29,    -1,    -1,    -1,    -1,
+      -1,    -1,    -1,    -1,    -1,    -1,    47,    -1,    49,    -1,
+      51,    -1,    -1,    -1,    -1,    56,     3,     4,     5,     6,
+       7,     8,     9,    10,    11,    -1,    -1,    14,    15,    16,
+      17,    18,    19,    20,    21,    22,    -1,    -1,    -1,    -1,
+      -1,    -1,    29,    -1,    -1,    -1,    -1,    -1,    -1,    -1,
       -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,
-      -1,    -1,    -1,    47,    -1,    49,    -1,    51,    -1,    -1,
-      -1,    -1,    56,     3,     4,     5,     6,     7,     8,     9,
-      10,    11,    -1,    -1,    14,    15,    16,    17,    18,    19,
-      20,    21,    22,    -1,    -1,    -1,    -1,    -1,    -1,    29,
+      47,    -1,    49,    -1,    51,    -1,    -1,    -1,    -1,    56,
+       3,     4,     5,     6,     7,     8,     9,    10,    11,    -1,
+      -1,    14,    15,    16,    17,    18,    19,    20,    21,    22,
+      -1,    -1,    -1,    -1,    -1,    -1,    29,    -1,    -1,    -1,
       -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,
-      -1,    -1,    -1,    -1,    -1,    -1,    -1,    47,    -1,    49,
-      -1,    51,    -1,    -1,    -1,    -1,    56,     3,     4,     5,
-       6,     7,     8,     9,    10,    11,    -1,    -1,    14,    15,
-      16,    17,    18,    19,    20,    21,    22,    -1,    -1,    -1,
-      -1,    -1,    -1,    29,    -1,    -1,    -1,    -1,    -1,    -1,
+      -1,    -1,    -1,    -1,    47,    -1,    49,    -1,    51,    -1,
+      -1,    -1,    -1,    56,     3,     4,     5,     6,     7,     8,
+       9,    10,    11,    -1,    -1,    14,    15,    16,    17,    18,
+      19,    20,    21,    22,    -1,    -1,    -1,    -1,    -1,    -1,
+      29,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,
+      -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    47,    -1,
+      49,    -1,    51,    -1,    -1,    -1,    -1,    56,     3,     4,
+       5,     6,     7,     8,     9,    10,    11,    -1,    -1,    14,
+      15,    16,    17,    18,    19,    20,    21,    22,    -1,    -1,
+      -1,    -1,    -1,    -1,    29,    -1,    -1,    -1,    -1,    -1,
       -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,
-      -1,    47,    -1,    49,    -1,    51,    -1,    -1,    -1,    -1,
-      56,     3,     4,     5,     6,     7,     8,     9,    10,    11,
-      -1,    -1,    -1,    15,    16,    17,    18,    19,    20,    21,
-      22,    -1,    -1,    -1,    -1,    -1,    -1,    29,    -1,     3,
-       4,     5,     6,     7,     8,     9,    -1,    11,    -1,    -1,
-      14,    -1,    -1,    -1,    -1,    47,    -1,    49,    -1,    51,
-      -1,    -1,    -1,    -1,    56,    29,    -1,    -1,    -1,    33,
-      -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    43,
-      44,    -1,    -1,    47,    -1,    49,    -1,    51,    52,     3,
-       4,     5,     6,     7,     8,     9,    10,    11,    -1,    -1,
-      -1,    15,    16,    17,    18,    19,    20,    21,    22,    -1,
-      -1,    -1,    -1,    -1,    -1,    29,     3,     4,     5,     6,
-       7,     8,     9,    -1,    11,    -1,    -1,    -1,    -1,    -1,
-      -1,    -1,    -1,    47,    -1,    49,    -1,    51,    -1,    -1,
-      -1,    -1,    29,    -1,    -1,    -1,    33,     3,     4,     5,
-       6,     7,     8,     9,    -1,    11,    43,    44,    -1,    -1,
-      47,    -1,    49,    50,    51,    -1,    -1,    -1,    -1,    -1,
+      -1,    -1,    47,    -1,    49,    -1,    51,    -1,    -1,    -1,
+      -1,    56,     3,     4,     5,     6,     7,     8,     9,    10,
+      11,    -1,    -1,    -1,    15,    16,    17,    18,    19,    20,
+      21,    22,    -1,    -1,    -1,    -1,    -1,    -1,    29,    -1,
+       3,     4,     5,     6,     7,     8,     9,    -1,    11,    -1,
+      -1,    14,    -1,    -1,    -1,    -1,    47,    -1,    49,    -1,
+      51,    -1,    -1,    -1,    -1,    56,    29,    -1,    -1,    -1,
+      33,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,
+      43,    44,    -1,    -1,    47,    -1,    49,    -1,    51,    52,
+       3,     4,     5,     6,     7,     8,     9,    10,    11,    -1,
+      -1,    -1,    15,    16,    17,    18,    19,    20,    21,    22,
+      -1,    -1,    -1,    -1,    -1,    -1,    29,     3,     4,     5,
+       6,     7,     8,     9,    -1,    11,    -1,    -1,    -1,    -1,
+      -1,    -1,    -1,    -1,    47,    -1,    49,    -1,    51,    -1,
       -1,    -1,    -1,    29,    -1,    -1,    -1,    33,     3,     4,
        5,     6,     7,     8,     9,    -1,    11,    43,    44,    -1,
-      -1,    47,    48,    49,    -1,    51,    -1,     3,     4,     5,
-       6,     7,     8,     9,    29,    11,    -1,    -1,    33,     3,
+      -1,    47,    -1,    49,    50,    51,    -1,    -1,    -1,    -1,
+      -1,    -1,    -1,    -1,    29,    -1,    -1,    -1,    33,     3,
        4,     5,     6,     7,     8,     9,    -1,    11,    43,    44,
-      -1,    -1,    47,    29,    49,    -1,    51,    33,     3,     4,
-       5,     6,     7,     8,     9,    29,    11,    43,    44,    33,
-      -1,    47,    -1,    49,    -1,    51,    -1,    -1,    -1,    43,
+      -1,    -1,    47,    48,    49,    -1,    51,    -1,     3,     4,
+       5,     6,     7,     8,     9,    29,    11,    -1,    -1,    33,
+       3,     4,     5,     6,     7,     8,     9,    -1,    11,    43,
       44,    -1,    -1,    47,    29,    49,    -1,    51,    33,     3,
-       4,     5,     6,     7,     8,     9,    -1,    -1,    43,    44,
-      -1,    -1,    47,    -1,    49,    -1,    51,    -1,    -1,    -1,
-      -1,    -1,    -1,    -1,    -1,    29,    -1,    -1,    -1,    33,
+       4,     5,     6,     7,     8,     9,    29,    -1,    43,    44,
+      33,    -1,    47,    -1,    49,    -1,    51,    -1,    -1,    -1,
+      43,    44,    -1,    -1,    47,    29,    49,    -1,    51,    33,
       -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    43,
       44,    -1,    -1,    47,    -1,    49,    -1,    51
   };
@@ -2113,7 +2109,7 @@ namespace dli {
       65,    65,    66,    66,    66,    66,    66,    62,    74,    60,
       62,    48,    53,    62,    62,    73,    48,    50,    62,    13,
       14,    50,    52,    48,    14,    22,    24,    37,     3,    48,
-      13,    60,    24,    60,    60,    61,    11,    62,    14,    60,
+      13,    60,    24,    60,    60,    62,    11,    62,    14,    60,
       14,    14,    62,    14,    14,    12,    62,    13,    14,    62,
       14
   };
@@ -2178,16 +2174,16 @@ namespace dli {
   const short
   Parser::yyrline_[] =
   {
-       0,   208,   208,   209,   213,   214,   215,   219,   222,   228,
-     230,   231,   232,   233,   234,   235,   237,   238,   239,   240,
-     241,   242,   243,   244,   248,   249,   250,   251,   252,   256,
-     258,   260,   265,   266,   267,   268,   269,   270,   271,   272,
-     273,   277,   278,   279,   280,   281,   282,   286,   287,   288,
-     289,   293,   294,   295,   296,   297,   298,   302,   303,   304,
-     305,   306,   307,   308,   309,   310,   311,   312,   313,   314,
-     315,   316,   317,   319,   326,   327,   331,   332,   333,   334,
-     335,   336,   337,   338,   342,   343,   347,   348,   352,   353,
-     357,   358,   362,   363,   367,   371,   374,   379
+       0,   217,   217,   218,   222,   223,   224,   228,   231,   237,
+     239,   240,   241,   242,   243,   244,   246,   247,   248,   249,
+     250,   251,   252,   253,   257,   258,   259,   260,   261,   265,
+     267,   269,   274,   275,   276,   277,   278,   279,   280,   281,
+     282,   286,   287,   288,   289,   290,   291,   295,   296,   297,
+     298,   302,   303,   304,   305,   306,   307,   311,   312,   313,
+     314,   315,   316,   317,   318,   319,   320,   321,   322,   323,
+     324,   325,   326,   328,   335,   336,   340,   341,   342,   343,
+     344,   345,   346,   347,   351,   352,   356,   357,   361,   362,
+     366,   367,   371,   372,   376,   380,   383,   388
   };
 
   void
@@ -2218,9 +2214,9 @@ namespace dli {
 #endif // YYDEBUG
 
 
-#line 5 "lexer/parser.y"
+#line 5 "parser.y"
 } // dli
-#line 2224 "lexer/parser.cpp"
+#line 2220 "parser.cpp"
 
-#line 383 "lexer/parser.y"
+#line 392 "parser.y"
 

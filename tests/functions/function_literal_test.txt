@@ -8,9 +8,10 @@ test arrow_function_syntax() is
 end
 
 test arrow_function_with_multiple_statements() is
-    var process := func(x) =>
+    var process := func(x) is
         var doubled := x * 2
         return doubled + 1
+    end
 
     var result := process(5)
     assert result == 11  // (5*2) + 1 = 11
@@ -54,12 +55,7 @@ test function_literal_with_no_parameters() is
 end
 
 test complex_arrow_function() is
-    var calculate := func(a, b, c) =>
-        if a > b then
-            return a + c
-        else
-            return b + c
-        end
+    var calculate := func(a, b, c) => if a > b then a + c else b + c end
 
     var result1 := calculate(10, 5, 3)  // 10 > 5, so 10 + 3 = 13
     var result2 := calculate(3, 8, 2)   // 3 < 8, so 8 + 2 = 10
@@ -69,12 +65,13 @@ test complex_arrow_function() is
 end
 
 test function_literal_with_array_operations() is
-    var sum_array := func(arr) =>
+    var sum_array := func(arr) is
         var total := 0
         for value in arr loop
             total := total + value
         end
         return total
+    end
 
     var numbers := [1, 2, 3, 4, 5]
     var result := sum_array(numbers)
@@ -82,8 +79,7 @@ test function_literal_with_array_operations() is
 end
 
 test higher_order_function_with_arrow_syntax() is
-    var apply_twice := func(f, x) =>
-        return f(f(x))
+    var apply_twice := func(f, x) => f(f(x))
 
     var add_five := func(x) => x + 5
     var result := apply_twice(add_five, 10)
@@ -91,8 +87,7 @@ test higher_order_function_with_arrow_syntax() is
 end
 
 test function_literal_returning_function() is
-    var make_multiplier := func(factor) =>
-        return func(x) => x * factor
+    var make_multiplier := func(factor) => func(x) => x * factor
 
     var double := make_multiplier(2)
     var triple := make_multiplier(3)
@@ -102,13 +97,23 @@ test function_literal_returning_function() is
 end
 
 test recursive_arrow_function() is
-    var fib := func(n) =>
-        if n <= 1 then
-            return n
-        else
-            return fib(n - 1) + fib(n - 2)
-        end
+    var fib := func(n) => if n <= 1 then n else fib(n - 1) + fib(n - 2) end
 
     assert fib(6) == 8  // Fibonacci sequence: 0,1,1,2,3,5,8
     assert fib(4) == 3
 end
+
+// Execute all tests
+print "Running function literal tests..."
+arrow_function_syntax()
+arrow_function_with_multiple_statements()
+function_literal_in_assignment()
+function_literal_as_array_element()
+function_literal_in_tuple()
+function_literal_with_no_parameters()
+complex_arrow_function()
+function_literal_with_array_operations()
+higher_order_function_with_arrow_syntax()
+function_literal_returning_function()
+recursive_arrow_function()
+print "All function literal tests passed!"

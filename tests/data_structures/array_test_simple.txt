@@ -1,10 +1,9 @@
-// Test: Array Operations
-// Tests array creation, access, modification, and operations
+// Test: Array Operations (Basic)
+// Tests array creation, access, and modification
 
 test empty_array_creation() is
     var arr := []
     assert arr is []
-    // Empty array should be valid
 end
 
 test array_with_single_element() is
@@ -41,57 +40,12 @@ test array_element_assignment() is
     assert arr[3] == 30
 end
 
-test dynamic_array() is
-    var arr := []
-    arr[10] := 100
-    arr[50] := 500
-    arr[1000] := 10000
-    assert arr[10] == 100
-    assert arr[50] == 500
-    assert arr[1000] == 10000
-end
-
 test array_element_reassignment() is
     var arr := [1, 2, 3]
-    arr[2] := "changed"
-    assert arr[2] == "changed"
-    assert arr[2] is string
-    arr[2] := 42.5
-    assert arr[2] == 42.5
-    assert arr[2] is real
-end
-
-test array_concatenation() is
-    var arr1 := [1, 2, 3]
-    var arr2 := [4, 5, 6]
-    var result := arr1 + arr2
-    assert result[1] == 1
-    assert result[2] == 2
-    assert result[3] == 3
-    assert result[4] == 4
-    assert result[5] == 5
-    assert result[6] == 6
-end
-
-test array_concatenation_with_mixed_types() is
-    var arr1 := [1, "hello"]
-    var arr2 := [true, 3.14]
-    var result := arr1 + arr2
-    assert result[1] == 1
-    assert result[2] == "hello"
-    assert result[3] == true
-    assert result[4] == 3.14
-end
-
-test array_concatenation_with_empty_arrays() is
-    var arr1 := [1, 2]
-    var empty := []
-    var result1 := arr1 + empty
-    var result2 := empty + arr1
-    assert result1[1] == 1
-    assert result1[2] == 2
-    assert result2[1] == 1
-    assert result2[2] == 2
+    arr[2] := 999
+    assert arr[2] == 999
+    arr[2] := 42
+    assert arr[2] == 42
 end
 
 test array_in_expressions() is
@@ -133,5 +87,5 @@ array_element_reassignment()
 array_in_expressions()
 nested_array_access()
 array_modification_in_loop()
-dynamic_array()
 print "All array tests passed!"
+

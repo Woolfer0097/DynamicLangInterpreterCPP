@@ -51,3 +51,11 @@ test string_literals() is
     assert s3 is string
     assert s4 is string
 end
+
+// Execute all tests
+print "Running literals tests..."
+integer_literals()
+real_literals()
+boolean_literals()
+string_literals()
+print "All literals tests passed!"
