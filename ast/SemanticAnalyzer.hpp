@@ -77,19 +77,19 @@ struct SemanticChecker : ASTVisitor {
         e.array->accept(*this);
         e.index->accept(*this);
         // Basic validation for array indices
-        if (auto idxNum = dynamic_cast<NumberExpr*>(e.index.get())) {
-            double d = idxNum->value;
-            long long i = static_cast<long long>(d);
+            if (auto idxNum = dynamic_cast<NumberExpr*>(e.index.get())) {
+                double d = idxNum->value;
+                long long i = static_cast<long long>(d);
             // Check for non-integral or non-positive indices
             if (static_cast<double>(i) != d) {
-                SourceLocation loc = e.loc;
-                if (loc.firstLine == 1 && loc.firstColumn == 1 && e.index) loc = e.index->loc;
+                    SourceLocation loc = e.loc;
+                    if (loc.firstLine == 1 && loc.firstColumn == 1 && e.index) loc = e.index->loc;
                 reportError("Array index must be an integer", loc);
             } else if (i < 1) {
-                SourceLocation loc = e.loc;
-                if (loc.firstLine == 1 && loc.firstColumn == 1 && e.index) loc = e.index->loc;
+                        SourceLocation loc = e.loc;
+                        if (loc.firstLine == 1 && loc.firstColumn == 1 && e.index) loc = e.index->loc;
                 reportError("Array index must be positive (1-based indexing)", loc);
-            }
+                    }
             // Note: No upper bound check - arrays are dynamic and support sparse indices
         }
     }
