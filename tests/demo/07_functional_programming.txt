@@ -1,0 +1,63 @@
+// Demo: Functional Programming Patterns
+// Showcases map, filter, and reduce-like operations
+
+print "=== Functional Programming Demo ==="
+
+// Map operation - apply function to each element
+var map := func(arr, f) is
+    var result := []
+    for value in arr loop
+        result := result + [f(value)]
+    end
+    return result
+end
+
+var numbers := [1, 2, 3, 4, 5]
+var square := func(x) => x * x
+var squared := map(numbers, square)
+print "Map (square):"
+print "  Input:", numbers
+print "  Output:", squared
+
+// Filter operation - select elements matching condition
+var filter := func(arr, predicate) is
+    var result := []
+    for value in arr loop
+        if predicate(value) then
+            result := result + [value]
+        end
+    end
+    return result
+end
+
+var is_greater_than_three := func(x) => x > 3
+var filtered := filter(numbers, is_greater_than_three)
+print "Filter (numbers > 3):"
+print "  Input:", numbers
+print "  Output:", filtered
+
+// Reduce operation - accumulate values
+var reduce := func(arr, initial, reducer) is
+    var accumulator := initial
+    for value in arr loop
+        accumulator := reducer(accumulator, value)
+    end
+    return accumulator
+end
+
+var add := func(a, b) => a + b
+var sum := reduce(numbers, 0, add)
+print "Reduce (sum):"
+print "  Input:", numbers
+print "  Sum:", sum
+
+// Compose functions
+var compose := func(f, g) => func(x) => f(g(x))
+var double := func(x) => x * 2
+var increment := func(x) => x + 1
+var double_then_increment := compose(increment, double)
+print "Composition:"
+print "  double_then_increment(5) =", double_then_increment(5)
+
+print "=== Demo Complete ==="
+

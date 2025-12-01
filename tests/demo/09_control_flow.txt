@@ -1,0 +1,80 @@
+// Demo: Control Flow
+// Showcases loops, conditionals, and control statements
+
+print "=== Control Flow Demo ==="
+
+// While loop
+var count := 0
+var sum := 0
+while count < 5 loop
+    count := count + 1
+    sum := sum + count
+end
+print "While loop (sum 1..5):", sum
+
+// For loop with range
+var product := 1
+for i in 1..5 loop
+    product := product * i
+end
+print "For loop (factorial 5):", product
+
+// For loop with array
+var arr := [10, 20, 30, 40]
+var total := 0
+for value in arr loop
+    total := total + value
+end
+print "For loop (array sum):", total
+
+// Infinite loop with exit
+var n := 1
+var factorial := 1
+loop
+    factorial := factorial * n
+    n := n + 1
+    if n > 6 => exit
+end
+print "Infinite loop (factorial 6):", factorial
+
+// Nested loops
+var matrix_sum := 0
+for i in 1..3 loop
+    for j in 1..3 loop
+        matrix_sum := matrix_sum + (i * j)
+    end
+end
+print "Nested loops (matrix sum):", matrix_sum
+
+// Complex conditional
+var score := 85
+var grade
+if score >= 90 then
+    grade := "A"
+else
+    if score >= 80 then
+        grade := "B"
+    else
+        if score >= 70 then
+            grade := "C"
+        else
+            grade := "F"
+        end
+    end
+end
+print "Conditional (grade for 85):", grade
+
+// Loop with early exit
+var found := false
+var search_value := 7
+var numbers := [1, 3, 5, 7, 9, 11]
+for num in numbers loop
+    if num == search_value then
+        found := true
+        exit
+    end
+end
+print "Search result (found 7):", found
+
+print "=== Demo Complete ==="
+

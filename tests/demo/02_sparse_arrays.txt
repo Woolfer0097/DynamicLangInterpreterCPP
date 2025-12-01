@@ -1,0 +1,32 @@
+// Demo: Dynamic Sparse Arrays
+// Showcases the interpreter's sparse array implementation
+
+print "=== Sparse Arrays Demo ==="
+
+// Create empty array
+var arr := []
+
+// Assign to sparse indices - no preallocation needed!
+arr[1] := 10
+arr[10] := 100
+arr[100] := 1000
+arr[1000] := 10000
+
+print "Sparse array access:"
+print "  arr[1] =", arr[1]
+print "  arr[10] =", arr[10]
+print "  arr[100] =", arr[100]
+print "  arr[1000] =", arr[1000]
+
+// Uninitialized indices return 'none'
+print "  arr[5] =", arr[5]  // none (not initialized)
+
+// Array concatenation
+var arr1 := [1, 2, 3]
+var arr2 := [4, 5, 6]
+var combined := arr1 + arr2
+print "Array concatenation:"
+print "  [1,2,3] + [4,5,6] =", combined
+
+print "=== Demo Complete ==="
+

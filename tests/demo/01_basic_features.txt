@@ -1,0 +1,40 @@
+// Demo: Basic Language Features
+// Showcases literals, variables, arithmetic, and control flow
+
+print "=== Basic Features Demo ==="
+
+// Literals and Variables
+var number := 42
+var text := "Hello, Dynamic Language!"
+var flag := true
+var empty := none
+
+print "Number:", number
+print "Text:", text
+print "Flag:", flag
+print "Empty:", empty
+
+// Arithmetic Operations
+var a := 10
+var b := 5
+print "Arithmetic:"
+print "  a + b =", a + b
+print "  a - b =", a - b
+print "  a * b =", a * b
+print "  a / b =", a / b
+
+// Conditional Logic
+var score := 92
+print 
+if score >= 90 then
+    print "Grade: A"
+else
+    if score >= 80 then
+        print "Grade: B"
+    else
+        print "Grade: C"
+    end
+end
+
+print "=== Demo Complete ==="
+

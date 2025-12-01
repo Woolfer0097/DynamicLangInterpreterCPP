@@ -1,0 +1,55 @@
+// Demo: Recursive Functions
+// Showcases recursive function calls and memoization pattern
+
+print "=== Recursion Demo ==="
+
+// Classic recursive function - Fibonacci
+var fib := func(n) is
+    if n <= 1 then
+        return n
+    else
+        return fib(n - 1) + fib(n - 2)
+    end
+end
+
+print "Fibonacci sequence:"
+for i in 0..10 loop
+    print "  fib(", i, ") =", fib(i)
+end
+
+// Recursive factorial
+var factorial := func(n) is
+    if n <= 1 then
+        return 1
+    else
+        return n * factorial(n - 1)
+    end
+end
+
+print "Factorial:"
+print "  factorial(5) =", factorial(5)
+print "  factorial(7) =", factorial(7)
+
+// Recursive list processing
+var sum_list := func(arr) is
+    if arr is [] then
+        return 0
+    else
+        var first := arr[1]
+        var rest := []
+        for i in 2..1000 loop
+            if arr[i] is none then
+                exit
+            end
+            rest := rest + [arr[i]]
+        end
+        return first + sum_list(rest)
+    end
+end
+
+var numbers := [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+print "Sum of list [1..10]:"
+print "  sum_list(numbers) =", sum_list(numbers)
+
+print "=== Demo Complete ==="
+

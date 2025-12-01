@@ -1,0 +1,82 @@
+// Demo: Complete Example - Student Grade System
+// Showcases multiple features working together
+
+print "=== Complete Example: Student Grade System ==="
+
+// Define student structure
+var create_student := func(name, scores) is
+    return {
+        name := name,
+        scores := scores,
+        average := func() is
+            var sum := 0
+            var count := 0
+            for score in scores loop
+                sum := sum + score
+                count := count + 1
+            end
+            return sum / count
+        end,
+        grade := func() is
+            var avg := create_student(name, scores).average()
+            if avg >= 90 then
+                return "A"
+            else
+                if avg >= 80 then
+                    return "B"
+                else
+                    if avg >= 70 then
+                        return "C"
+                    else
+                        return "F"
+                    end
+                end
+            end
+        end
+    }
+end
+
+// Create students
+var alice := create_student("Alice", [95, 87, 92, 88])
+var bob := create_student("Bob", [78, 82, 85, 80])
+var charlie := create_student("Charlie", [65, 70, 68, 72])
+
+var students := [alice, bob, charlie]
+
+// Process and display
+print "Student Grades:"
+for i in 1..3 loop
+    var student := students[i]
+    var avg := student.average()
+    var grade := student.grade()
+    print "  " + student.name + ":"
+    print "    Scores:", student.scores
+    print "    Average:", avg
+    print "    Grade:", grade
+end
+
+// Calculate class statistics
+var class_avg := func(students) is
+    var total := 0
+    var count := 0
+    for student in students loop
+        total := total + student.average()
+        count := count + 1
+    end
+    return total / count
+end
+
+print "Class Statistics:"
+print "  Class Average:", class_avg(students)
+
+// Find top student
+var top_student := students[1]
+for i in 2..3 loop
+    if students[i].average() > top_student.average() then
+        top_student := students[i]
+    end
+end
+print "  Top Student:", top_student.name, "with average", top_student.average()
+
+print "=== Demo Complete ==="
+
