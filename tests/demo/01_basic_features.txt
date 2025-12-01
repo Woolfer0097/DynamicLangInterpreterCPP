@@ -25,7 +25,7 @@ print "  a / b =", a / b
 
 // Conditional Logic
 var score := 92
-print 
+print "Score:", score
 if score >= 90 then
     print "Grade: A"
 else
@@ -37,4 +37,3 @@ else
 end
 
 print "=== Demo Complete ==="
-
