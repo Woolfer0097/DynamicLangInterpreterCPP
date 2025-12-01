@@ -1,9 +1,8 @@
 // Demo: Complex Data Structures
-// Showcases arrays, tuples, and nested structures
+// Showcases arrays, maps and nested structures
 
 print "=== Data Structures Demo ==="
 
-// Array of tuples
 var students := [
     {name := "Alice", grade := 95},
     {name := "Bob", grade := 87},
@@ -15,20 +14,7 @@ for i in 1..3 loop
     print "  ", students[i].name, ":", students[i].grade
 end
 
-// Tuple containing arrays
-var report := {
-    title := "Sales Report",
-    months := ["Jan", "Feb", "Mar", "Apr"],
-    sales := [1000, 1200, 1500, 1800]
-}
-
-print "Sales Report:"
-print "  Title:", report.title
-for i in 1..4 loop
-    print "  ", report.months[i], ":", report.sales[i]
-end
-
-// Nested structures
+// Nested maps
 var company := {
     name := "TechCorp",
     departments := [

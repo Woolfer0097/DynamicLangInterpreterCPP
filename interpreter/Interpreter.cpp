@@ -223,12 +223,9 @@ void Interpreter::visit(BinaryExpr& e) {
     } else if (e.op == "!=" || e.op == "/=") {
         lastValue = std::make_shared<BooleanValue>(!isEqual(left, right));
     } else if (e.op == "and") {
-        // Logical operators are usually short-circuiting, but AST visitor pattern evaluates both before calling visit unless we implement Short-circuiting in visit specifically
-        // Wait, I evaluated both at start of function. This is WRONG for and/or.
-        // I should NOT evaluate right if left decides result.
-        // Re-implementing short-circuit logic
+        // TODO: Implement short-circuiting for and
     } else if (e.op == "or") {
-        // Re-implementing short-circuit logic
+        // TODO: Implement short-circuiting for or
     } else if (e.op == "xor") {
         lastValue = std::make_shared<BooleanValue>(isTruthy(left) != isTruthy(right));
     }
@@ -324,7 +321,7 @@ void Interpreter::visit(AssignExpr& e) {
 }
 
 void Interpreter::visit(TypeExpr& e) {
-    lastValue = std::make_shared<StringValue>(e.typeName); // Treat TypeExpr as string for now?
+    lastValue = std::make_shared<StringValue>(e.typeName);
 }
 
 void Interpreter::visit(IsExpr& e) {
@@ -332,7 +329,7 @@ void Interpreter::visit(IsExpr& e) {
     std::string typeName = e.type->typeName; // e.type is TypeExpr
     
     bool match = false;
-    if (typeName == "int" || typeName == "real") match = (obj->type() == "number"); // Simplify
+    if (typeName == "int" || typeName == "real") match = (obj->type() == "number");
     else if (typeName == "bool") match = (obj->type() == "boolean");
     else if (typeName == "string") match = (obj->type() == "string");
     else if (typeName == "none") match = (obj->type() == "none");

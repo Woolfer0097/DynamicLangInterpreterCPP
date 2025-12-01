@@ -32,7 +32,8 @@ print "  factorial(7) =", factorial(7)
 
 // Recursive list processing
 var sum_list := func(arr) is
-    if arr is [] then
+    // Check if array is empty by checking if first element is none
+    if arr[1] is none then
         return 0
     else
         var first := arr[1]
