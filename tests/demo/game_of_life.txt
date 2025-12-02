@@ -1,0 +1,182 @@
+// Demo: Conway's Game of Life
+// 5x5 grid, several generations
+
+print "=== Game of Life Demo ==="
+
+var rows := 20
+var cols := 20
+
+// 1 = alive, 0 = dead
+// Build a rows x cols grid filled with zeros.
+var grid := []
+for r in 1..rows loop
+    grid[r] := []
+    for c in 1..cols loop
+        grid[r][c] := 0
+    end
+end
+
+// Helper: place a glider with its top cell at (r, c)
+var place_glider := func(g, r, c) is
+    // Pattern:
+    // . # .
+    // . . #
+    // # # #
+    g[r + 0][c + 1] := 1
+    g[r + 1][c + 2] := 1
+    g[r + 2][c + 0] := 1
+    g[r + 2][c + 1] := 1
+    g[r + 2][c + 2] := 1
+end
+
+// Seed multiple gliders across the grid (stay within 20x20 bounds)
+place_glider(grid, 1, 1)
+place_glider(grid, 1, 10)
+place_glider(grid, 8, 3)
+place_glider(grid, 10, 12)
+place_glider(grid, 14, 5)
+
+// Helper: place a 2x2 block (still life) with its top-left cell at (r, c)
+var place_block := func(g, r, c) is
+    // Pattern:
+    // # #
+    // # #
+    g[r][c] := 1
+    g[r][c + 1] := 1
+    g[r + 1][c] := 1
+    g[r + 1][c + 1] := 1
+end
+
+// Seed a block that stays a square forever
+place_block(grid, 13, 2)
+place_block(grid, 17, 17)
+
+// Count alive neighbors around (r, c)
+var alive_neighbors := func(g, r, c, rows, cols) is
+    var count := 0
+
+    // Explicitly check all 8 neighbors around (r, c),
+    // carefully guarding indices so they are always >= 1.
+
+    // Up
+    if r > 1 then
+        if g[r - 1][c] == 1 then
+            count := count + 1
+        end
+    end
+
+    // Down
+    if r < rows then
+        if g[r + 1][c] == 1 then
+            count := count + 1
+        end
+    end
+
+    // Left
+    if c > 1 then
+        if g[r][c - 1] == 1 then
+            count := count + 1
+        end
+    end
+
+    // Right
+    if c < cols then
+        if g[r][c + 1] == 1 then
+            count := count + 1
+        end
+    end
+
+    // Up-left
+    if r > 1 then
+        if c > 1 then
+            if g[r - 1][c - 1] == 1 then
+                count := count + 1
+            end
+        end
+    end
+
+    // Up-right
+    if r > 1 then
+        if c < cols then
+            if g[r - 1][c + 1] == 1 then
+                count := count + 1
+            end
+        end
+    end
+
+    // Down-left
+    if r < rows then
+        if c > 1 then
+            if g[r + 1][c - 1] == 1 then
+                count := count + 1
+            end
+        end
+    end
+
+    // Down-right
+    if r < rows then
+        if c < cols then
+            if g[r + 1][c + 1] == 1 then
+                count := count + 1
+            end
+        end
+    end
+
+    return count
+end
+
+var print_grid := func(g, rows, cols) is
+    for r in 1..rows loop
+        var line := ""
+        for c in 1..cols loop
+            if g[r][c] == 1 then
+                line := line + "#"
+            else
+                line := line + "."
+            end
+        end
+        print line
+    end
+end
+
+print "Initial generation:"
+print_grid(grid, rows, cols)
+
+// One step of Game of Life
+var step := func(g, rows, cols) is
+    var new_grid := []
+    for r in 1..rows loop
+        new_grid[r] := []
+        for c in 1..cols loop
+            var n := alive_neighbors(g, r, c, rows, cols)
+            var cell := g[r][c]
+            // Rules:
+            // - live cell with 2 or 3 neighbors survives
+            // - dead cell with 3 neighbors becomes alive
+            // - otherwise dead
+            if cell == 1 then
+                if n == 2 or n == 3 then
+                    new_grid[r][c] := 1
+                else
+                    new_grid[r][c] := 0
+                end
+            else
+                if n == 3 then
+                    new_grid[r][c] := 1
+                else
+                    new_grid[r][c] := 0
+                end
+            end
+        end
+    end
+    return new_grid
+end
+
+var generations := 6
+for gen in 1..generations loop
+    print "Generation", gen, ":"
+    grid := step(grid, rows, cols)
+    print_grid(grid, rows, cols)
+end
+
+print "=== Demo Complete ==="
