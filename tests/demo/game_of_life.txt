@@ -29,97 +29,58 @@ var place_glider := func(g, r, c) is
     g[r + 2][c + 2] := 1
 end
 
-// Seed multiple gliders across the grid (stay within 20x20 bounds)
-place_glider(grid, 1, 1)
-place_glider(grid, 1, 10)
-place_glider(grid, 8, 3)
-place_glider(grid, 10, 12)
-place_glider(grid, 14, 5)
+// Seed a single glider in the middle of the field (to avoid collisions)
+// На торе он будет бесконечно двигаться по диагонали.
+place_glider(grid, 5, 5)
 
-// Helper: place a 2x2 block (still life) with its top-left cell at (r, c)
-var place_block := func(g, r, c) is
-    // Pattern:
-    // # #
-    // # #
-    g[r][c] := 1
-    g[r][c + 1] := 1
-    g[r + 1][c] := 1
-    g[r + 1][c + 1] := 1
+// Wrap helper for toroidal grid: 1..max, then back to 1
+var wrap := func(x, max) is
+    if x < 1 then
+        return max
+    else
+        if x > max then
+            return 1
+        else
+            return x
+        end
+    end
 end
 
-// Seed a block that stays a square forever
-place_block(grid, 13, 2)
-place_block(grid, 17, 17)
-
-// Count alive neighbors around (r, c)
+// Count alive neighbors around (r, c) on a toroidal (wrap-around) grid
 var alive_neighbors := func(g, r, c, rows, cols) is
     var count := 0
 
-    // Explicitly check all 8 neighbors around (r, c),
-    // carefully guarding indices so they are always >= 1.
+    var r_up := wrap(r - 1, rows)
+    var r_down := wrap(r + 1, rows)
+    var c_left := wrap(c - 1, cols)
+    var c_right := wrap(c + 1, cols)
 
-    // Up
-    if r > 1 then
-        if g[r - 1][c] == 1 then
-            count := count + 1
-        end
+    // 4 orthogonal neighbors
+    if g[r_up][c] == 1 then
+        count := count + 1
+    end
+    if g[r_down][c] == 1 then
+        count := count + 1
+    end
+    if g[r][c_left] == 1 then
+        count := count + 1
+    end
+    if g[r][c_right] == 1 then
+        count := count + 1
     end
 
-    // Down
-    if r < rows then
-        if g[r + 1][c] == 1 then
-            count := count + 1
-        end
+    // 4 diagonal neighbors
+    if g[r_up][c_left] == 1 then
+        count := count + 1
     end
-
-    // Left
-    if c > 1 then
-        if g[r][c - 1] == 1 then
-            count := count + 1
-        end
+    if g[r_up][c_right] == 1 then
+        count := count + 1
     end
-
-    // Right
-    if c < cols then
-        if g[r][c + 1] == 1 then
-            count := count + 1
-        end
+    if g[r_down][c_left] == 1 then
+        count := count + 1
     end
-
-    // Up-left
-    if r > 1 then
-        if c > 1 then
-            if g[r - 1][c - 1] == 1 then
-                count := count + 1
-            end
-        end
-    end
-
-    // Up-right
-    if r > 1 then
-        if c < cols then
-            if g[r - 1][c + 1] == 1 then
-                count := count + 1
-            end
-        end
-    end
-
-    // Down-left
-    if r < rows then
-        if c > 1 then
-            if g[r + 1][c - 1] == 1 then
-                count := count + 1
-            end
-        end
-    end
-
-    // Down-right
-    if r < rows then
-        if c < cols then
-            if g[r + 1][c + 1] == 1 then
-                count := count + 1
-            end
-        end
+    if g[r_down][c_right] == 1 then
+        count := count + 1
     end
 
     return count
@@ -139,8 +100,11 @@ var print_grid := func(g, rows, cols) is
     end
 end
 
-print "Initial generation:"
-print_grid(grid, rows, cols)
+var clear_screen := func() is
+    for i in 1..40 loop
+        print ""
+    end
+end
 
 // One step of Game of Life
 var step := func(g, rows, cols) is
@@ -155,10 +119,14 @@ var step := func(g, rows, cols) is
             // - dead cell with 3 neighbors becomes alive
             // - otherwise dead
             if cell == 1 then
-                if n == 2 or n == 3 then
+                if n == 2 then
                     new_grid[r][c] := 1
                 else
-                    new_grid[r][c] := 0
+                    if n == 3 then
+                        new_grid[r][c] := 1
+                    else
+                        new_grid[r][c] := 0
+                    end
                 end
             else
                 if n == 3 then
@@ -172,11 +140,24 @@ var step := func(g, rows, cols) is
     return new_grid
 end
 
-var generations := 6
-for gen in 1..generations loop
-    print "Generation", gen, ":"
-    grid := step(grid, rows, cols)
+// Animated loop: перерисовываем поле в терминале
+var generations := 200
+
+for gen in 0..generations loop
+    clear_screen()
+
+    if gen == 0 then
+        print "Initial generation:"
+    else
+        print "Generation", gen, ":"
+    end
+
     print_grid(grid, rows, cols)
+
+    // после последнего поколения можно не считать следующее
+    if gen < generations then
+        grid := step(grid, rows, cols)
+    end
 end
 
 print "=== Demo Complete ==="

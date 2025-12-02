@@ -223,9 +223,11 @@ void Interpreter::visit(BinaryExpr& e) {
     } else if (e.op == "!=" || e.op == "/=") {
         lastValue = std::make_shared<BooleanValue>(!isEqual(left, right));
     } else if (e.op == "and") {
-        // TODO: Implement short-circuiting for and
+        // Logical AND (без короткого замыкания, но с корректной логикой)
+        lastValue = std::make_shared<BooleanValue>(isTruthy(left) && isTruthy(right));
     } else if (e.op == "or") {
-        // TODO: Implement short-circuiting for or
+        // Logical OR (без короткого замыкания, но с корректной логикой)
+        lastValue = std::make_shared<BooleanValue>(isTruthy(left) || isTruthy(right));
     } else if (e.op == "xor") {
         lastValue = std::make_shared<BooleanValue>(isTruthy(left) != isTruthy(right));
     }
