@@ -1,0 +1,42 @@
+// Demo: Static Checker Error Showcase
+// Each block is expected to be rejected by SemanticChecker
+
+print "=== Static Checker Error Showcase ==="
+
+// 1) Use-before-declaration (variable)
+var alpha := beta + 1
+var beta := 2
+
+// 1b) Use-before-declaration (function)
+call_before_decl()
+var call_before_decl := func() is
+    return 0
+end
+
+// 2) Assignment-before-declaration
+gamma := 5
+var gamma := 0
+
+// 3) break only inside loops
+if true then
+    break
+end
+
+// 4) exit only inside loops
+exit
+
+// 5) return only inside functions
+return 123
+
+// 6) assert condition must be boolean-like when statically known
+assert "definitely not boolean"
+assert 42
+
+// 7) Function parameter scope misuse
+var scoped_func := func(limit) is
+    return limit + 1
+end
+
+// 'limit' should not be visible outside the function body
+var leaked_limit := limit
+

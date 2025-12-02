@@ -6,14 +6,14 @@ This folder contains curated demo tests showcasing the key features of the Dynam
 
 1. **01_basic_features.txt** - Basic language features (literals, variables, arithmetic, conditionals)
 2. **02_sparse_arrays.txt** - Dynamic sparse array implementation
-3. **03_named_tuples.txt** - Named tuples with field access
-4. **04_closures.txt** - Closures and lexical scoping
-5. **05_recursion.txt** - Recursive functions (Fibonacci, factorial)
-6. **06_data_structures.txt** - Complex nested data structures
-7. **07_functional_programming.txt** - Map, filter, reduce patterns
-8. **08_arrow_functions.txt** - Arrow function syntax
-9. **09_control_flow.txt** - Loops and control statements
-10. **10_complete_example.txt** - Complete application example
+3. **03_closures.txt** - Closures and lexical scoping
+4. **04_recursion.txt** - Recursive functions (Fibonacci, factorial)
+5. **05_data_structures.txt** - Complex nested data structures
+6. **06_functional_programming.txt** - Map, filter, reduce patterns
+7. **07_arrow_functions.txt** - Arrow function syntax
+8. **08_control_flow.txt** - Loops and control statements
+9. **09_complete_example.txt** - Complete application example
+10. **10_static_checks.txt** - Semantic checker error showcase
 
 ## Running Demos
 
