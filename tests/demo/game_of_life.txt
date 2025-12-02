@@ -29,8 +29,6 @@ var place_glider := func(g, r, c) is
     g[r + 2][c + 2] := 1
 end
 
-// Seed a single glider in the middle of the field (to avoid collisions)
-// На торе он будет бесконечно двигаться по диагонали.
 place_glider(grid, 5, 5)
 
 // Wrap helper for toroidal grid: 1..max, then back to 1
@@ -140,7 +138,6 @@ var step := func(g, rows, cols) is
     return new_grid
 end
 
-// Animated loop: перерисовываем поле в терминале
 var generations := 200
 
 for gen in 0..generations loop
@@ -154,7 +151,6 @@ for gen in 0..generations loop
 
     print_grid(grid, rows, cols)
 
-    // после последнего поколения можно не считать следующее
     if gen < generations then
         grid := step(grid, rows, cols)
     end
